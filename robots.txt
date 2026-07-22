@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://antalzalan78.github.io/escort-project/sitemap.xml
