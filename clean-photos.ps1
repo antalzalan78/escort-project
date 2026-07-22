@@ -15,8 +15,10 @@ Add-Type -AssemblyName System.Drawing
 $root   = Split-Path -Parent $MyInvocation.MyCommand.Path
 $srcDir = Join-Path $root 'photos-raw'
 $outDir = Join-Path $root 'photos'
-$maxSide = 1600          # max long-side in pixels (good quality, small file)
-$quality = 88            # JPEG quality 0-100
+$maxSide   = 1600         # max long-side in pixels (good quality, small file)
+$quality   = 88           # JPEG quality 0-100
+$watermark = 'Milan'      # text stamped on each photo ('' = no watermark)
+$wmOpacity = 110          # watermark strength, 0 (invisible) - 255 (solid)
 
 New-Item -ItemType Directory -Force -Path $srcDir | Out-Null
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
@@ -66,6 +68,22 @@ foreach ($f in $files) {
     $gfx.PixelOffsetMode = 'HighQuality'
     $gfx.DrawImage($img, 0, 0, $nw, $nh)
 
+    # Subtle watermark, bottom-right corner
+    if ($watermark -ne '') {
+        $gfx.TextRenderingHint = 'AntiAlias'
+        $fontSize = [Math]::Max(14, [int]($nw * 0.030))
+        $wmFont = New-Object System.Drawing.Font('Georgia', $fontSize, [System.Drawing.FontStyle]::Italic)
+        $textSize = $gfx.MeasureString($watermark, $wmFont)
+        $tx = $nw - $textSize.Width - ($nw * 0.025)
+        $ty = $nh - $textSize.Height - ($nh * 0.02)
+        # soft shadow for readability on light and dark photos
+        $shadow = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb([int]($wmOpacity*0.6),0,0,0))
+        $gold   = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb($wmOpacity,230,201,131))
+        $gfx.DrawString($watermark, $wmFont, $shadow, ($tx+2), ($ty+2))
+        $gfx.DrawString($watermark, $wmFont, $gold,   $tx, $ty)
+        $wmFont.Dispose(); $shadow.Dispose(); $gold.Dispose()
+    }
+
     $outPath = Join-Path $outDir ("{0}.jpg" -f $i)
     $bmp.Save($outPath, $jpegCodec, $encParams)
 
@@ -76,3 +94,4 @@ foreach ($f in $files) {
 Write-Host ""
 Write-Host ("Done. {0} photo(s) cleaned into: {1}" -f $files.Count, $outDir) -ForegroundColor Cyan
 Write-Host "All GPS/EXIF metadata removed. Safe to publish." -ForegroundColor Cyan
+if ($watermark -ne '') { Write-Host ("Watermark '{0}' added to each photo." -f $watermark) -ForegroundColor Cyan }
