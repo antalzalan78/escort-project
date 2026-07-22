@@ -313,6 +313,21 @@
   .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--muted);font-size:.93rem}
   .faq-a p{padding:0 22px 20px}
 
+  /* LANGUAGE SWITCH */
+  .nav-right{display:flex;align-items:center;gap:16px}
+  .lang-switch{display:flex;gap:2px;border:1px solid var(--line);border-radius:30px;padding:3px;background:rgba(20,20,22,.6)}
+  .lang-switch button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.7rem;
+    letter-spacing:1px;font-weight:600;padding:5px 11px;border-radius:30px;cursor:pointer;transition:.2s}
+  .lang-switch button:hover{color:var(--text)}
+  .lang-switch button.active{background:var(--gold);color:#0a0a0b}
+
+  /* MOBILE FLOATING BOOK BUTTON */
+  .book-fab{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;display:none;
+    padding:14px 36px;border-radius:40px;background:var(--gold);color:#0a0a0b;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;font-size:.8rem;box-shadow:0 8px 26px rgba(0,0,0,.55);
+    border:1px solid var(--gold-soft)}
+  .book-fab:hover{background:var(--gold-soft)}
+
   /* FOOTER */
   footer{text-align:center;padding:50px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
   footer .logo{font-size:1.3rem;margin-bottom:14px}
@@ -334,6 +349,7 @@
     .steps{grid-template-columns:1fr}
     .avail{grid-template-columns:repeat(3,1fr)}
   }
+  @media(max-width:820px){ .book-fab{display:inline-block} }
 </style>
 </head>
 <body>
@@ -355,11 +371,11 @@
 <!-- ============ AGE GATE ============ -->
 <div id="ageGate">
   <div class="box">
-    <h1>Welcome to <span class="gold">Milan</span></h1>
-    <p>This website contains content intended for adults only. By entering, you confirm that you are at least 18 years of age (or the age of majority in your jurisdiction) and that viewing such content is legal where you live.</p>
+    <h1><span data-en="Welcome to" data-nl="Welkom bij">Welcome to</span> <span class="gold">Milan</span></h1>
+    <p data-en="This website contains content intended for adults only. By entering, you confirm that you are at least 18 years of age (or the age of majority in your jurisdiction) and that viewing such content is legal where you live." data-nl="Deze website bevat content die uitsluitend voor volwassenen bedoeld is. Door binnen te komen bevestig je dat je minstens 18 jaar oud bent (of meerderjarig in jouw land) en dat het bekijken van deze content daar legaal is.">This website contains content intended for adults only. By entering, you confirm that you are at least 18 years of age (or the age of majority in your jurisdiction) and that viewing such content is legal where you live.</p>
     <div class="ag-btns">
-      <button class="btn btn-primary" onclick="enterSite()">I am 18 or older — Enter</button>
-      <a class="btn btn-ghost" href="https://www.google.com">Leave</a>
+      <button class="btn btn-primary" onclick="enterSite()" data-en="I am 18 or older" data-nl="Ik ben 18 jaar of ouder">I am 18 or older</button>
+      <a class="btn btn-ghost" href="https://www.google.com" data-en="Leave" data-nl="Verlaten">Leave</a>
     </div>
   </div>
 </div>
@@ -368,26 +384,32 @@
 <header class="nav" id="nav">
   <div class="logo">MILAN</div>
   <nav class="links">
-    <a href="#about">About</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#platforms">Exclusive</a>
-    <a href="#services">Bookings</a>
-    <a href="#availability">Availability</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
+    <a href="#about" data-en="About" data-nl="Over mij">About</a>
+    <a href="#gallery" data-en="Gallery" data-nl="Galerij">Gallery</a>
+    <a href="#platforms" data-en="Exclusive" data-nl="Exclusief">Exclusive</a>
+    <a href="#services" data-en="Bookings" data-nl="Boeken">Bookings</a>
+    <a href="#availability" data-en="Availability" data-nl="Beschikbaarheid">Availability</a>
+    <a href="#faq" data-en="FAQ" data-nl="FAQ">FAQ</a>
+    <a href="#contact" data-en="Contact" data-nl="Contact">Contact</a>
   </nav>
-  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="nl">NL</button>
+    </div>
+    <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
 </header>
 
 <!-- ============ HERO ============ -->
 <div class="hero">
   <div>
-    <div class="kicker">Model · Content Creator · Companion</div>
+    <div class="kicker" data-en="Model · Content Creator · Companion" data-nl="Model · Contentmaker · Escort">Model · Content Creator · Companion</div>
     <h1>MILAN<span>Tilburg</span></h1>
-    <p>Photo model and independent companion. Elegant, discreet and unforgettable — explore my portfolio, exclusive content and availability.</p>
+    <p data-en="Photo model and independent companion. Elegant, discreet and unforgettable. Explore my portfolio, exclusive content and availability." data-nl="Fotomodel en zelfstandig gezelschap. Elegant, discreet en onvergetelijk. Ontdek mijn portfolio, exclusieve content en beschikbaarheid.">Photo model and independent companion. Elegant, discreet and unforgettable. Explore my portfolio, exclusive content and availability.</p>
     <div class="hero-cta">
-      <a href="#platforms" class="btn btn-primary">Exclusive Content</a>
-      <a href="#contact" class="btn btn-ghost">Book Me</a>
+      <a href="#platforms" class="btn btn-primary" data-en="Exclusive Content" data-nl="Exclusieve content">Exclusive Content</a>
+      <a href="#contact" class="btn btn-ghost" data-en="Book Me" data-nl="Boek mij">Book Me</a>
     </div>
   </div>
   <div class="scroll-hint">Scroll ↓</div>
@@ -396,19 +418,19 @@
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="sec-head">
-    <div class="kicker">About</div>
-    <h2>A little about me</h2>
+    <div class="kicker" data-en="About" data-nl="Over mij">About</div>
+    <h2 data-en="A little about me" data-nl="Even voorstellen">A little about me</h2>
   </div>
   <div class="about">
     <div class="about-photo">[ your portrait photo ]</div>
     <div class="about-text">
-      <p>Hi, I'm <strong>Milan</strong>, a photo model, content creator and independent companion based in Tilburg and the surrounding area. I love creating beautiful imagery, connecting with genuine people, and making every moment feel effortless and elegant.</p>
-      <p>Whether you're here for my portfolio, my exclusive content, or to arrange a meeting, you'll always be treated with warmth, class and complete discretion.</p>
+      <p data-en="Hi, I'm <strong>Milan</strong>, a photo model, content creator and independent companion based in Tilburg and the surrounding area. I love creating beautiful imagery, connecting with genuine people, and making every moment feel effortless and elegant." data-nl="Hoi, ik ben <strong>Milan</strong>, fotomodel, contentmaker en zelfstandig gezelschap in Tilburg en omgeving. Ik hou van mooie beelden maken, oprechte mensen ontmoeten en van elk moment iets moeiteloos en elegants maken.">Hi, I'm <strong>Milan</strong>, a photo model, content creator and independent companion based in Tilburg and the surrounding area. I love creating beautiful imagery, connecting with genuine people, and making every moment feel effortless and elegant.</p>
+      <p data-en="Whether you're here for my portfolio, my exclusive content, or to arrange a meeting, you'll always be treated with warmth, class and complete discretion." data-nl="Of je nu hier bent voor mijn portfolio, mijn exclusieve content of om een afspraak te maken: je wordt altijd met warmte, klasse en volledige discretie behandeld.">Whether you're here for my portfolio, my exclusive content, or to arrange a meeting, you'll always be treated with warmth, class and complete discretion.</p>
       <div class="stats">
-        <div class="stat"><div class="label">Based in</div><div class="val">Tilburg &amp; area</div></div>
-        <div class="stat"><div class="label">Languages</div><div class="val">EN · [ ... ]</div></div>
-        <div class="stat"><div class="label">Height</div><div class="val">180 cm</div></div>
-        <div class="stat"><div class="label">Availability</div><div class="val">By appointment</div></div>
+        <div class="stat"><div class="label" data-en="Based in" data-nl="Regio">Based in</div><div class="val" data-en="Tilburg &amp; area" data-nl="Tilburg e.o.">Tilburg &amp; area</div></div>
+        <div class="stat"><div class="label" data-en="Languages" data-nl="Talen">Languages</div><div class="val">EN · [ ... ]</div></div>
+        <div class="stat"><div class="label" data-en="Height" data-nl="Lengte">Height</div><div class="val">180 cm</div></div>
+        <div class="stat"><div class="label" data-en="Availability" data-nl="Beschikbaar">Availability</div><div class="val" data-en="By appointment" data-nl="Op afspraak">By appointment</div></div>
       </div>
     </div>
   </div>
@@ -417,9 +439,9 @@
 <!-- ============ GALLERY ============ -->
 <section id="gallery">
   <div class="sec-head">
-    <div class="kicker">Portfolio</div>
-    <h2>Gallery</h2>
-    <p>A selection of my modelling work. Replace these tiles with your own photos.</p>
+    <div class="kicker" data-en="Portfolio" data-nl="Portfolio">Portfolio</div>
+    <h2 data-en="Gallery" data-nl="Galerij">Gallery</h2>
+    <p data-en="A selection of my modelling work." data-nl="Een selectie van mijn modellenwerk.">A selection of my modelling work.</p>
   </div>
   <div class="gallery">
     <div class="tile"><span>photo 1</span></div>
@@ -429,28 +451,28 @@
     <div class="tile"><span>photo 5</span></div>
     <div class="tile"><span>photo 6</span></div>
   </div>
-  <p class="note">Tip: swap each &lt;span&gt; for an &lt;img src="photos/1.jpg"&gt; tag.</p>
+  <p class="note" data-en="Tip: swap each &lt;span&gt; for an &lt;img src=photos/1.jpg&gt; tag." data-nl="Tip: vervang elke &lt;span&gt; door een &lt;img src=photos/1.jpg&gt; tag.">Tip: swap each &lt;span&gt; for an &lt;img src="photos/1.jpg"&gt; tag.</p>
 </section>
 
 <!-- ============ PLATFORMS / OF ============ -->
 <section id="platforms">
   <div class="sec-head">
-    <div class="kicker">Exclusive</div>
-    <h2>Where to find me</h2>
-    <p>Subscribe for exclusive photos and videos, or follow me on socials.</p>
+    <div class="kicker" data-en="Exclusive" data-nl="Exclusief">Exclusive</div>
+    <h2 data-en="Where to find me" data-nl="Waar je mij vindt">Where to find me</h2>
+    <p data-en="Subscribe for exclusive photos and videos, or follow me on socials." data-nl="Abonneer je voor exclusieve foto's en video's, of volg mij op social media.">Subscribe for exclusive photos and videos, or follow me on socials.</p>
   </div>
   <div class="platforms">
     <a href="#" class="plat of-highlight shine" target="_blank" rel="noopener">
       <span class="ico">💎</span>
-      <span><span class="t">OnlyFans</span><br><span class="s">Exclusive content →</span></span>
+      <span><span class="t">OnlyFans</span><br><span class="s" data-en="Exclusive content →" data-nl="Exclusieve content →">Exclusive content →</span></span>
     </a>
     <a href="https://kinky.nl" class="plat shine" target="_blank" rel="noopener">
       <span class="ico">🔥</span>
-      <span><span class="t">Kinky.nl</span><br><span class="s">My profile →</span></span>
+      <span><span class="t">Kinky.nl</span><br><span class="s" data-en="My profile →" data-nl="Mijn profiel →">My profile →</span></span>
     </a>
     <a href="https://www.sexjobs.nl" class="plat shine" target="_blank" rel="noopener">
       <span class="ico">💋</span>
-      <span><span class="t">Sexjobs</span><br><span class="s">My profile →</span></span>
+      <span><span class="t">Sexjobs</span><br><span class="s" data-en="My profile →" data-nl="Mijn profiel →">My profile →</span></span>
     </a>
     <a href="#" class="plat shine" target="_blank" rel="noopener">
       <span class="ico">📸</span>
@@ -462,88 +484,88 @@
 <!-- ============ SERVICES / BOOKINGS ============ -->
 <section id="services">
   <div class="sec-head">
-    <div class="kicker">Bookings</div>
-    <h2>Spend time with me</h2>
-    <p>Companionship rates. All meetings are by prior arrangement and screening.</p>
+    <div class="kicker" data-en="Bookings" data-nl="Boeken">Bookings</div>
+    <h2 data-en="Spend time with me" data-nl="Tijd met mij">Spend time with me</h2>
+    <p data-en="Companionship rates. All meetings are by prior arrangement and screening." data-nl="Tarieven voor gezelschap. Alle afspraken gaan vooraf via overleg en screening.">Companionship rates. All meetings are by prior arrangement and screening.</p>
   </div>
   <div class="services">
     <div class="svc">
-      <h3>1 Hour</h3>
+      <h3 data-en="1 Hour" data-nl="1 uur">1 Hour</h3>
       <div class="price">€ [ … ]</div>
       <ul>
-        <li>Private meeting</li>
-        <li>Relaxed &amp; unhurried</li>
-        <li>Incall / outcall</li>
+        <li data-en="Private meeting" data-nl="Privé-afspraak">Private meeting</li>
+        <li data-en="Relaxed &amp; unhurried" data-nl="Ontspannen, zonder haast">Relaxed &amp; unhurried</li>
+        <li data-en="Incall / outcall" data-nl="Incall / outcall">Incall / outcall</li>
       </ul>
     </div>
     <div class="svc">
-      <h3>2 Hours</h3>
+      <h3 data-en="2 Hours" data-nl="2 uur">2 Hours</h3>
       <div class="price">€ [ … ]</div>
       <ul>
-        <li>Dinner date option</li>
-        <li>Drinks &amp; company</li>
-        <li>Incall / outcall</li>
+        <li data-en="Dinner date option" data-nl="Dinerdate mogelijk">Dinner date option</li>
+        <li data-en="Drinks &amp; company" data-nl="Drankjes &amp; gezelschap">Drinks &amp; company</li>
+        <li data-en="Incall / outcall" data-nl="Incall / outcall">Incall / outcall</li>
       </ul>
     </div>
     <div class="svc">
-      <h3>Evening</h3>
+      <h3 data-en="Evening" data-nl="Avond">Evening</h3>
       <div class="price">€ [ … ]</div>
       <ul>
-        <li>Full evening together</li>
-        <li>Events &amp; occasions</li>
-        <li>By arrangement</li>
+        <li data-en="Full evening together" data-nl="Een hele avond samen">Full evening together</li>
+        <li data-en="Events &amp; occasions" data-nl="Events &amp; gelegenheden">Events &amp; occasions</li>
+        <li data-en="By arrangement" data-nl="In overleg">By arrangement</li>
       </ul>
     </div>
   </div>
-  <p class="note">Rates are for time and companionship only. Please be respectful and honest when enquiring.</p>
+  <p class="note" data-en="Rates are for time and companionship only. Please be respectful and honest when enquiring." data-nl="Tarieven zijn uitsluitend voor tijd en gezelschap. Wees respectvol en eerlijk bij je aanvraag.">Rates are for time and companionship only. Please be respectful and honest when enquiring.</p>
 </section>
 
 <!-- ============ AVAILABILITY ============ -->
 <section id="availability">
   <div class="sec-head">
-    <div class="kicker">Availability</div>
-    <h2>This week</h2>
-    <p>My general weekly schedule. Always by appointment, so please confirm the exact time with me.</p>
+    <div class="kicker" data-en="Availability" data-nl="Beschikbaarheid">Availability</div>
+    <h2 data-en="This week" data-nl="Deze week">This week</h2>
+    <p data-en="My general weekly schedule. Always by appointment, so please confirm the exact time with me." data-nl="Mijn globale weekindeling. Altijd op afspraak, dus bevestig het exacte tijdstip even met mij.">My general weekly schedule. Always by appointment, so please confirm the exact time with me.</p>
   </div>
   <div class="avail">
-    <div class="day on"><div class="d">Mon</div><div class="t">Evening</div></div>
-    <div class="day on"><div class="d">Tue</div><div class="t">Day &amp; Eve</div></div>
-    <div class="day"><div class="d">Wed</div><div class="t">Off</div></div>
-    <div class="day on"><div class="d">Thu</div><div class="t">Evening</div></div>
-    <div class="day on"><div class="d">Fri</div><div class="t">Day &amp; Eve</div></div>
-    <div class="day on"><div class="d">Sat</div><div class="t">Day &amp; Eve</div></div>
-    <div class="day"><div class="d">Sun</div><div class="t">Off</div></div>
+    <div class="day on"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
+    <div class="day on"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day"><div class="d" data-en="Wed" data-nl="Wo">Wed</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
+    <div class="day on"><div class="d" data-en="Thu" data-nl="Do">Thu</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
+    <div class="day on"><div class="d" data-en="Fri" data-nl="Vr">Fri</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day on"><div class="d" data-en="Sat" data-nl="Za">Sat</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
   </div>
-  <p class="avail-note">Currently <strong>available</strong> for new bookings. Incall in Tilburg, outcall in the surrounding area.</p>
+  <p class="avail-note" data-en="Currently <strong>available</strong> for new bookings. Incall in Tilburg, outcall in the surrounding area." data-nl="Op dit moment <strong>beschikbaar</strong> voor nieuwe boekingen. Incall in Tilburg, outcall in de omgeving.">Currently <strong>available</strong> for new bookings. Incall in Tilburg, outcall in the surrounding area.</p>
 </section>
 
 <!-- ============ SCREENING / HOW IT WORKS ============ -->
 <section id="booking-info">
   <div class="sec-head">
-    <div class="kicker">Screening</div>
-    <h2>How a booking works</h2>
-    <p>Simple, respectful and discreet. Here is what to expect from first message to meeting.</p>
+    <div class="kicker" data-en="Screening" data-nl="Screening">Screening</div>
+    <h2 data-en="How a booking works" data-nl="Hoe een boeking werkt">How a booking works</h2>
+    <p data-en="Simple, respectful and discreet. Here is what to expect from first message to meeting." data-nl="Simpel, respectvol en discreet. Dit kun je verwachten, van eerste bericht tot afspraak.">Simple, respectful and discreet. Here is what to expect from first message to meeting.</p>
   </div>
   <div class="steps">
     <div class="step">
       <div class="num">01</div>
-      <h3>Get in touch</h3>
-      <p>Message me via the form, WhatsApp or Telegram with your name, the date/time and what you have in mind.</p>
+      <h3 data-en="Get in touch" data-nl="Neem contact op">Get in touch</h3>
+      <p data-en="Message me via the form, WhatsApp or Telegram with your name, the date/time and what you have in mind." data-nl="Stuur me een bericht via het formulier, WhatsApp of Telegram met je naam, datum/tijd en wat je in gedachten hebt.">Message me via the form, WhatsApp or Telegram with your name, the date/time and what you have in mind.</p>
     </div>
     <div class="step">
       <div class="num">02</div>
-      <h3>Light screening</h3>
-      <p>For safety I ask for a short, polite introduction. Genuine and respectful enquiries only, discretion is mutual.</p>
+      <h3 data-en="Light screening" data-nl="Korte screening">Light screening</h3>
+      <p data-en="For safety I ask for a short, polite introduction. Genuine and respectful enquiries only, discretion is mutual." data-nl="Voor de veiligheid vraag ik om een korte, nette introductie. Alleen serieuze en respectvolle aanvragen; discretie is wederzijds.">For safety I ask for a short, polite introduction. Genuine and respectful enquiries only, discretion is mutual.</p>
     </div>
     <div class="step">
       <div class="num">03</div>
-      <h3>Confirm details</h3>
-      <p>We agree on time, duration, location (incall/outcall) and any wishes. You receive the address once confirmed.</p>
+      <h3 data-en="Confirm details" data-nl="Details bevestigen">Confirm details</h3>
+      <p data-en="We agree on time, duration, location (incall/outcall) and any wishes. You receive the address once confirmed." data-nl="We spreken tijd, duur, locatie (incall/outcall) en eventuele wensen af. Het adres ontvang je zodra het bevestigd is.">We agree on time, duration, location (incall/outcall) and any wishes. You receive the address once confirmed.</p>
     </div>
     <div class="step">
       <div class="num">04</div>
-      <h3>We meet</h3>
-      <p>Arrive fresh and on time. Relax and enjoy elegant, unhurried company, exactly as arranged.</p>
+      <h3 data-en="We meet" data-nl="We ontmoeten elkaar">We meet</h3>
+      <p data-en="Arrive fresh and on time. Relax and enjoy elegant, unhurried company, exactly as arranged." data-nl="Kom fris en op tijd. Ontspan en geniet van elegant gezelschap zonder haast, precies zoals afgesproken.">Arrive fresh and on time. Relax and enjoy elegant, unhurried company, exactly as arranged.</p>
     </div>
   </div>
 </section>
@@ -551,29 +573,29 @@
 <!-- ============ HOUSE RULES ============ -->
 <section id="rules">
   <div class="sec-head">
-    <div class="kicker">Etiquette</div>
-    <h2>A few simple rules</h2>
-    <p>Mutual respect makes our time together effortless and enjoyable.</p>
+    <div class="kicker" data-en="Etiquette" data-nl="Etiquette">Etiquette</div>
+    <h2 data-en="A few simple rules" data-nl="Een paar simpele regels">A few simple rules</h2>
+    <p data-en="Mutual respect makes our time together effortless and enjoyable." data-nl="Wederzijds respect maakt onze tijd samen moeiteloos en aangenaam.">Mutual respect makes our time together effortless and enjoyable.</p>
   </div>
   <div class="rules">
     <div class="rule-col do">
-      <h3>Please do</h3>
+      <h3 data-en="Please do" data-nl="Wel graag">Please do</h3>
       <ul>
-        <li>Be polite and respectful in every message</li>
-        <li>Arrive punctually and freshly showered</li>
-        <li>Be honest about what you are looking for</li>
-        <li>Respect my privacy and discretion</li>
-        <li>Confirm and honour our agreement</li>
+        <li data-en="Be polite and respectful in every message" data-nl="Wees beleefd en respectvol in elk bericht">Be polite and respectful in every message</li>
+        <li data-en="Arrive punctually and freshly showered" data-nl="Kom op tijd en fris gedoucht">Arrive punctually and freshly showered</li>
+        <li data-en="Be honest about what you are looking for" data-nl="Wees eerlijk over wat je zoekt">Be honest about what you are looking for</li>
+        <li data-en="Respect my privacy and discretion" data-nl="Respecteer mijn privacy en discretie">Respect my privacy and discretion</li>
+        <li data-en="Confirm and honour our agreement" data-nl="Bevestig en kom onze afspraak na">Confirm and honour our agreement</li>
       </ul>
     </div>
     <div class="rule-col dont">
-      <h3>Please don't</h3>
+      <h3 data-en="Please don't" data-nl="Liever niet">Please don't</h3>
       <ul>
-        <li>Send rude, pushy or explicit first messages</li>
-        <li>Ask to negotiate the rates or the rules</li>
-        <li>Show up under the influence or unwashed</li>
-        <li>Take photos or video without consent</li>
-        <li>Cancel last minute without notice</li>
+        <li data-en="Send rude, pushy or explicit first messages" data-nl="Grove, opdringerige of expliciete eerste berichten sturen">Send rude, pushy or explicit first messages</li>
+        <li data-en="Ask to negotiate the rates or the rules" data-nl="Onderhandelen over tarieven of regels">Ask to negotiate the rates or the rules</li>
+        <li data-en="Show up under the influence or unwashed" data-nl="Onder invloed of ongewassen verschijnen">Show up under the influence or unwashed</li>
+        <li data-en="Take photos or video without consent" data-nl="Foto's of video maken zonder toestemming">Take photos or video without consent</li>
+        <li data-en="Cancel last minute without notice" data-nl="Op het laatste moment afzeggen zonder bericht">Cancel last minute without notice</li>
       </ul>
     </div>
   </div>
@@ -582,30 +604,30 @@
 <!-- ============ FAQ ============ -->
 <section id="faq">
   <div class="sec-head">
-    <div class="kicker">FAQ</div>
-    <h2>Good to know</h2>
-    <p>Answers to the questions I am asked most often.</p>
+    <div class="kicker" data-en="FAQ" data-nl="FAQ">FAQ</div>
+    <h2 data-en="Good to know" data-nl="Goed om te weten">Good to know</h2>
+    <p data-en="Answers to the questions I am asked most often." data-nl="Antwoorden op de vragen die ik het vaakst krijg.">Answers to the questions I am asked most often.</p>
   </div>
   <div class="faq">
     <div class="faq-item">
-      <button class="faq-q">Where do we meet? <span class="plus">+</span></button>
-      <div class="faq-a"><p>I offer incall at a private, discreet location in Tilburg, and outcall to hotels or your place in the surrounding area. Details are shared once a booking is confirmed.</p></div>
+      <button class="faq-q"><span data-en="Where do we meet?" data-nl="Waar spreken we af?">Where do we meet?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="I offer incall at a private, discreet location in Tilburg, and outcall to hotels or your place in the surrounding area. Details are shared once a booking is confirmed." data-nl="Ik bied incall op een privé, discrete locatie in Tilburg, en outcall naar hotels of jouw locatie in de omgeving. Details deel ik zodra de boeking bevestigd is.">I offer incall at a private, discreet location in Tilburg, and outcall to hotels or your place in the surrounding area. Details are shared once a booking is confirmed.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">How do I make a booking? <span class="plus">+</span></button>
-      <div class="faq-a"><p>Send me a message via the contact form, WhatsApp or Telegram with your name, preferred date/time and duration. I reply as soon as I can.</p></div>
+      <button class="faq-q"><span data-en="How do I make a booking?" data-nl="Hoe maak ik een boeking?">How do I make a booking?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Send me a message via the contact form, WhatsApp or Telegram with your name, preferred date/time and duration. I reply as soon as I can." data-nl="Stuur me een bericht via het contactformulier, WhatsApp of Telegram met je naam, gewenste datum/tijd en duur. Ik reageer zo snel mogelijk.">Send me a message via the contact form, WhatsApp or Telegram with your name, preferred date/time and duration. I reply as soon as I can.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">Is a deposit required? <span class="plus">+</span></button>
-      <div class="faq-a"><p>For some bookings, especially outcall or longer dates, a small deposit may be requested to confirm. I will let you know when we arrange the details.</p></div>
+      <button class="faq-q"><span data-en="Is a deposit required?" data-nl="Is een aanbetaling nodig?">Is a deposit required?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="For some bookings, especially outcall or longer dates, a small deposit may be requested to confirm. I will let you know when we arrange the details." data-nl="Voor sommige boekingen, vooral outcall of langere dates, kan een kleine aanbetaling gevraagd worden ter bevestiging. Ik laat het je weten bij het afstemmen van de details.">For some bookings, especially outcall or longer dates, a small deposit may be requested to confirm. I will let you know when we arrange the details.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">How is my privacy handled? <span class="plus">+</span></button>
-      <div class="faq-a"><p>Discretion is guaranteed on both sides. Your details are never shared, and I expect the same respect for my privacy in return.</p></div>
+      <button class="faq-q"><span data-en="How is my privacy handled?" data-nl="Hoe zit het met mijn privacy?">How is my privacy handled?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Discretion is guaranteed on both sides. Your details are never shared, and I expect the same respect for my privacy in return." data-nl="Discretie is aan beide kanten gegarandeerd. Jouw gegevens worden nooit gedeeld, en ik verwacht hetzelfde respect voor mijn privacy.">Discretion is guaranteed on both sides. Your details are never shared, and I expect the same respect for my privacy in return.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">What if I need to cancel? <span class="plus">+</span></button>
-      <div class="faq-a"><p>Life happens, just let me know as early as possible. Repeated last-minute cancellations may mean I cannot take future bookings.</p></div>
+      <button class="faq-q"><span data-en="What if I need to cancel?" data-nl="En als ik moet annuleren?">What if I need to cancel?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Life happens, just let me know as early as possible. Repeated last-minute cancellations may mean I cannot take future bookings." data-nl="Er kan altijd iets tussenkomen, laat het me gewoon zo vroeg mogelijk weten. Herhaaldelijk last-minute annuleren kan betekenen dat ik geen nieuwe boekingen meer aanneem.">Life happens, just let me know as early as possible. Repeated last-minute cancellations may mean I cannot take future bookings.</p></div>
     </div>
   </div>
 </section>
@@ -613,22 +635,22 @@
 <!-- ============ CONTACT ============ -->
 <section id="contact">
   <div class="sec-head">
-    <div class="kicker">Get in touch</div>
-    <h2>Contact &amp; booking</h2>
-    <p>Send a message below, or reach me directly. Discretion guaranteed.</p>
+    <div class="kicker" data-en="Get in touch" data-nl="Contact">Get in touch</div>
+    <h2 data-en="Contact &amp; booking" data-nl="Contact &amp; boeken">Contact &amp; booking</h2>
+    <p data-en="Send a message below, or reach me directly. Discretion guaranteed." data-nl="Stuur hieronder een bericht, of bereik me direct. Discretie gegarandeerd.">Send a message below, or reach me directly. Discretion guaranteed.</p>
   </div>
   <div class="contact-wrap">
     <!-- Web3Forms -->
     <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
       <input type="hidden" name="subject" value="New enquiry from Milan website" />
-      <input type="text" name="name" placeholder="Your name" required />
-      <input type="email" name="email" placeholder="Your email" required />
-      <input type="text" name="preferred" placeholder="Preferred date / time (optional)" />
-      <textarea name="message" placeholder="Your message…" required></textarea>
+      <input type="text" name="name" placeholder="Your name" data-en-ph="Your name" data-nl-ph="Je naam" required />
+      <input type="email" name="email" placeholder="Your email" data-en-ph="Your email" data-nl-ph="Je e-mail" required />
+      <input type="text" name="preferred" placeholder="Preferred date / time (optional)" data-en-ph="Preferred date / time (optional)" data-nl-ph="Gewenste datum / tijd (optioneel)" />
+      <textarea name="message" placeholder="Your message…" data-en-ph="Your message…" data-nl-ph="Je bericht…" required></textarea>
       <!-- honeypot -->
       <input type="checkbox" name="botcheck" style="display:none" />
-      <button type="submit" class="shine">Send message</button>
+      <button type="submit" class="shine" data-en="Send message" data-nl="Verstuur bericht">Send message</button>
       <div class="form-status" id="formStatus"></div>
     </form>
 
@@ -657,13 +679,16 @@
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="logo">MILAN</div>
-  <div>© <span id="year"></span> Milan. All rights reserved.</div>
-  <div class="disc">
+  <div>© <span id="year"></span> Milan. <span data-en="All rights reserved." data-nl="Alle rechten voorbehouden.">All rights reserved.</span></div>
+  <div class="disc" data-en="This website is intended for adults 18+ only. All content is of legal adults. Any arrangement is for time and companionship; nothing on this site should be interpreted as an offer of anything illegal. By using this site you agree to these terms." data-nl="Deze website is uitsluitend bedoeld voor volwassenen (18+). Alle content betreft meerderjarigen. Elke afspraak is voor tijd en gezelschap; niets op deze site mag worden opgevat als een aanbod voor iets illegaals. Door deze site te gebruiken ga je akkoord met deze voorwaarden.">
     This website is intended for adults 18+ only. All content is of legal adults.
     Any arrangement is for time and companionship; nothing on this site should be
     interpreted as an offer of anything illegal. By using this site you agree to these terms.
   </div>
 </footer>
+
+<!-- mobile floating book button -->
+<a href="#contact" class="book-fab" data-en="Book" data-nl="Boek">Book</a>
 
 <script>
   // Age gate
@@ -794,6 +819,20 @@
       else if(e.key==='ArrowLeft') stepLB(-1);
       else if(e.key==='ArrowRight') stepLB(1);
     });
+    // Swipe on mobile
+    var tsX=0, tsY=0;
+    lb.addEventListener('touchstart', function(e){
+      tsX=e.changedTouches[0].clientX; tsY=e.changedTouches[0].clientY;
+    }, {passive:true});
+    lb.addEventListener('touchend', function(e){
+      var dx=e.changedTouches[0].clientX-tsX;
+      var dy=e.changedTouches[0].clientY-tsY;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)){
+        stepLB(dx<0 ? 1 : -1);          // swipe left = next, right = prev
+      } else if(dy>80 && Math.abs(dy)>Math.abs(dx)){
+        closeLB();                       // swipe down = close
+      }
+    }, {passive:true});
   })();
 
   /* ---------- CURSOR GLOW (desktop only) ---------- */
@@ -837,6 +876,42 @@
         }
       });
     });
+  })();
+
+  /* ---------- LANGUAGE SWITCHER (EN / NL) ---------- */
+  (function(){
+    var KEY='lang';
+    function apply(lang){
+      if(lang!=='nl') lang='en';
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-en]').forEach(function(el){
+        var v=el.getAttribute('data-'+lang);
+        if(v!==null) el.innerHTML=v;
+      });
+      document.querySelectorAll('[data-en-ph]').forEach(function(el){
+        var v=el.getAttribute('data-'+lang+'-ph');
+        if(v!==null) el.setAttribute('placeholder', v);
+      });
+      document.querySelectorAll('.lang-switch button').forEach(function(b){
+        b.classList.toggle('active', b.getAttribute('data-lang')===lang);
+      });
+      // re-measure any open FAQ answer after text change
+      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
+        a.style.maxHeight=a.scrollHeight+'px';
+      });
+      try{ localStorage.setItem(KEY, lang); }catch(e){}
+    }
+    // Initial language: saved choice, else Dutch browsers get NL, else EN
+    var initial='en';
+    try{
+      var saved=localStorage.getItem(KEY);
+      if(saved){ initial=saved; }
+      else if(navigator.language && navigator.language.toLowerCase().indexOf('nl')===0){ initial='nl'; }
+    }catch(e){}
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+    });
+    apply(initial);
   })();
 </script>
 </body>
