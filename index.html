@@ -230,6 +230,47 @@
   .cd-item .v{font-size:.95rem}
   .form-status{text-align:center;font-size:.9rem;margin-top:10px;min-height:20px}
 
+  /* AVAILABILITY */
+  .avail{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;max-width:820px;margin:0 auto}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 6px;text-align:center;transition:.25s}
+  .day.on{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,160,78,.16),rgba(201,160,78,.03))}
+  .day .d{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+  .day.on .d{color:var(--gold)}
+  .day .t{font-family:var(--serif);font-size:1.05rem;margin-top:6px}
+  .avail-note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:26px}
+  .avail-note strong{color:var(--gold)}
+
+  /* STEPS (screening / how it works) */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 22px;position:relative;transition:.25s}
+  .step:hover{border-color:var(--gold);transform:translateY(-4px)}
+  .step .num{font-family:var(--serif);font-size:2.4rem;color:var(--gold);line-height:1;opacity:.5}
+  .step h3{font-size:1.05rem;margin:12px 0 8px;letter-spacing:.5px}
+  .step p{color:var(--muted);font-size:.9rem}
+
+  /* HOUSE RULES */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+  .rule-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+  .rule-col h3{font-family:var(--serif);font-size:1.5rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .rule-col.do h3{color:var(--gold-soft)}
+  .rule-col.dont h3{color:#d98a8a}
+  .rule-col ul{list-style:none}
+  .rule-col li{padding:9px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:.92rem;display:flex;gap:10px}
+  .rule-col li:last-child{border:none}
+  .rule-col li::before{content:"✓";color:var(--gold)}
+  .rule-col.dont li::before{content:"✕";color:#d98a8a}
+
+  /* FAQ ACCORDION */
+  .faq{max-width:800px;margin:0 auto}
+  .faq-item{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;background:var(--card)}
+  .faq-q{width:100%;text-align:left;background:none;border:none;color:var(--text);font-family:inherit;
+    font-size:1rem;padding:20px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.2s}
+  .faq-q:hover{color:var(--gold)}
+  .faq-q .plus{color:var(--gold);font-size:1.4rem;transition:transform .3s;flex-shrink:0}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--muted);font-size:.93rem}
+  .faq-a p{padding:0 22px 20px}
+
   /* FOOTER */
   footer{text-align:center;padding:50px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
   footer .logo{font-size:1.3rem;margin-bottom:14px}
@@ -242,7 +283,14 @@
     .about,.contact-wrap{grid-template-columns:1fr;gap:32px}
     .gallery{grid-template-columns:repeat(2,1fr)}
     .services{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .avail{grid-template-columns:repeat(4,1fr)}
+    .rules{grid-template-columns:1fr}
     section{padding:70px 6vw}
+  }
+  @media(max-width:480px){
+    .steps{grid-template-columns:1fr}
+    .avail{grid-template-columns:repeat(3,1fr)}
   }
 </style>
 </head>
@@ -282,6 +330,8 @@
     <a href="#gallery">Gallery</a>
     <a href="#platforms">Exclusive</a>
     <a href="#services">Bookings</a>
+    <a href="#availability">Availability</a>
+    <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
   </nav>
   <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
@@ -404,6 +454,118 @@
     </div>
   </div>
   <p class="note">Rates are for time and companionship only. Please be respectful and honest when enquiring.</p>
+</section>
+
+<!-- ============ AVAILABILITY ============ -->
+<section id="availability">
+  <div class="sec-head">
+    <div class="kicker">Availability</div>
+    <h2>This week</h2>
+    <p>My general weekly schedule. Always by appointment, so please confirm the exact time with me.</p>
+  </div>
+  <div class="avail">
+    <div class="day on"><div class="d">Mon</div><div class="t">Evening</div></div>
+    <div class="day on"><div class="d">Tue</div><div class="t">Day &amp; Eve</div></div>
+    <div class="day"><div class="d">Wed</div><div class="t">Off</div></div>
+    <div class="day on"><div class="d">Thu</div><div class="t">Evening</div></div>
+    <div class="day on"><div class="d">Fri</div><div class="t">Day &amp; Eve</div></div>
+    <div class="day on"><div class="d">Sat</div><div class="t">Day &amp; Eve</div></div>
+    <div class="day"><div class="d">Sun</div><div class="t">Off</div></div>
+  </div>
+  <p class="avail-note">Currently <strong>available</strong> for new bookings. Incall in Tilburg, outcall in the surrounding area.</p>
+</section>
+
+<!-- ============ SCREENING / HOW IT WORKS ============ -->
+<section id="booking-info">
+  <div class="sec-head">
+    <div class="kicker">Screening</div>
+    <h2>How a booking works</h2>
+    <p>Simple, respectful and discreet. Here is what to expect from first message to meeting.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="num">01</div>
+      <h3>Get in touch</h3>
+      <p>Message me via the form, WhatsApp or Telegram with your name, the date/time and what you have in mind.</p>
+    </div>
+    <div class="step">
+      <div class="num">02</div>
+      <h3>Light screening</h3>
+      <p>For safety I ask for a short, polite introduction. Genuine and respectful enquiries only, discretion is mutual.</p>
+    </div>
+    <div class="step">
+      <div class="num">03</div>
+      <h3>Confirm details</h3>
+      <p>We agree on time, duration, location (incall/outcall) and any wishes. You receive the address once confirmed.</p>
+    </div>
+    <div class="step">
+      <div class="num">04</div>
+      <h3>We meet</h3>
+      <p>Arrive fresh and on time. Relax and enjoy elegant, unhurried company, exactly as arranged.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOUSE RULES ============ -->
+<section id="rules">
+  <div class="sec-head">
+    <div class="kicker">Etiquette</div>
+    <h2>A few simple rules</h2>
+    <p>Mutual respect makes our time together effortless and enjoyable.</p>
+  </div>
+  <div class="rules">
+    <div class="rule-col do">
+      <h3>Please do</h3>
+      <ul>
+        <li>Be polite and respectful in every message</li>
+        <li>Arrive punctually and freshly showered</li>
+        <li>Be honest about what you are looking for</li>
+        <li>Respect my privacy and discretion</li>
+        <li>Confirm and honour our agreement</li>
+      </ul>
+    </div>
+    <div class="rule-col dont">
+      <h3>Please don't</h3>
+      <ul>
+        <li>Send rude, pushy or explicit first messages</li>
+        <li>Ask to negotiate the rates or the rules</li>
+        <li>Show up under the influence or unwashed</li>
+        <li>Take photos or video without consent</li>
+        <li>Cancel last minute without notice</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="sec-head">
+    <div class="kicker">FAQ</div>
+    <h2>Good to know</h2>
+    <p>Answers to the questions I am asked most often.</p>
+  </div>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Where do we meet? <span class="plus">+</span></button>
+      <div class="faq-a"><p>I offer incall at a private, discreet location in Tilburg, and outcall to hotels or your place in the surrounding area. Details are shared once a booking is confirmed.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How do I make a booking? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Send me a message via the contact form, WhatsApp or Telegram with your name, preferred date/time and duration. I reply as soon as I can.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Is a deposit required? <span class="plus">+</span></button>
+      <div class="faq-a"><p>For some bookings, especially outcall or longer dates, a small deposit may be requested to confirm. I will let you know when we arrange the details.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How is my privacy handled? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Discretion is guaranteed on both sides. Your details are never shared, and I expect the same respect for my privacy in return.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What if I need to cancel? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Life happens, just let me know as early as possible. Repeated last-minute cancellations may mean I cannot take future bookings.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
@@ -532,9 +694,14 @@
       ['.gallery .tile', 1],
       ['.plat', 1],
       ['.svc', 1],
+      ['.day', 1],
+      ['.step', 1],
+      ['.rule-col', 1],
+      ['.faq-item', 1],
       ['.contact-form', 0],
       ['.cd-item', 1],
-      ['.note', 0]
+      ['.note', 0],
+      ['.avail-note', 0]
     ];
     groups.forEach(function(g){
       var els = document.querySelectorAll(g[0]);
@@ -608,6 +775,25 @@
     document.querySelectorAll('a,button,.tile,.plat,.svc,.cd-item').forEach(function(el){
       el.addEventListener('mouseenter', function(){ glow.style.width='200px';glow.style.height='200px';glow.style.margin='-100px 0 0 -100px'; });
       el.addEventListener('mouseleave', function(){ glow.style.width='360px';glow.style.height='360px';glow.style.margin='-180px 0 0 -180px'; });
+    });
+  })();
+
+  /* ---------- FAQ ACCORDION ---------- */
+  (function(){
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item=btn.parentElement;
+        var ans=item.querySelector('.faq-a');
+        var isOpen=item.classList.contains('open');
+        // close others
+        document.querySelectorAll('.faq-item.open').forEach(function(o){
+          o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight=null;
+        });
+        if(!isOpen){
+          item.classList.add('open');
+          ans.style.maxHeight=ans.scrollHeight+'px';
+        }
+      });
     });
   })();
 </script>
