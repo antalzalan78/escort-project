@@ -1,0 +1,6 @@
+# Never publish original photos (they still contain EXIF/GPS metadata)
+photos-raw/
+
+# OS files
+Thumbs.db
+.DS_Store
