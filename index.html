@@ -286,6 +286,7 @@
   .day .t{font-family:var(--serif);font-size:1.05rem;margin-top:6px}
   .avail-note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:26px}
   .avail-note strong{color:var(--gold)}
+  .avail-updated{text-align:center;color:var(--muted);font-size:.76rem;opacity:.75;margin-top:8px;letter-spacing:.3px}
   /* RATES list */
   .rates{max-width:520px;margin:0 auto 44px}
   .rate{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:15px 6px;border-bottom:1px solid var(--line)}
@@ -603,6 +604,7 @@
     <div class="day"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
   </div>
   <p class="avail-note" data-en="Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area." data-nl="Op dit moment <strong>beschikbaar</strong> voor nieuwe boekingen. Outcall naar je hotel of thuis in Tilburg en omgeving.">Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area.</p>
+  <p class="avail-updated"><span data-en="Availability last updated" data-nl="Beschikbaarheid bijgewerkt">Availability last updated</span>: <span id="availUpdated"></span></p>
 </section>
 
 <!-- ============ SCREENING / HOW IT WORKS ============ -->
@@ -941,6 +943,10 @@
      ===================================================================== */
   var AVAILABLE = true;
 
+  // Date you last checked/updated your weekly availability (format: 'YYYY-MM-DD').
+  // Update this whenever you tweak the schedule above, so visitors see it is current.
+  var AVAILABILITY_UPDATED = '2026-07-23';
+
   // WhatsApp pre-filled first message (per language)
   var WA_NUMBER = '31651923657';
   var WA_MSG = {
@@ -989,6 +995,14 @@
       // WhatsApp pre-filled message (follows language)
       var wa=document.getElementById('waLink');
       if(wa){ wa.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_MSG[lang]); }
+      // Availability "last updated" date, formatted in the chosen language
+      var au=document.getElementById('availUpdated');
+      if(au && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
+        var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+                    nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
+        var p=AVAILABILITY_UPDATED.split('-');
+        au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
+      }
       // re-measure any open FAQ answer after text change
       document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
         a.style.maxHeight=a.scrollHeight+'px';
