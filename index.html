@@ -450,7 +450,7 @@
     <p data-en="The fonts are hosted on this website itself, so no data is sent to Google or other font providers. Apart from the privacy-friendly visitor counter described below, the site loads no third-party trackers." data-nl="De lettertypen worden op deze website zelf gehost, dus er gaan geen gegevens naar Google of andere aanbieders. Afgezien van de privacyvriendelijke bezoekersteller hieronder, laadt de site geen externe trackers.">The fonts are hosted on this website itself, so no data is sent to Google or other font providers. Apart from the privacy-friendly visitor counter described below, the site loads no third-party trackers.</p>
 
     <h4 data-en="Visitor statistics" data-nl="Bezoekersstatistieken">Visitor statistics</h4>
-    <p data-en="To understand how many people visit, this site uses GoatCounter, a privacy-friendly analytics tool. It sets no cookies, does not track you across websites, and stores no personal data. It only counts anonymous, aggregate visits (such as page views and rough country). See goatcounter.com for details." data-nl="Om te zien hoeveel mensen de site bezoeken, gebruik ik GoatCounter, een privacyvriendelijke analysetool. Deze plaatst geen cookies, volgt je niet over websites en bewaart geen persoonsgegevens. Er worden alleen anonieme, geaggregeerde bezoeken geteld (zoals paginaweergaven en globaal land). Zie goatcounter.com voor details.">To understand how many people visit, this site uses GoatCounter, a privacy-friendly analytics tool. It sets no cookies, does not track you across websites, and stores no personal data. It only counts anonymous, aggregate visits (such as page views and rough country). See goatcounter.com for details.</p>
+    <p data-en="To see how many people visit, this site keeps a simple, anonymous counter in my own private database. It sets no cookies, records no IP addresses and stores no personal data. It only increases a total visit number, nothing that could identify you." data-nl="Om te zien hoeveel mensen de site bezoeken, houd ik een eenvoudige, anonieme teller bij in mijn eigen privédatabase. Deze plaatst geen cookies, bewaart geen IP-adressen en slaat geen persoonsgegevens op. Het verhoogt alleen een totaal bezoekersaantal, niets wat jou kan identificeren.">To see how many people visit, this site keeps a simple, anonymous counter in my own private database. It sets no cookies, records no IP addresses and stores no personal data. It only increases a total visit number, nothing that could identify you.</p>
 
     <h4 data-en="Your rights" data-nl="Jouw rechten">Your rights</h4>
     <p data-en="You can ask me at any time what data of yours I hold, and request that I correct or delete it. Just send a message and I will take care of it." data-nl="Je kunt mij op elk moment vragen welke gegevens ik van je heb en verzoeken deze te corrigeren of te verwijderen. Stuur een bericht en ik regel het.">You can ask me at any time what data of yours I hold, and request that I correct or delete it. Just send a message and I will take care of it.</p>
@@ -1010,12 +1010,26 @@
 </script>
 
 <!-- ============================================================
-     Visitor counter · GoatCounter (privacy-friendly, no cookies)
-     SETUP: create a free account at https://www.goatcounter.com/
-     then replace MYCODE below with your site code (the part before
-     .goatcounter.com). Delete this block to disable analytics.
+     Visitor counter · self-hosted on your OWN Supabase database.
+     No cookies, no IP, no personal data. Counts once per browser
+     session by calling the increment_visit() function.
+     View stats in the Supabase dashboard (table: visits).
      ============================================================ -->
-<script data-goatcounter="https://MYCODE.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<script>
+  (function(){
+    var SB_URL='https://evernyxfvzhpkmbjlpoi.supabase.co';
+    var SB_KEY='sb_publishable_eDp6rlAORmqM9BgnnjZRgg_WDiaD2jq';
+    try{
+      if(sessionStorage.getItem('v_counted')) return;   // count once per session
+      fetch(SB_URL+'/rest/v1/rpc/increment_visit',{
+        method:'POST',
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},
+        body:'{}',
+        keepalive:true
+      }).then(function(){ try{ sessionStorage.setItem('v_counted','1'); }catch(e){} })
+        .catch(function(){});
+    }catch(e){}
+  })();
+</script>
 </body>
 </html>
