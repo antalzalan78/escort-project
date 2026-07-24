@@ -228,6 +228,10 @@
   .gallery .tile::after{content:"VIEW";position:absolute;z-index:2;bottom:14px;left:0;right:0;text-align:center;
     color:var(--gold);font-size:.68rem;letter-spacing:3px;opacity:0;transform:translateY(8px);transition:.4s;pointer-events:none}
   .gallery .tile:hover::after{opacity:1;transform:translateY(0)}
+  /* single-photo feature: center it, keep its natural aspect ratio */
+  .gallery-single{display:block;max-width:840px;margin:0 auto}
+  .gallery-single .tile{aspect-ratio:auto}
+  .gallery-single .tile img{height:auto;object-fit:contain}
 
   /* PLATFORMS / OF */
   .platforms{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
@@ -570,15 +574,10 @@
     <h2 data-en="Gallery" data-nl="Galerij">Gallery</h2>
     <p data-en="A selection of my modelling work." data-nl="Een selectie van mijn modellenwerk.">A selection of my modelling work.</p>
   </div>
-  <div class="gallery">
-    <div class="tile"><span>photo 1</span></div>
-    <div class="tile"><span>photo 2</span></div>
-    <div class="tile"><span>photo 3</span></div>
-    <div class="tile"><span>photo 4</span></div>
-    <div class="tile"><span>photo 5</span></div>
-    <div class="tile"><span>photo 6</span></div>
+  <div class="gallery gallery-single">
+    <div class="tile"><img src="photos/1.jpg" alt="Milan — portfolio" loading="lazy" /></div>
   </div>
-  <p class="note" data-en="Tip: swap each &lt;span&gt; for an &lt;img src=photos/1.jpg&gt; tag." data-nl="Tip: vervang elke &lt;span&gt; door een &lt;img src=photos/1.jpg&gt; tag.">Tip: swap each &lt;span&gt; for an &lt;img src="photos/1.jpg"&gt; tag.</p>
+  <p class="note" data-en="More photos coming soon." data-nl="Binnenkort meer foto's.">More photos coming soon.</p>
 </section>
 
 <!-- ============ RATES & AVAILABILITY ============ -->
