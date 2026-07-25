@@ -86,6 +86,7 @@
     background:url("photos/s1.jpg") center 30%/cover no-repeat;filter:blur(9px) grayscale(1) brightness(.4);transform:scale(1.15)}
   .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(8,8,10,.72), rgba(8,8,10,.93))}
   .hero .inner{position:relative;z-index:2;max-width:760px}
+  .hero .welcome{color:var(--muted);font-style:italic;font-size:.92rem;letter-spacing:.5px;margin-bottom:26px;opacity:.85}
   .hero .kicker{color:var(--accent-soft);letter-spacing:5px;text-transform:uppercase;font-size:.72rem;margin-bottom:24px}
   .hero h1{font-family:var(--serif);font-size:clamp(2.8rem,9vw,6rem);font-weight:600;line-height:1.02;letter-spacing:1px}
   .hero h1 .ac{display:block;color:var(--accent-soft);font-style:italic;font-weight:400}
@@ -181,8 +182,9 @@
 <!-- hero -->
 <div class="hero">
   <div class="inner">
+    <div class="welcome" data-en="Welcome. You chose to step beyond the obvious." data-nl="Welkom. Je koos ervoor om verder te gaan dan het voor de hand liggende.">Welcome. You chose to step beyond the obvious.</div>
     <div class="kicker">Trust · Service · Surrender · Submission</div>
-    <h1><span data-en="The other" data-nl="Een andere">The other</span> <span class="ac" data-en="side" data-nl="kant">side</span></h1>
+    <h1><span data-en="Some seek conversation." data-nl="Sommigen zoeken een gesprek.">Some seek conversation.</span> <span class="ac" data-en="Others seek surrender." data-nl="Anderen zoeken overgave.">Others seek surrender.</span></h1>
     <p class="lead" data-en="For those who like to take the lead. I offer my trust, my attention and my submission — explored slowly, with consent, communication and care." data-nl="Voor wie graag de leiding neemt. Ik bied mijn vertrouwen, mijn aandacht en mijn onderwerping — rustig verkend, met toestemming, communicatie en zorg.">For those who like to take the lead. I offer my trust, my attention and my submission — explored slowly, with consent, communication and care.</p>
     <div class="hero-cta">
       <a href="#connect" class="btn btn-primary" data-en="Enquire" data-nl="Aanvragen">Enquire</a>
@@ -203,6 +205,7 @@
     <div class="tenet reveal d2"><span data-en="Chemistry" data-nl="Chemie">Chemistry</span> <span class="ac" data-en="before power." data-nl="vóór macht.">before power.</span></div>
   </div>
   <p class="philo-text reveal" data-en="For me, submission is not weakness or a list of acts. It is a gift of trust: giving you my full attention, anticipating you, and letting go completely because I feel safe in your hands. The best moments begin long before anything physical." data-nl="Voor mij is onderwerping geen zwakte of een lijst met handelingen. Het is een geschenk van vertrouwen: je mijn volle aandacht geven, je aanvoelen, en me volledig laten gaan omdat ik me veilig voel in jouw handen. De mooiste momenten beginnen lang voordat er iets fysieks gebeurt.">For me, submission is not weakness or a list of acts. It is a gift of trust: giving you my full attention, anticipating you, and letting go completely because I feel safe in your hands. The best moments begin long before anything physical.</p>
+  <p class="philo-text reveal d1" style="margin-top:22px" data-en="Submission is not about being less. It is about choosing to trust someone enough to let go. That choice deserves patience, communication and respect." data-nl="Onderwerping gaat niet over minder zijn. Het gaat over kiezen om iemand genoeg te vertrouwen om los te laten. Die keuze verdient geduld, communicatie en respect.">Submission is not about being less. It is about choosing to trust someone enough to let go. That choice deserves patience, communication and respect.</p>
 </section>
 
 <!-- dynamics -->
@@ -222,7 +225,7 @@
       <p data-en="The quiet joy of serving and anticipating what you want." data-nl="Het stille genot van dienen en aanvoelen wat jij wilt.">The quiet joy of serving and anticipating what you want.</p>
     </div>
     <div class="dcard reveal d2">
-      <h3 data-en="Bottoming" data-nl="Bottomen">Bottoming</h3>
+      <h3 data-en="Receiving" data-nl="Ontvangen">Receiving</h3>
       <p data-en="Receiving and following at the pace you set, guided entirely by you." data-nl="Ontvangen en volgen in het tempo dat jij bepaalt, volledig door jou geleid.">Receiving and following at the pace you set, guided entirely by you.</p>
     </div>
     <div class="dcard reveal">
@@ -299,6 +302,10 @@
       <div class="faq-a"><p data-en="Clean, discreet and well looked after, always. I ask for the same in return." data-nl="Schoon, discreet en goed verzorgd, altijd. Ik vraag hetzelfde terug.">Clean, discreet and well looked after, always. I ask for the same in return.</p></div>
     </div>
     <div class="faq-item">
+      <button class="faq-q"><span data-en="What if we don't click?" data-nl="En als het niet klikt?">What if we don't click?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Chemistry cannot be forced. If either of us feels the connection is not there, we simply stop before anything begins — with no awkwardness and no pressure." data-nl="Chemie kun je niet forceren. Als een van ons voelt dat de klik er niet is, stoppen we gewoon voordat er iets begint — zonder ongemak en zonder druk.">Chemistry cannot be forced. If either of us feels the connection is not there, we simply stop before anything begins — with no awkwardness and no pressure.</p></div>
+    </div>
+    <div class="faq-item">
       <button class="faq-q"><span data-en="Screening" data-nl="Screening">Screening</span> <span class="plus">+</span></button>
       <div class="faq-a"><p data-en="A short, respectful conversation beforehand so we both feel safe and at ease. Discretion is mutual." data-nl="Een kort, respectvol gesprek vooraf zodat we ons beiden veilig en op ons gemak voelen. Discretie is wederzijds.">A short, respectful conversation beforehand so we both feel safe and at ease. Discretion is mutual.</p></div>
     </div>
@@ -309,7 +316,7 @@
 <section id="connect" class="closing">
   <div class="sec-head">
     <div class="kicker" data-en="Connect" data-nl="Contact">Connect</div>
-    <h2 data-en="Curious?" data-nl="Nieuwsgierig?">Curious?</h2>
+    <h2 data-en="Let's start with a conversation." data-nl="Laten we beginnen met een gesprek.">Let's start with a conversation.</h2>
   </div>
   <p class="lead" data-en="If this resonates, tell me a little about yourself and what draws you here. There is no rush, and no judgement." data-nl="Als dit je aanspreekt, vertel me iets over jezelf en wat je hierheen trekt. Er is geen haast, en geen oordeel.">If this resonates, tell me a little about yourself and what draws you here. There is no rush, and no judgement.</p>
   <div class="direct">
