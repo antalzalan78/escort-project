@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Milan · Power Exchange · BDSM in Tilburg</title>
+<meta name="description" content="The darker side of Milan. Consensual power exchange, dominance, submission and rope, built on trust, communication and aftercare. Tilburg and the Netherlands, by appointment." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="rating" content="adult" />
+<meta name="theme-color" content="#08080a" />
+<link rel="canonical" href="https://antalzalan78.github.io/escort-project/shadow.html" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='42' font-weight='600' text-anchor='middle' fill='%23a8474d'%3EM%3C/text%3E%3C/svg%3E" />
+<meta property="og:title" content="Milan · Power Exchange · BDSM" />
+<meta property="og:description" content="The darker side of Milan. Consensual power exchange, built on trust and care." />
+<meta property="og:type" content="website" />
+<style>
+  /* self-hosted fonts (shared with the main site) */
+  @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url("fonts/cormorant.woff2") format("woff2")}
+  @font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url("fonts/cormorant-italic.woff2") format("woff2")}
+  @font-face{font-family:'Jost';font-style:normal;font-weight:300 600;font-display:swap;src:url("fonts/jost.woff2") format("woff2")}
+
+  :root{
+    --bg:#08080a;
+    --bg-soft:#101014;
+    --card:#141318;
+    --line:#26232b;
+    --text:#e4dedf;
+    --muted:#8b8390;
+    --accent:#a8474d;        /* muted oxblood */
+    --accent-soft:#c87b80;
+    --radius:14px;
+    --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans:"Jost", "Helvetica Neue", Arial, system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* grain + vignette for depth */
+  .grain{position:fixed;inset:-150%;z-index:50;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grainShift 8s steps(6) infinite}
+  @keyframes grainShift{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-3%,4%)}80%{transform:translate(4%,-2%)}100%{transform:translate(0,0)}}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 30%, transparent 40%, rgba(0,0,0,.55) 100%)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.grain{animation:none}}
+
+  .btn{display:inline-block;padding:14px 32px;border-radius:40px;font-size:.82rem;letter-spacing:2px;
+    text-transform:uppercase;cursor:pointer;border:1px solid var(--accent);transition:.25s;font-weight:600;color:var(--text)}
+  .btn-primary{background:var(--accent);color:#0a0708;border-color:var(--accent)}
+  .btn-primary:hover{background:var(--accent-soft);border-color:var(--accent-soft)}
+  .btn-ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+  .btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+
+  /* age gate */
+  #ageGate{position:fixed;inset:0;z-index:1000;background:rgba(5,5,7,.98);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+  #ageGate .box{max-width:440px}
+  #ageGate h1{font-family:var(--serif);font-size:2.3rem;font-weight:600;letter-spacing:1px}
+  #ageGate .ac{color:var(--accent-soft)}
+  #ageGate p{color:var(--muted);margin:18px 0 28px;font-size:.98rem}
+  .ag-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* top bar */
+  header.bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+    padding:18px 6vw;backdrop-filter:blur(10px);background:rgba(8,8,10,.6);border-bottom:1px solid transparent;transition:.3s}
+  header.bar.scrolled{background:rgba(8,8,10,.92);border-bottom-color:var(--line)}
+  .logo{font-family:var(--serif);font-size:1.4rem;letter-spacing:3px;color:var(--accent-soft)}
+  .bar-right{display:flex;align-items:center;gap:16px}
+  .backlink{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:.2s}
+  .backlink:hover{color:var(--accent-soft)}
+  .lang-switch{display:flex;gap:2px;border:1px solid var(--line);border-radius:30px;padding:3px;background:rgba(18,18,22,.6)}
+  .lang-switch button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.7rem;letter-spacing:1px;font-weight:600;padding:5px 11px;border-radius:30px;cursor:pointer;transition:.2s}
+  .lang-switch button:hover{color:var(--text)}
+  .lang-switch button.active{background:var(--accent);color:#0a0708}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 6vw 90px;overflow:hidden;background:#08080a}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;
+    background:url("photos/5.jpg") center 30%/cover no-repeat;filter:blur(9px) grayscale(1) brightness(.4);transform:scale(1.15)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(8,8,10,.72), rgba(8,8,10,.93))}
+  .hero .inner{position:relative;z-index:2;max-width:760px}
+  .hero .kicker{color:var(--accent-soft);letter-spacing:5px;text-transform:uppercase;font-size:.72rem;margin-bottom:24px}
+  .hero h1{font-family:var(--serif);font-size:clamp(2.8rem,9vw,6rem);font-weight:600;line-height:1.02;letter-spacing:1px}
+  .hero h1 .ac{display:block;color:var(--accent-soft);font-style:italic;font-weight:400}
+  .hero .lead{color:var(--muted);max-width:540px;margin:26px auto 36px;font-size:1.05rem}
+  .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+  section{padding:100px 6vw;max-width:1120px;margin:0 auto;position:relative;z-index:2}
+  .sec-head{text-align:center;margin-bottom:56px}
+  .sec-head .kicker{color:var(--accent-soft);letter-spacing:4px;text-transform:uppercase;font-size:.72rem}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3.2rem);font-weight:600;margin-top:10px}
+  .sec-head p{color:var(--muted);max-width:560px;margin:16px auto 0}
+
+  /* philosophy */
+  .tenets{display:flex;flex-direction:column;gap:14px;max-width:640px;margin:0 auto 40px;text-align:center}
+  .tenet{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.2rem);color:var(--text)}
+  .tenet .ac{color:var(--accent-soft);font-style:italic}
+  .philo-text{max-width:620px;margin:0 auto;text-align:center;color:var(--muted);font-size:1rem;line-height:1.8}
+
+  /* dynamics */
+  .dyn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;transition:.25s}
+  .dcard:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .dcard h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px}
+  .dcard p{color:var(--muted);font-size:.9rem}
+
+  /* gallery */
+  .sgallery{column-count:3;column-gap:16px}
+  .sgallery .tile{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    position:relative;cursor:pointer;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .4s}
+  .sgallery .tile:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 16px 40px rgba(0,0,0,.6)}
+  .sgallery .tile img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.05) brightness(.9);transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s}
+  .sgallery .tile:hover img{transform:scale(1.05);filter:grayscale(1) contrast(1.1) brightness(1)}
+
+  /* faq */
+  .faq{max-width:780px;margin:0 auto}
+  .faq-item{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;background:var(--card)}
+  .faq-q{width:100%;text-align:left;background:none;border:none;color:var(--text);font-family:inherit;font-size:1rem;
+    padding:20px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.2s}
+  .faq-q:hover{color:var(--accent-soft)}
+  .faq-q .plus{color:var(--accent-soft);font-size:1.4rem;transition:transform .3s;flex-shrink:0}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--muted);font-size:.93rem}
+  .faq-a p{padding:0 22px 20px}
+
+  /* closing */
+  .closing{text-align:center}
+  .closing .lead{color:var(--muted);max-width:560px;margin:0 auto 30px;font-size:1rem}
+  .closing .direct{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+
+  footer{text-align:center;padding:50px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem;position:relative;z-index:2}
+  footer .logo{font-size:1.2rem;margin-bottom:12px}
+  footer a{color:var(--accent-soft)}
+  footer .disc{max-width:600px;margin:14px auto 0;font-size:.72rem;opacity:.7;line-height:1.7}
+
+  @media(max-width:820px){
+    .dyn{grid-template-columns:1fr 1fr}
+    .sgallery{column-count:2}
+    section{padding:72px 6vw}
+    .backlink{display:none}
+  }
+  @media(max-width:480px){ .dyn{grid-template-columns:1fr} .sgallery{column-count:1} }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<!-- age gate -->
+<div id="ageGate">
+  <div class="box">
+    <h1><span data-en="Welcome to" data-nl="Welkom bij">Welcome to</span> <span class="ac">Milan</span></h1>
+    <p data-en="This page contains adult themes intended for those 18 and over. By entering you confirm you are of legal age and that viewing such content is legal where you live." data-nl="Deze pagina bevat thema's voor volwassenen (18+). Door binnen te komen bevestig je dat je meerderjarig bent en dat het bekijken hiervan legaal is waar jij woont.">This page contains adult themes intended for those 18 and over. By entering you confirm you are of legal age and that viewing such content is legal where you live.</p>
+    <div class="ag-btns">
+      <button class="btn btn-primary" onclick="enterSite()" data-en="I am 18 or older" data-nl="Ik ben 18 jaar of ouder">I am 18 or older</button>
+      <a class="btn btn-ghost" href="https://www.google.com" data-en="Leave" data-nl="Verlaten">Leave</a>
+    </div>
+  </div>
+</div>
+
+<!-- top bar -->
+<header class="bar" id="bar">
+  <div class="logo">MILAN</div>
+  <div class="bar-right">
+    <a class="backlink" href="index.html" data-en="← Main site" data-nl="← Hoofdsite">← Main site</a>
+    <div class="lang-switch">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="nl">NL</button>
+    </div>
+  </div>
+</header>
+
+<!-- hero -->
+<div class="hero">
+  <div class="inner">
+    <div class="kicker">Control · Trust · Discipline · Submission</div>
+    <h1><span data-en="The other" data-nl="Een andere">The other</span> <span class="ac" data-en="side" data-nl="kant">side</span></h1>
+    <p class="lead" data-en="For those who sense that a real connection can go further than the ordinary. Explored slowly, with consent, communication and care." data-nl="Voor wie voelt dat een echte connectie verder kan gaan dan het gewone. Rustig verkend, met toestemming, communicatie en zorg.">For those who sense that a real connection can go further than the ordinary. Explored slowly, with consent, communication and care.</p>
+    <div class="hero-cta">
+      <a href="#connect" class="btn btn-primary" data-en="Enquire" data-nl="Aanvragen">Enquire</a>
+      <a href="index.html" class="btn btn-ghost" data-en="Back to main site" data-nl="Terug naar hoofdsite">Back to main site</a>
+    </div>
+  </div>
+</div>
+
+<!-- philosophy -->
+<section id="philosophy">
+  <div class="sec-head">
+    <div class="kicker" data-en="Philosophy" data-nl="Filosofie">Philosophy</div>
+    <h2 data-en="It begins with trust" data-nl="Het begint met vertrouwen">It begins with trust</h2>
+  </div>
+  <div class="tenets">
+    <div class="tenet reveal"><span data-en="Trust" data-nl="Vertrouwen">Trust</span> <span class="ac" data-en="before control." data-nl="vóór controle.">before control.</span></div>
+    <div class="tenet reveal d1"><span data-en="Communication" data-nl="Communicatie">Communication</span> <span class="ac" data-en="before restraint." data-nl="vóór beperking.">before restraint.</span></div>
+    <div class="tenet reveal d2"><span data-en="Chemistry" data-nl="Chemie">Chemistry</span> <span class="ac" data-en="before power." data-nl="vóór macht.">before power.</span></div>
+  </div>
+  <p class="philo-text reveal" data-en="For me this is not a menu of acts. It is a way of being fully present with each other: paying attention, reading one another, and creating a space where you can let go precisely because you feel completely safe." data-nl="Voor mij is dit geen lijst met handelingen. Het is een manier van volledig aanwezig zijn bij elkaar: aandacht geven, elkaar lezen, en een ruimte creëren waarin je je kunt laten gaan juist omdat je je volledig veilig voelt.">For me this is not a menu of acts. It is a way of being fully present with each other: paying attention, reading one another, and creating a space where you can let go precisely because you feel completely safe.</p>
+</section>
+
+<!-- dynamics -->
+<section id="dynamics">
+  <div class="sec-head">
+    <div class="kicker" data-en="Dynamics" data-nl="Dynamiek">Dynamics</div>
+    <h2 data-en="Ways we might explore" data-nl="Hoe we kunnen verkennen">Ways we might explore</h2>
+    <p data-en="A starting point, never a checklist. Everything is shaped around you and your limits." data-nl="Een startpunt, nooit een checklist. Alles wordt gevormd rond jou en jouw grenzen.">A starting point, never a checklist. Everything is shaped around you and your limits.</p>
+  </div>
+  <div class="dyn">
+    <div class="dcard reveal">
+      <h3 data-en="Gentle Dominance" data-nl="Zachte dominantie">Gentle Dominance</h3>
+      <p data-en="A calm, confident lead that never rushes and always listens." data-nl="Een rustige, zelfverzekerde leiding die nooit haast en altijd luistert.">A calm, confident lead that never rushes and always listens.</p>
+    </div>
+    <div class="dcard reveal d1">
+      <h3 data-en="Service Submission" data-nl="Dienende onderwerping">Service Submission</h3>
+      <p data-en="The quiet pleasure of attentiveness and letting go." data-nl="Het stille genot van aandacht en loslaten.">The quiet pleasure of attentiveness and letting go.</p>
+    </div>
+    <div class="dcard reveal d2">
+      <h3 data-en="Guided Bottoming" data-nl="Begeleid bottomen">Guided Bottoming</h3>
+      <p data-en="Held and guided at your own pace, step by step." data-nl="Vastgehouden en begeleid in je eigen tempo, stap voor stap.">Held and guided at your own pace, step by step.</p>
+    </div>
+    <div class="dcard reveal">
+      <h3 data-en="Edging" data-nl="Edging">Edging</h3>
+      <p data-en="The art of anticipation, holding right at the edge." data-nl="De kunst van verwachting, balanceren op de rand.">The art of anticipation, holding right at the edge.</p>
+    </div>
+    <div class="dcard reveal d1">
+      <h3 data-en="Bondage" data-nl="Bondage">Bondage</h3>
+      <p data-en="Rope and restraint as stillness, trust and focus." data-nl="Touw en beperking als rust, vertrouwen en focus.">Rope and restraint as stillness, trust and focus.</p>
+    </div>
+    <div class="dcard reveal d2">
+      <h3 data-en="Sensory Play" data-nl="Sensory play">Sensory Play</h3>
+      <p data-en="Heightening the senses while the mind softens." data-nl="De zintuigen verscherpen terwijl de geest verzacht.">Heightening the senses while the mind softens.</p>
+    </div>
+    <div class="dcard reveal">
+      <h3 data-en="Roleplay" data-nl="Rollenspel">Roleplay</h3>
+      <p data-en="Stories and personas, explored with a wink and full consent." data-nl="Verhalen en personages, verkend met een knipoog en volledige toestemming.">Stories and personas, explored with a wink and full consent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- gallery -->
+<section id="gallery">
+  <div class="sec-head">
+    <div class="kicker" data-en="Gallery" data-nl="Galerij">Gallery</div>
+    <h2 data-en="In shadow" data-nl="In de schaduw">In shadow</h2>
+    <p data-en="A darker, more artistic side. Shared with discretion." data-nl="Een donkerdere, meer artistieke kant. Gedeeld met discretie.">A darker, more artistic side. Shared with discretion.</p>
+  </div>
+  <div class="sgallery">
+    <div class="tile reveal"><img src="photos/5.jpg" alt="Milan — shadow" loading="lazy" /></div>
+    <div class="tile reveal d1"><img src="photos/6.jpg" alt="Milan — shadow" loading="lazy" /></div>
+    <div class="tile reveal d2"><img src="photos/1.jpg" alt="Milan — shadow" loading="lazy" /></div>
+  </div>
+  <p class="sec-head" style="margin:36px 0 0;font-size:.85rem;font-style:italic;color:var(--muted)" data-en="More coming soon." data-nl="Binnenkort meer.">More coming soon.</p>
+</section>
+
+<!-- faq -->
+<section id="faq">
+  <div class="sec-head">
+    <div class="kicker" data-en="FAQ" data-nl="FAQ">FAQ</div>
+    <h2 data-en="Good to know" data-nl="Goed om te weten">Good to know</h2>
+  </div>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="New to BDSM?" data-nl="Nieuw in BDSM?">New to BDSM?</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Completely welcome. We start gently, talk everything through first, and never go further than you want to." data-nl="Helemaal welkom. We beginnen rustig, bespreken eerst alles, en gaan nooit verder dan jij wilt.">Completely welcome. We start gently, talk everything through first, and never go further than you want to.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="Limits" data-nl="Grenzen">Limits</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Your limits are the map. We agree what is on and off the table before anything begins, and they are always respected." data-nl="Jouw grenzen zijn de kaart. We spreken vooraf af wat wel en niet kan, en die worden altijd gerespecteerd.">Your limits are the map. We agree what is on and off the table before anything begins, and they are always respected.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="Safe words" data-nl="Veilige woorden">Safe words</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Always. A clear word — and a signal if you cannot speak — slows or stops everything instantly, no questions asked." data-nl="Altijd. Een duidelijk woord — en een signaal als je niet kunt praten — vertraagt of stopt alles direct, zonder vragen.">Always. A clear word — and a signal if you cannot speak — slows or stops everything instantly, no questions asked.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="Aftercare" data-nl="Nazorg">Aftercare</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Just as important as the play itself. Time to come back down, with warmth and reassurance, entirely at your pace." data-nl="Net zo belangrijk als het spel zelf. Tijd om weer tot rust te komen, met warmte en geruststelling, helemaal in jouw tempo.">Just as important as the play itself. Time to come back down, with warmth and reassurance, entirely at your pace.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="Hygiene" data-nl="Hygiëne">Hygiene</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="Clean, discreet and well looked after, always. I ask for the same in return." data-nl="Schoon, discreet en goed verzorgd, altijd. Ik vraag hetzelfde terug.">Clean, discreet and well looked after, always. I ask for the same in return.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q"><span data-en="Screening" data-nl="Screening">Screening</span> <span class="plus">+</span></button>
+      <div class="faq-a"><p data-en="A short, respectful conversation beforehand so we both feel safe and at ease. Discretion is mutual." data-nl="Een kort, respectvol gesprek vooraf zodat we ons beiden veilig en op ons gemak voelen. Discretie is wederzijds.">A short, respectful conversation beforehand so we both feel safe and at ease. Discretion is mutual.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- closing / connect -->
+<section id="connect" class="closing">
+  <div class="sec-head">
+    <div class="kicker" data-en="Connect" data-nl="Contact">Connect</div>
+    <h2 data-en="Curious?" data-nl="Nieuwsgierig?">Curious?</h2>
+  </div>
+  <p class="lead" data-en="If this resonates, tell me a little about yourself and what draws you here. There is no rush, and no judgement." data-nl="Als dit je aanspreekt, vertel me iets over jezelf en wat je hierheen trekt. Er is geen haast, en geen oordeel.">If this resonates, tell me a little about yourself and what draws you here. There is no rush, and no judgement.</p>
+  <div class="direct">
+    <a class="btn btn-primary" href="index.html#contact" data-en="Send a message" data-nl="Stuur een bericht">Send a message</a>
+    <a class="btn btn-ghost" id="waLink" href="https://wa.me/31651923657" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">MILAN</div>
+  <div><a href="index.html" data-en="← Back to the main site" data-nl="← Terug naar de hoofdsite">← Back to the main site</a></div>
+  <div class="disc" data-en="This page is intended for consenting adults 18+. Everything described is safe, sane and consensual, agreed in advance and by appointment. Nothing here should be read as an offer of anything illegal." data-nl="Deze pagina is bedoeld voor instemmende volwassenen (18+). Alles wat hier beschreven wordt is veilig, weloverwogen en met wederzijdse instemming, vooraf afgesproken en op afspraak. Niets hier mag worden opgevat als een aanbod voor iets illegaals.">This page is intended for consenting adults 18+. Everything described is safe, sane and consensual, agreed in advance and by appointment. Nothing here should be read as an offer of anything illegal.</div>
+</footer>
+
+<script>
+  // age gate (shares 'ageok' with the main site)
+  function enterSite(){ document.getElementById('ageGate').style.display='none'; try{localStorage.setItem('ageok','1');}catch(e){} document.body.style.overflow=''; }
+  (function(){ try{ if(localStorage.getItem('ageok')==='1'){ document.getElementById('ageGate').style.display='none'; } else { document.body.style.overflow='hidden'; } }catch(e){ document.body.style.overflow='hidden'; } })();
+
+  // bar scroll
+  window.addEventListener('scroll',function(){ document.getElementById('bar').classList.toggle('scrolled', window.scrollY>40); });
+
+  // reveal
+  (function(){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+
+  // faq accordion
+  (function(){
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=btn.parentElement, ans=item.querySelector('.faq-a'), open=item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(o){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight=null; });
+        if(!open){ item.classList.add('open'); ans.style.maxHeight=ans.scrollHeight+'px'; }
+      });
+    });
+  })();
+
+  // language (shares 'lang' with the main site)
+  var WA_NUMBER='31651923657';
+  var WA_MSG={en:'Hi Milan, I found your page and I am curious about the other side.',nl:'Hoi Milan, ik vond je pagina en ben nieuwsgierig naar de andere kant.'};
+  (function(){
+    var KEY='lang';
+    function apply(lang){
+      if(lang!=='nl') lang='en';
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-en]').forEach(function(el){ var v=el.getAttribute('data-'+lang); if(v!==null) el.innerHTML=v; });
+      document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang')===lang); });
+      var wa=document.getElementById('waLink'); if(wa){ wa.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_MSG[lang]); }
+      document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){ a.style.maxHeight=a.scrollHeight+'px'; });
+      try{ localStorage.setItem(KEY,lang); }catch(e){}
+    }
+    var initial='en';
+    try{ var s=localStorage.getItem(KEY); if(s){ initial=s; } else if(navigator.language&&navigator.language.toLowerCase().indexOf('nl')===0){ initial='nl'; } }catch(e){}
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.addEventListener('click',function(){ apply(b.getAttribute('data-lang')); }); });
+    apply(initial);
+  })();
+</script>
+</body>
+</html>
