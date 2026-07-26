@@ -633,13 +633,13 @@
   </div>
   <p class="avail-sub" data-en="This week" data-nl="Deze week">This week</p>
   <div class="avail">
-    <div class="day on"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
-    <div class="day on"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day"><div class="d" data-en="Wed" data-nl="Wo">Wed</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
-    <div class="day on"><div class="d" data-en="Thu" data-nl="Do">Thu</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
-    <div class="day on"><div class="d" data-en="Fri" data-nl="Vr">Fri</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day on"><div class="d" data-en="Sat" data-nl="Za">Sat</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
+    <div class="day on" data-day="mon"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
+    <div class="day on" data-day="tue"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day" data-day="wed"><div class="d" data-en="Wed" data-nl="Wo">Wed</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
+    <div class="day on" data-day="thu"><div class="d" data-en="Thu" data-nl="Do">Thu</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
+    <div class="day on" data-day="fri"><div class="d" data-en="Fri" data-nl="Vr">Fri</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day on" data-day="sat"><div class="d" data-en="Sat" data-nl="Za">Sat</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
+    <div class="day" data-day="sun"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
   </div>
   <p class="avail-note" data-en="Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area." data-nl="Op dit moment <strong>beschikbaar</strong> voor nieuwe boekingen. Outcall naar je hotel of thuis in Tilburg en omgeving.">Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area.</p>
   <p class="avail-updated"><span data-en="Availability last updated" data-nl="Beschikbaarheid bijgewerkt">Availability last updated</span>: <span id="availUpdated"></span></p>
@@ -975,15 +975,55 @@
     });
   })();
 
-  /* =====================================================================
-     AVAILABILITY  ·  set to true when you are taking bookings, false when not.
-     Change it here, then commit + push to update the live site.
-     ===================================================================== */
+  /* Fallback values used if availability.json cannot be loaded. */
   var AVAILABLE = true;
+  var AVAILABILITY_UPDATED = '2026-07-26';
 
-  // Date you last checked/updated your weekly availability (format: 'YYYY-MM-DD').
-  // Update this whenever you tweak the schedule above, so visitors see it is current.
-  var AVAILABILITY_UPDATED = '2026-07-23';
+  function renderAvailability(lang){
+    if(lang!=='nl') lang='en';
+    var pill=document.getElementById('statusPill');
+    if(pill){
+      var st=AVAILABLE?'on':'off';
+      pill.classList.toggle('on',AVAILABLE);
+      pill.querySelector('.st-txt').textContent=STATUS_TXT[st][lang];
+    }
+    var au=document.getElementById('availUpdated');
+    if(au && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
+      var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+                  nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
+      var p=AVAILABILITY_UPDATED.split('-');
+      au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
+    }
+  }
+
+  function loadAvailability(){
+    fetch('availability.json?v='+Date.now(),{cache:'no-store'})
+      .then(function(res){ if(!res.ok) throw new Error('availability'); return res.json(); })
+      .then(function(data){
+        if(typeof data.available==='boolean') AVAILABLE=data.available;
+        if(typeof data.updated==='string') AVAILABILITY_UPDATED=data.updated;
+        if(data.days){
+          Object.keys(data.days).forEach(function(key){
+            var card=document.querySelector('[data-day="'+key+'"]');
+            var day=data.days[key];
+            if(!card||!day) return;
+            card.classList.toggle('on',!!day.active);
+            var label=card.querySelector('.t');
+            if(label){
+              if(typeof day.en==='string') label.setAttribute('data-en',day.en);
+              if(typeof day.nl==='string') label.setAttribute('data-nl',day.nl);
+            }
+          });
+        }
+        var lang=document.documentElement.lang==='nl'?'nl':'en';
+        document.querySelectorAll('[data-day] .t').forEach(function(el){
+          var value=el.getAttribute('data-'+lang);
+          if(value!==null) el.textContent=value;
+        });
+        renderAvailability(lang);
+      })
+      .catch(function(){ renderAvailability(document.documentElement.lang); });
+  }
 
   // WhatsApp pre-filled first message (per language)
   var WA_NUMBER = '31651923657';
@@ -1023,24 +1063,10 @@
       document.querySelectorAll('.lang-switch button').forEach(function(b){
         b.classList.toggle('active', b.getAttribute('data-lang')===lang);
       });
-      // Status pill (text follows availability + language)
-      var pill=document.getElementById('statusPill');
-      if(pill){
-        var st = AVAILABLE ? 'on' : 'off';
-        pill.classList.toggle('on', AVAILABLE);
-        pill.querySelector('.st-txt').textContent = STATUS_TXT[st][lang];
-      }
+      renderAvailability(lang);
       // WhatsApp pre-filled message (follows language)
       var wa=document.getElementById('waLink');
       if(wa){ wa.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_MSG[lang]); }
-      // Availability "last updated" date, formatted in the chosen language
-      var au=document.getElementById('availUpdated');
-      if(au && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
-        var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
-                    nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
-        var p=AVAILABILITY_UPDATED.split('-');
-        au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
-      }
       // re-measure any open FAQ answer after text change
       document.querySelectorAll('.faq-item.open .faq-a').forEach(function(a){
         a.style.maxHeight=a.scrollHeight+'px';
@@ -1058,6 +1084,7 @@
       b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
     });
     apply(initial);
+    loadAvailability();
   })();
 </script>
 

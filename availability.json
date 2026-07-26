@@ -1,0 +1,13 @@
+{
+  "available": true,
+  "updated": "2026-07-26",
+  "days": {
+    "mon": { "active": true,  "en": "Evening",   "nl": "Avond" },
+    "tue": { "active": true,  "en": "Day & Eve", "nl": "Dag & avond" },
+    "wed": { "active": false, "en": "Off",       "nl": "Vrij" },
+    "thu": { "active": true,  "en": "Evening",   "nl": "Avond" },
+    "fri": { "active": true,  "en": "Day & Eve", "nl": "Dag & avond" },
+    "sat": { "active": true,  "en": "Day & Eve", "nl": "Dag & avond" },
+    "sun": { "active": false, "en": "Off",       "nl": "Vrij" }
+  }
+}
