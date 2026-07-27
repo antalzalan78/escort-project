@@ -228,6 +228,12 @@
   .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
   .stat .label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
   .stat .val{font-family:var(--serif);font-size:1.5rem;margin-top:4px}
+  .audience-signals{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px 28px;
+    max-width:760px;margin:44px auto 0;padding-top:28px;border-top:1px solid var(--line)}
+  .audience-signal{display:inline-flex;align-items:center;gap:12px;color:var(--muted);font-size:.72rem;
+    letter-spacing:2.4px;text-transform:uppercase}
+  .audience-signal::before{content:"";width:6px;height:6px;border:1px solid var(--gold);
+    transform:rotate(45deg);box-shadow:0 0 10px rgba(201,160,78,.2)}
 
   /* GALLERY */
   .gallery{column-count:3;column-gap:16px}
@@ -565,6 +571,11 @@
       </div>
     </div>
   </div>
+  <div class="audience-signals" aria-label="Welcoming women, men and couples">
+    <span class="audience-signal" data-en="For women" data-nl="Voor vrouwen">For women</span>
+    <span class="audience-signal" data-en="For men" data-nl="Voor mannen">For men</span>
+    <span class="audience-signal" data-en="For couples" data-nl="Voor koppels">For couples</span>
+  </div>
 </section>
 
 <!-- ============ EXPERIENCES ============ -->
@@ -867,6 +878,7 @@
       ['.sec-head', 0],
       ['.about', 0],
       ['.about-photo', 1],
+      ['.audience-signals', 0],
       ['.gallery .tile', 1],
       ['.plat', 1],
       ['.svc', 1],
