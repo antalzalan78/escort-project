@@ -79,6 +79,12 @@
   .lang-switch button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.7rem;letter-spacing:1px;font-weight:600;padding:5px 11px;border-radius:30px;cursor:pointer;transition:.2s}
   .lang-switch button:hover{color:var(--text)}
   .lang-switch button.active{background:var(--accent);color:#0a0708}
+  .quick-exit{position:fixed;right:18px;bottom:18px;z-index:990;display:flex;align-items:center;gap:8px;
+    padding:10px 14px;border:1px solid #51484a;border-radius:30px;background:rgba(12,11,14,.92);color:#c9c2c0;
+    font-family:var(--sans);font-size:.65rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;
+    cursor:pointer;box-shadow:0 8px 26px rgba(0,0,0,.4);backdrop-filter:blur(8px);transition:.25s}
+  .quick-exit svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .quick-exit:hover{color:#fff;border-color:var(--accent-soft);background:#322326}
 
   /* hero */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 6vw 90px;overflow:hidden;background:#08080a}
@@ -147,13 +153,18 @@
     section{padding:72px 6vw}
     .backlink{display:none}
   }
-  @media(max-width:480px){ .dyn{grid-template-columns:1fr} .sgallery{column-count:1} }
+  @media(max-width:480px){ .dyn{grid-template-columns:1fr} .sgallery{column-count:1} .quick-exit{right:12px;bottom:12px;padding:9px 11px} }
 </style>
 </head>
 <body>
 
 <div class="grain"></div>
 <div class="vignette"></div>
+
+<button class="quick-exit" type="button" onclick="quickExit()" aria-label="Quick exit">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M13 8l4 4-4 4"/><path d="M7 12h10"/></svg>
+  <span data-en="Quick exit" data-nl="Snel verlaten">Quick exit</span>
+</button>
 
 <!-- age gate -->
 <div id="ageGate">
@@ -329,6 +340,7 @@
   // age gate (shares 'ageok' with the main site)
   function enterSite(){ document.getElementById('ageGate').style.display='none'; try{localStorage.setItem('ageok','1');}catch(e){} document.body.style.overflow=''; }
   (function(){ try{ if(localStorage.getItem('ageok')==='1'){ document.getElementById('ageGate').style.display='none'; } else { document.body.style.overflow='hidden'; } }catch(e){ document.body.style.overflow='hidden'; } })();
+  function quickExit(){ try{localStorage.removeItem('ageok');}catch(e){} window.location.replace('https://www.google.com'); }
 
   // bar scroll
   window.addEventListener('scroll',function(){ document.getElementById('bar').classList.toggle('scrolled', window.scrollY>40); });
