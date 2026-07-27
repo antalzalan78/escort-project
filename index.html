@@ -316,6 +316,7 @@
     background-position:calc(100% - 19px) 20px,calc(100% - 14px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
   .contact-form select option{background:var(--bg-soft);color:var(--text)}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .field-note{color:var(--muted);font-size:.68rem;line-height:1.45;margin:-7px 2px 14px}
   .contact-form textarea{min-height:130px;resize:vertical}
   .contact-form button{width:100%;padding:15px;border:none;border-radius:40px;background:var(--gold);color:#0a0a0b;
     font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.82rem;cursor:pointer;transition:.25s}
@@ -816,7 +817,10 @@
       <div class="form-row">
         <div>
           <label for="bookingDate" data-en="Preferred date and time" data-nl="Gewenste datum en tijd">Preferred date and time</label>
-          <input id="bookingDate" type="text" name="preferred_date_time" placeholder="For example: Friday, 20:00" data-en-ph="For example: Friday, 20:00" data-nl-ph="Bijvoorbeeld: vrijdag, 20:00" required />
+          <select id="bookingDate" name="preferred_date_time" required>
+            <option value="" selected disabled>Loading available times…</option>
+          </select>
+          <p class="field-note" data-en="The exact time is confirmed together after your request." data-nl="De exacte tijd stemmen we na je aanvraag samen af.">The exact time is confirmed together after your request.</p>
         </div>
         <div>
           <label for="bookingDuration" data-en="Duration" data-nl="Duur">Duration</label>
@@ -1108,6 +1112,51 @@
   /* Fallback values used if availability.json cannot be loaded. */
   var AVAILABLE = true;
   var AVAILABILITY_UPDATED = '2026-07-26';
+  var AVAILABILITY_DAYS = null;
+
+  function renderBookingSlots(lang){
+    if(lang!=='nl') lang='en';
+    var select=document.getElementById('bookingDate');
+    if(!select) return;
+    var previous=select.value;
+    select.innerHTML='';
+    var placeholder=document.createElement('option');
+    placeholder.value='';
+    placeholder.disabled=true;
+    placeholder.selected=true;
+    if(!AVAILABILITY_DAYS){
+      placeholder.textContent=lang==='nl'?'Beschikbare momenten laden…':'Loading available times…';
+      select.appendChild(placeholder);
+      return;
+    }
+    if(!AVAILABLE){
+      placeholder.textContent=lang==='nl'?'Momenteel geen beschikbare momenten':'No available times at the moment';
+      select.appendChild(placeholder);
+      return;
+    }
+    placeholder.textContent=lang==='nl'?'Kies een beschikbaar moment':'Choose an available time';
+    select.appendChild(placeholder);
+    var keys=['sun','mon','tue','wed','thu','fri','sat'];
+    var formatter=new Intl.DateTimeFormat(lang==='nl'?'nl-NL':'en-GB',{weekday:'long',day:'numeric',month:'long'});
+    var today=new Date();
+    today.setHours(12,0,0,0);
+    for(var i=0;i<14;i++){
+      var date=new Date(today);
+      date.setDate(today.getDate()+i);
+      var day=AVAILABILITY_DAYS[keys[date.getDay()]];
+      if(!day||!day.active) continue;
+      var iso=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
+      var period=typeof day[lang]==='string'?day[lang]:day.en;
+      var option=document.createElement('option');
+      option.value=iso+' | '+day.en;
+      option.textContent=formatter.format(date)+' · '+period;
+      if(option.value===previous){ option.selected=true; placeholder.selected=false; }
+      select.appendChild(option);
+    }
+    if(select.options.length===1){
+      placeholder.textContent=lang==='nl'?'Geen beschikbare momenten in de komende 14 dagen':'No available times in the next 14 days';
+    }
+  }
 
   function renderAvailability(lang){
     if(lang!=='nl') lang='en';
@@ -1124,6 +1173,7 @@
       var p=AVAILABILITY_UPDATED.split('-');
       au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
     }
+    renderBookingSlots(lang);
   }
 
   function loadAvailability(){
@@ -1133,6 +1183,7 @@
         if(typeof data.available==='boolean') AVAILABLE=data.available;
         if(typeof data.updated==='string') AVAILABILITY_UPDATED=data.updated;
         if(data.days){
+          AVAILABILITY_DAYS=data.days;
           Object.keys(data.days).forEach(function(key){
             var card=document.querySelector('[data-day="'+key+'"]');
             var day=data.days[key];
@@ -1152,7 +1203,18 @@
         });
         renderAvailability(lang);
       })
-      .catch(function(){ renderAvailability(document.documentElement.lang); });
+      .catch(function(){
+        AVAILABILITY_DAYS={};
+        document.querySelectorAll('[data-day]').forEach(function(card){
+          var key=card.getAttribute('data-day'), label=card.querySelector('.t');
+          AVAILABILITY_DAYS[key]={
+            active:card.classList.contains('on'),
+            en:label?label.getAttribute('data-en'):'',
+            nl:label?label.getAttribute('data-nl'):''
+          };
+        });
+        renderAvailability(document.documentElement.lang);
+      });
   }
 
   // WhatsApp pre-filled first message (per language)
