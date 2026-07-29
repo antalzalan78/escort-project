@@ -333,6 +333,13 @@
   .form-success h3{font-family:var(--serif);font-size:1.8rem;color:var(--gold-soft);margin-bottom:10px}
   .form-success p{color:var(--muted);font-size:.9rem;line-height:1.75;max-width:430px;margin:0 auto}
   .form-success .success-note{color:var(--text);margin-top:12px}
+  .booking-summary{max-width:380px;margin:24px auto 0;text-align:left;border:1px solid var(--line);
+    border-radius:12px;padding:4px 20px;background:rgba(0,0,0,.18)}
+  .booking-summary .bs-cap{text-transform:uppercase;letter-spacing:1.5px;font-size:.62rem;color:var(--gold);
+    padding:12px 0 4px;display:block}
+  .booking-summary .bs-row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-top:1px solid var(--line)}
+  .booking-summary .bs-l{color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-size:.64rem;white-space:nowrap;padding-top:2px}
+  .booking-summary .bs-v{color:var(--text);text-align:right;font-size:.86rem;font-weight:500}
   .form-success button{width:auto;margin-top:26px;padding:12px 24px;background:transparent;color:var(--gold-soft);
     border:1px solid rgba(201,160,78,.45);font-size:.7rem}
   .form-success button:hover{color:#0a0a0b;background:var(--gold)}
@@ -863,6 +870,7 @@
         </span>
         <h3 data-en="Your request has been received." data-nl="Je aanvraag is ontvangen.">Your request has been received.</h3>
         <p data-en="Thank you. Your booking request was sent successfully. I will reply through the contact detail you provided as soon as possible." data-nl="Dank je. Je boekingsaanvraag is succesvol verzonden. Ik neem zo snel mogelijk contact met je op via het contactgegeven dat je hebt ingevuld.">Thank you. Your booking request was sent successfully. I will reply through the contact detail you provided as soon as possible.</p>
+        <div class="booking-summary" id="bookingSummary" hidden></div>
         <p class="success-note" data-en="Your booking is confirmed only after you receive my personal reply." data-nl="Je boeking is pas definitief nadat je mijn persoonlijke bevestiging hebt ontvangen.">Your booking is confirmed only after you receive my personal reply.</p>
         <button type="button" onclick="resetBookingForm()" data-en="Send another request" data-nl="Nog een aanvraag versturen">Send another request</button>
       </div>
@@ -982,6 +990,8 @@
     form.classList.remove('is-success');
     status.textContent='';
     submitButton.disabled=false;
+    var sum=document.getElementById('bookingSummary');
+    if(sum){ sum.hidden=true; sum.innerHTML=''; }
     renderBookingSlots(document.documentElement.lang);
     form.querySelector('#bookingName').focus();
   };
@@ -1002,6 +1012,15 @@
     status.style.color='var(--muted)';
     status.textContent=formMsg.sending;
     submitButton.disabled=true;
+    // Capture what the visitor requested (before the form is reset) to echo it back on success
+    var selText=function(id){ var el=document.getElementById(id); return (el&&el.selectedOptions&&el.selectedOptions[0])?el.selectedOptions[0].textContent.trim():''; };
+    var fieldVal=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; };
+    var summaryRows=[
+      [{en:'Name',nl:'Naam'}[formLang], fieldVal('bookingName')],
+      [{en:'Duration',nl:'Duur'}[formLang], selText('bookingDuration')],
+      [{en:'Preferred',nl:'Voorkeur'}[formLang], selText('bookingDate')],
+      [{en:'Location',nl:'Locatie'}[formLang], fieldVal('bookingLocation')]
+    ].filter(function(r){ return r[1]; });
     var data=new FormData(form);
     try{
       var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
@@ -1009,9 +1028,19 @@
       var json={};
       try{ json=JSON.parse(responseText); }catch(parseError){}
       if(res.ok&&json.success){
+        // Echo the requested details back so the visitor sees the booking went through correctly
+        var sum=document.getElementById('bookingSummary');
+        if(sum){
+          sum.innerHTML='<span class="bs-cap">'+({en:'Your request',nl:'Je aanvraag'}[formLang])+'</span>'+
+            summaryRows.map(function(r){ return '<div class="bs-row"><span class="bs-l"></span><span class="bs-v"></span></div>'; }).join('');
+          var lEls=sum.querySelectorAll('.bs-l'), vEls=sum.querySelectorAll('.bs-v');
+          summaryRows.forEach(function(r,i){ lEls[i].textContent=r[0]; vEls[i].textContent=r[1]; });
+          sum.hidden=false;
+        }
         form.reset();
         form.classList.add('is-success');
         formSuccess.focus();
+        try{ formSuccess.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
       }else{
         status.style.color='#e06868';
         status.textContent=(json&&json.message)?json.message:formMsg.error;
