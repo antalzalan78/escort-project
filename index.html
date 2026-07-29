@@ -997,7 +997,7 @@
 
   // Web3Forms AJAX submit
   var form=document.getElementById('contactForm');
-  var status=document.getElementById('formStatus');
+  var formStatus=document.getElementById('formStatus');
   var formSuccess=document.getElementById('formSuccess');
   var submitButton=form.querySelector('button[type="submit"]');
   var toastEl=document.getElementById('bookingToast');
@@ -1016,7 +1016,7 @@
   }
   window.resetBookingForm=function(){
     form.classList.remove('is-success');
-    status.textContent='';
+    formStatus.textContent='';
     submitButton.disabled=false;
     var sum=document.getElementById('bookingSummary');
     if(sum){ sum.hidden=true; sum.innerHTML=''; }
@@ -1028,8 +1028,8 @@
     var msg=lang==='nl'
       ?'Vul alle verplichte velden in en kies een beschikbaar moment.'
       :'Please complete all required fields and choose an available time.';
-    status.style.color='#e06868';
-    status.textContent=msg;
+    formStatus.style.color='#e06868';
+    formStatus.textContent=msg;
     showToast(msg,'err');
     // Bring the first missing/invalid field into view so it is obvious what to fix
     if(e&&e.target&&typeof e.target.scrollIntoView==='function'){
@@ -1043,10 +1043,10 @@
       en:{sending:'Sending…',success:'Thank you. Your booking request has been sent.',error:'Something went wrong. Please try again.',network:'Network error. Please try WhatsApp.'},
       nl:{sending:'Verzenden…',success:'Dank je. Je boekingsaanvraag is verzonden.',error:'Er ging iets mis. Probeer het opnieuw.',network:'Netwerkfout. Probeer WhatsApp.'}
     }[formLang];
-    status.style.color='var(--muted)';
-    status.textContent=formMsg.sending;
+    formStatus.style.color='var(--muted)';
+    formStatus.textContent=formMsg.sending;
     showToast(formMsg.sending);
-    try{ status.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
+    try{ formStatus.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
     submitButton.disabled=true;
     // Capture what the visitor requested (before the form is reset) to echo it back on success
     var selText=function(id){ var el=document.getElementById(id); return (el&&el.selectedOptions&&el.selectedOptions[0])?el.selectedOptions[0].textContent.trim():''; };
@@ -1081,18 +1081,18 @@
       }else{
         console.error('[booking] Web3Forms rejected the submission:', res.status, responseText);
         var errMsg=(json&&json.message)?json.message:formMsg.error;
-        status.style.color='#e06868';
-        status.textContent=errMsg;
+        formStatus.style.color='#e06868';
+        formStatus.textContent=errMsg;
         showToast(errMsg,'err');
-        try{ status.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
+        try{ formStatus.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
         submitButton.disabled=false;
       }
     }catch(err){
       console.error('[booking] Network/submit error:', err);
-      status.style.color='#e06868';
-      status.textContent=formMsg.network;
+      formStatus.style.color='#e06868';
+      formStatus.textContent=formMsg.network;
       showToast(formMsg.network,'err');
-      try{ status.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
+      try{ formStatus.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
       submitButton.disabled=false;
     }
   });
