@@ -856,7 +856,7 @@
       <input type="checkbox" name="botcheck" style="display:none" />
       <button type="submit" class="shine" data-en="Request a booking" data-nl="Boeking aanvragen">Request a booking</button>
       <p class="form-privacy" data-en="Your details are used only to respond to your enquiry and arrange the appointment." data-nl="Je gegevens worden alleen gebruikt om je aanvraag te beantwoorden en de afspraak te regelen.">Your details are used only to respond to your enquiry and arrange the appointment.</p>
-      <div class="form-status" id="formStatus"></div>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       <div class="form-success" id="formSuccess" role="status" aria-live="polite" tabindex="-1">
         <span class="success-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></svg>
@@ -985,6 +985,13 @@
     renderBookingSlots(document.documentElement.lang);
     form.querySelector('#bookingName').focus();
   };
+  form.addEventListener('invalid',function(){
+    var lang=document.documentElement.lang==='nl'?'nl':'en';
+    status.style.color='#e06868';
+    status.textContent=lang==='nl'
+      ?'Vul alle verplichte velden in en kies een beschikbaar moment.'
+      :'Please complete all required fields and choose an available time.';
+  },true);
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     var formLang=document.documentElement.lang==='nl'?'nl':'en';
@@ -998,14 +1005,16 @@
     var data=new FormData(form);
     try{
       var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
-      var json=await res.json();
-      if(json.success){
+      var responseText=await res.text();
+      var json={};
+      try{ json=JSON.parse(responseText); }catch(parseError){}
+      if(res.ok&&json.success){
         form.reset();
         form.classList.add('is-success');
         formSuccess.focus();
       }else{
         status.style.color='#e06868';
-        status.textContent=formMsg.error;
+        status.textContent=(json&&json.message)?json.message:formMsg.error;
         submitButton.disabled=false;
       }
     }catch(err){
