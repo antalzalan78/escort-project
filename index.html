@@ -321,6 +321,21 @@
   .contact-form button{width:100%;padding:15px;border:none;border-radius:40px;background:var(--gold);color:#0a0a0b;
     font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.82rem;cursor:pointer;transition:.25s}
   .contact-form button:hover{background:var(--gold-soft)}
+  .contact-form button:disabled{opacity:.6;cursor:wait}
+  .form-success{display:none;text-align:center;padding:42px 24px;background:linear-gradient(145deg,rgba(201,160,78,.11),rgba(255,255,255,.015));
+    border:1px solid rgba(201,160,78,.38);border-radius:var(--radius)}
+  .contact-form.is-success > *:not(.form-success){display:none}
+  .contact-form.is-success .form-success{display:block}
+  .form-success .success-icon{width:58px;height:58px;margin:0 auto 20px;border:1px solid var(--gold);border-radius:50%;
+    display:grid;place-items:center;color:var(--gold);box-shadow:0 0 28px rgba(201,160,78,.14)}
+  .form-success .success-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round}
+  .form-success h3{font-family:var(--serif);font-size:1.8rem;color:var(--gold-soft);margin-bottom:10px}
+  .form-success p{color:var(--muted);font-size:.9rem;line-height:1.75;max-width:430px;margin:0 auto}
+  .form-success .success-note{color:var(--text);margin-top:12px}
+  .form-success button{width:auto;margin-top:26px;padding:12px 24px;background:transparent;color:var(--gold-soft);
+    border:1px solid rgba(201,160,78,.45);font-size:.7rem}
+  .form-success button:hover{color:#0a0a0b;background:var(--gold)}
   .contact-direct{display:flex;flex-direction:column;gap:14px}
   .cd-item{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:14px;transition:.25s}
   .cd-item:hover{border-color:var(--gold);transform:translateX(4px)}
@@ -842,6 +857,15 @@
       <button type="submit" class="shine" data-en="Request a booking" data-nl="Boeking aanvragen">Request a booking</button>
       <p class="form-privacy" data-en="Your details are used only to respond to your enquiry and arrange the appointment." data-nl="Je gegevens worden alleen gebruikt om je aanvraag te beantwoorden en de afspraak te regelen.">Your details are used only to respond to your enquiry and arrange the appointment.</p>
       <div class="form-status" id="formStatus"></div>
+      <div class="form-success" id="formSuccess" role="status" aria-live="polite" tabindex="-1">
+        <span class="success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></svg>
+        </span>
+        <h3 data-en="Your request has been received." data-nl="Je aanvraag is ontvangen.">Your request has been received.</h3>
+        <p data-en="Thank you. Your booking request was sent successfully. I will reply through the contact detail you provided as soon as possible." data-nl="Dank je. Je boekingsaanvraag is succesvol verzonden. Ik neem zo snel mogelijk contact met je op via het contactgegeven dat je hebt ingevuld.">Thank you. Your booking request was sent successfully. I will reply through the contact detail you provided as soon as possible.</p>
+        <p class="success-note" data-en="Your booking is confirmed only after you receive my personal reply." data-nl="Je boeking is pas definitief nadat je mijn persoonlijke bevestiging hebt ontvangen.">Your booking is confirmed only after you receive my personal reply.</p>
+        <button type="button" onclick="resetBookingForm()" data-en="Send another request" data-nl="Nog een aanvraag versturen">Send another request</button>
+      </div>
     </form>
 
     <!-- Direct -->
@@ -952,6 +976,15 @@
   // Web3Forms AJAX submit
   var form=document.getElementById('contactForm');
   var status=document.getElementById('formStatus');
+  var formSuccess=document.getElementById('formSuccess');
+  var submitButton=form.querySelector('button[type="submit"]');
+  window.resetBookingForm=function(){
+    form.classList.remove('is-success');
+    status.textContent='';
+    submitButton.disabled=false;
+    renderBookingSlots(document.documentElement.lang);
+    form.querySelector('#bookingName').focus();
+  };
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     var formLang=document.documentElement.lang==='nl'?'nl':'en';
@@ -961,21 +994,24 @@
     }[formLang];
     status.style.color='var(--muted)';
     status.textContent=formMsg.sending;
+    submitButton.disabled=true;
     var data=new FormData(form);
     try{
       var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
       var json=await res.json();
       if(json.success){
-        status.style.color='var(--gold)';
-        status.textContent=formMsg.success;
         form.reset();
+        form.classList.add('is-success');
+        formSuccess.focus();
       }else{
         status.style.color='#e06868';
         status.textContent=formMsg.error;
+        submitButton.disabled=false;
       }
     }catch(err){
       status.style.color='#e06868';
       status.textContent=formMsg.network;
+      submitButton.disabled=false;
     }
   });
 
