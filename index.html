@@ -457,8 +457,10 @@
   .book-fab{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;display:none;
     padding:14px 36px;border-radius:40px;background:var(--gold);color:#0a0a0b;font-weight:700;
     letter-spacing:2px;text-transform:uppercase;font-size:.8rem;box-shadow:0 8px 26px rgba(0,0,0,.55);
-    border:1px solid var(--gold-soft)}
+    border:1px solid var(--gold-soft);transition:opacity .3s ease,transform .3s ease}
   .book-fab:hover{background:var(--gold-soft)}
+  /* hide the floating button while the booking form is on screen so it never covers the submit button */
+  .book-fab.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(26px)}
   .quick-exit{position:fixed;right:18px;bottom:18px;z-index:990;display:flex;align-items:center;gap:8px;
     padding:10px 14px;border:1px solid #51484a;border-radius:30px;background:rgba(15,14,16,.9);color:#c9c2c0;
     font-family:var(--sans);font-size:.65rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;
@@ -1061,6 +1063,16 @@
       submitButton.disabled=false;
     }
   });
+
+  /* ---------- Hide floating Book button over the contact form (mobile) ---------- */
+  (function(){
+    var fab=document.querySelector('.book-fab');
+    var contact=document.getElementById('contact');
+    if(!fab||!contact||!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ fab.classList.toggle('hidden', e.isIntersecting); });
+    },{threshold:0.01}).observe(contact);
+  })();
 
   /* ---------- SCROLL REVEAL ---------- */
   (function(){
