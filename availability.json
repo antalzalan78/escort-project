@@ -1,41 +1,41 @@
 {
-    "available":  true,
-    "updated":  "2026-07-26",
-    "days":  {
-                 "mon":  {
-                             "active":  true,
-                             "en":  "Evening",
-                             "nl":  "Avond"
-                         },
-                 "tue":  {
-                             "active":  true,
-                             "en":  "Evening",
-                             "nl":  "Avond"
-                         },
-                 "wed":  {
-                             "active":  true,
-                             "en":  "Evening",
-                             "nl":  "Avond"
-                         },
-                 "thu":  {
-                             "active":  true,
-                             "en":  "Evening",
-                             "nl":  "Avond"
-                         },
-                 "fri":  {
-                             "active":  false,
-                             "en":  "Off",
-                             "nl":  "Vrij"
-                         },
-                 "sat":  {
-                             "active":  true,
-                             "en":  "Day \u0026 Eve",
-                             "nl":  "Dag \u0026 avond"
-                         },
-                 "sun":  {
-                             "active":  true,
-                             "en":  "Day \u0026 Eve",
-                             "nl":  "Dag \u0026 avond"
-                         }
-             }
+  "available": true,
+  "updated": "2026-08-03",
+  "days": {
+    "mon": {
+      "active": true,
+      "en": "Evening",
+      "nl": "Avond"
+    },
+    "tue": {
+      "active": true,
+      "en": "Evening",
+      "nl": "Avond"
+    },
+    "wed": {
+      "active": true,
+      "en": "Evening",
+      "nl": "Avond"
+    },
+    "thu": {
+      "active": true,
+      "en": "Evening",
+      "nl": "Avond"
+    },
+    "fri": {
+      "active": false,
+      "en": "Off",
+      "nl": "Vrij"
+    },
+    "sat": {
+      "active": true,
+      "en": "Day & Eve",
+      "nl": "Dag & avond"
+    },
+    "sun": {
+      "active": true,
+      "en": "Day & Eve",
+      "nl": "Dag & avond"
+    }
+  }
 }
