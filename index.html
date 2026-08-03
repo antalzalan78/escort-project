@@ -136,7 +136,7 @@
     padding:24px;text-align:center;
   }
   #ageGate .box{max-width:440px}
-  #ageGate h1{font-family:var(--serif);font-size:2.4rem;font-weight:600;letter-spacing:1px}
+  #ageGate h2{font-family:var(--serif);font-size:2.4rem;font-weight:600;letter-spacing:1px}
   #ageGate .gold{color:var(--gold)}
   #ageGate p{color:var(--muted);margin:18px 0 28px;font-size:.98rem}
   .ag-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -594,7 +594,7 @@
 <!-- ============ AGE GATE ============ -->
 <div id="ageGate">
   <div class="box">
-    <h1><span data-en="Welcome to" data-nl="Welkom bij">Welcome to</span> <span class="gold">Milan</span></h1>
+    <h2><span data-en="Welcome to" data-nl="Welkom bij">Welcome to</span> <span class="gold">Milan</span></h2>
     <p data-en="This website contains content intended for adults only. By entering, you confirm that you are at least 18 years of age (or the age of majority in your jurisdiction) and that viewing such content is legal where you live." data-nl="Deze website bevat content die uitsluitend voor volwassenen bedoeld is. Door binnen te komen bevestig je dat je minstens 18 jaar oud bent (of meerderjarig in jouw land) en dat het bekijken van deze content daar legaal is.">This website contains content intended for adults only. By entering, you confirm that you are at least 18 years of age (or the age of majority in your jurisdiction) and that viewing such content is legal where you live.</p>
     <div class="ag-btns">
       <button class="btn btn-primary" onclick="enterSite()" data-en="I am 18 or older" data-nl="Ik ben 18 jaar of ouder">I am 18 or older</button>
@@ -607,7 +607,7 @@
 <header class="nav" id="nav">
   <div class="nav-left">
     <div class="logo">MILAN</div>
-    <div class="status-pill" id="statusPill"><span class="dot"></span><span class="st-txt"></span></div>
+    <div class="status-pill" id="statusPill"><span class="dot"></span><span class="st-txt" data-en="Checking availability…" data-nl="Beschikbaarheid laden…">Checking availability…</span></div>
   </div>
   <nav class="links">
     <a href="#about" data-en="About" data-nl="Over mij">About</a>
@@ -743,16 +743,16 @@
   <p class="rate-terms" data-en="<strong>Outcall only.</strong> Rates apply to appointments in Tilburg. Any travel costs outside Tilburg, as well as hotel or venue costs, are discussed and agreed in advance. The timing of an evening booking is confirmed when arranging the appointment." data-nl="<strong>Alleen outcall.</strong> De tarieven gelden voor afspraken in Tilburg. Eventuele reiskosten buiten Tilburg en hotel- of locatiekosten worden vooraf besproken en overeengekomen. De tijden van een avondboeking worden bij het maken van de afspraak bevestigd."><strong>Outcall only.</strong> Rates apply to appointments in Tilburg. Any travel costs outside Tilburg, as well as hotel or venue costs, are discussed and agreed in advance. The timing of an evening booking is confirmed when arranging the appointment.</p>
   <p class="avail-sub" data-en="This week" data-nl="Deze week">This week</p>
   <div class="avail">
-    <div class="day on" data-day="mon"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
-    <div class="day on" data-day="tue"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day" data-day="wed"><div class="d" data-en="Wed" data-nl="Wo">Wed</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
-    <div class="day on" data-day="thu"><div class="d" data-en="Thu" data-nl="Do">Thu</div><div class="t" data-en="Evening" data-nl="Avond">Evening</div></div>
-    <div class="day on" data-day="fri"><div class="d" data-en="Fri" data-nl="Vr">Fri</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day on" data-day="sat"><div class="d" data-en="Sat" data-nl="Za">Sat</div><div class="t" data-en="Day &amp; Eve" data-nl="Dag &amp; avond">Day &amp; Eve</div></div>
-    <div class="day" data-day="sun"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Off" data-nl="Vrij">Off</div></div>
+    <div class="day" data-day="mon"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="tue"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="wed"><div class="d" data-en="Wed" data-nl="Wo">Wed</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="thu"><div class="d" data-en="Thu" data-nl="Do">Thu</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="fri"><div class="d" data-en="Fri" data-nl="Vr">Fri</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="sat"><div class="d" data-en="Sat" data-nl="Za">Sat</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
+    <div class="day" data-day="sun"><div class="d" data-en="Sun" data-nl="Zo">Sun</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
   </div>
-  <p class="avail-note" data-en="Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area." data-nl="Op dit moment <strong>beschikbaar</strong> voor nieuwe boekingen. Outcall naar je hotel of thuis in Tilburg en omgeving.">Currently <strong>available</strong> for new bookings. Outcall to your hotel or home in Tilburg and the surrounding area.</p>
-  <p class="avail-updated"><span data-en="Availability last updated" data-nl="Beschikbaarheid bijgewerkt">Availability last updated</span>: <span id="availUpdated"></span></p>
+  <p class="avail-note" id="availNote" data-en="Checking current booking availability…" data-nl="Actuele beschikbaarheid wordt geladen…">Checking current booking availability…</p>
+  <p class="avail-updated"><span data-en="Availability last updated" data-nl="Beschikbaarheid bijgewerkt">Availability last updated</span>: <span id="availUpdated">—</span></p>
 </section>
 
 <!-- ============ SCREENING / HOW IT WORKS ============ -->
@@ -1227,10 +1227,35 @@
     });
   })();
 
-  /* Fallback values used if availability.json cannot be loaded. */
-  var AVAILABLE = true;
-  var AVAILABILITY_UPDATED = '2026-07-26';
+  /* Availability is loaded only from availability.json. */
+  var AVAILABLE = null;
+  var AVAILABILITY_UPDATED = null;
   var AVAILABILITY_DAYS = null;
+  var AVAILABILITY_STATE = 'loading';
+
+  function renderDayCards(lang){
+    if(lang!=='nl') lang='en';
+    document.querySelectorAll('[data-day]').forEach(function(card){
+      var key=card.getAttribute('data-day');
+      var day=AVAILABILITY_STATE==='ready' && AVAILABILITY_DAYS ? AVAILABILITY_DAYS[key] : null;
+      var label=card.querySelector('.t');
+      card.classList.toggle('on',!!(day&&day.active));
+      if(!label) return;
+      if(day){
+        label.setAttribute('data-en',day.en);
+        label.setAttribute('data-nl',day.nl);
+        label.textContent=day[lang];
+      }else if(AVAILABILITY_STATE==='loading'){
+        label.setAttribute('data-en','Loading…');
+        label.setAttribute('data-nl','Laden…');
+        label.textContent=lang==='nl'?'Laden…':'Loading…';
+      }else{
+        label.setAttribute('data-en','—');
+        label.setAttribute('data-nl','—');
+        label.textContent='—';
+      }
+    });
+  }
 
   function renderBookingSlots(lang){
     if(lang!=='nl') lang='en';
@@ -1242,8 +1267,13 @@
     placeholder.value='';
     placeholder.disabled=true;
     placeholder.selected=true;
-    if(!AVAILABILITY_DAYS){
+    if(AVAILABILITY_STATE==='loading'){
       placeholder.textContent=lang==='nl'?'Beschikbare momenten laden…':'Loading available times…';
+      select.appendChild(placeholder);
+      return;
+    }
+    if(AVAILABILITY_STATE==='error'){
+      placeholder.textContent=lang==='nl'?'Beschikbaarheid tijdelijk niet beschikbaar — neem contact op':'Availability temporarily unavailable — please contact me';
       select.appendChild(placeholder);
       return;
     }
@@ -1264,7 +1294,7 @@
       var day=AVAILABILITY_DAYS[keys[date.getDay()]];
       if(!day||!day.active) continue;
       var iso=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
-      var period=typeof day[lang]==='string'?day[lang]:day.en;
+      var period=day[lang];
       var option=document.createElement('option');
       option.value=iso+' | '+day.en;
       option.textContent=formatter.format(date)+' · '+period;
@@ -1278,19 +1308,25 @@
 
   function renderAvailability(lang){
     if(lang!=='nl') lang='en';
+    var displayState=AVAILABILITY_STATE==='ready'?(AVAILABLE?'on':'off'):AVAILABILITY_STATE;
     var pill=document.getElementById('statusPill');
     if(pill){
-      var st=AVAILABLE?'on':'off';
-      pill.classList.toggle('on',AVAILABLE);
-      pill.querySelector('.st-txt').textContent=STATUS_TXT[st][lang];
+      pill.classList.toggle('on',displayState==='on');
+      pill.querySelector('.st-txt').textContent=STATUS_TXT[displayState][lang];
     }
+    var note=document.getElementById('availNote');
+    if(note) note.innerHTML=AVAIL_NOTE_TXT[displayState][lang];
     var au=document.getElementById('availUpdated');
-    if(au && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
-      var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
-                  nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
-      var p=AVAILABILITY_UPDATED.split('-');
-      au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
+    if(au){
+      au.textContent='—';
+      if(AVAILABILITY_STATE==='ready' && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
+        var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+                    nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
+        var p=AVAILABILITY_UPDATED.split('-');
+        au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
+      }
     }
+    renderDayCards(lang);
     renderBookingSlots(lang);
   }
 
@@ -1298,40 +1334,24 @@
     fetch('availability.json?v='+Date.now(),{cache:'no-store'})
       .then(function(res){ if(!res.ok) throw new Error('availability'); return res.json(); })
       .then(function(data){
-        if(typeof data.available==='boolean') AVAILABLE=data.available;
-        if(typeof data.updated==='string') AVAILABILITY_UPDATED=data.updated;
-        if(data.days){
-          AVAILABILITY_DAYS=data.days;
-          Object.keys(data.days).forEach(function(key){
-            var card=document.querySelector('[data-day="'+key+'"]');
-            var day=data.days[key];
-            if(!card||!day) return;
-            card.classList.toggle('on',!!day.active);
-            var label=card.querySelector('.t');
-            if(label){
-              if(typeof day.en==='string') label.setAttribute('data-en',day.en);
-              if(typeof day.nl==='string') label.setAttribute('data-nl',day.nl);
-            }
-          });
-        }
-        var lang=document.documentElement.lang==='nl'?'nl':'en';
-        document.querySelectorAll('[data-day] .t').forEach(function(el){
-          var value=el.getAttribute('data-'+lang);
-          if(value!==null) el.textContent=value;
+        var keys=['mon','tue','wed','thu','fri','sat','sun'];
+        if(typeof data.available!=='boolean'||!data.days) throw new Error('availability');
+        keys.forEach(function(key){
+          var day=data.days[key];
+          if(!day||typeof day.active!=='boolean'||typeof day.en!=='string'||typeof day.nl!=='string') throw new Error('availability');
         });
-        renderAvailability(lang);
+        AVAILABLE=data.available;
+        AVAILABILITY_UPDATED=typeof data.updated==='string'?data.updated:null;
+        AVAILABILITY_DAYS=data.days;
+        AVAILABILITY_STATE='ready';
+        renderAvailability(document.documentElement.lang==='nl'?'nl':'en');
       })
       .catch(function(){
-        AVAILABILITY_DAYS={};
-        document.querySelectorAll('[data-day]').forEach(function(card){
-          var key=card.getAttribute('data-day'), label=card.querySelector('.t');
-          AVAILABILITY_DAYS[key]={
-            active:card.classList.contains('on'),
-            en:label?label.getAttribute('data-en'):'',
-            nl:label?label.getAttribute('data-nl'):''
-          };
-        });
-        renderAvailability(document.documentElement.lang);
+        AVAILABLE=null;
+        AVAILABILITY_UPDATED=null;
+        AVAILABILITY_DAYS=null;
+        AVAILABILITY_STATE='error';
+        renderAvailability(document.documentElement.lang==='nl'?'nl':'en');
       });
   }
 
@@ -1343,8 +1363,16 @@
   };
   // Status pill text (per state + language)
   var STATUS_TXT = {
-    on:  { en: 'Available today', nl: 'Vandaag beschikbaar' },
-    off: { en: 'By appointment',  nl: 'Op afspraak' }
+    loading: { en: 'Checking availability…', nl: 'Beschikbaarheid laden…' },
+    on:      { en: 'Accepting bookings', nl: 'Boekingen geopend' },
+    off:     { en: 'Bookings paused', nl: 'Boekingen gepauzeerd' },
+    error:   { en: 'By appointment', nl: 'Op afspraak' }
+  };
+  var AVAIL_NOTE_TXT = {
+    loading: { en: 'Checking current booking availability…', nl: 'Actuele beschikbaarheid wordt geladen…' },
+    on:      { en: 'Currently <strong>accepting</strong> new bookings. Outcall to your hotel or home in Tilburg and the surrounding area.', nl: 'Op dit moment zijn <strong>boekingen geopend</strong>. Outcall naar je hotel of thuis in Tilburg en omgeving.' },
+    off:     { en: 'New bookings are currently paused. Please check back later or contact me directly.', nl: 'Nieuwe boekingen zijn momenteel gepauzeerd. Kijk later opnieuw of neem direct contact op.' },
+    error:   { en: 'Current availability could not be loaded. Please contact me directly.', nl: 'De actuele beschikbaarheid kon niet worden geladen. Neem rechtstreeks contact op.' }
   };
 
   /* ---------- PRIVACY MODAL ---------- */
