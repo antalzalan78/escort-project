@@ -428,11 +428,15 @@
 
   /* AVAILABILITY */
   .avail{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;max-width:820px;margin:0 auto}
+  .avail.exact{grid-template-columns:repeat(3,1fr)}
   .day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 6px;text-align:center;transition:.25s}
   .day.on{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,160,78,.16),rgba(201,160,78,.03))}
   .day .d{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
   .day.on .d{color:var(--gold)}
   .day .t{font-family:var(--serif);font-size:1.05rem;margin-top:6px}
+  .day.exact-slot{padding:18px 14px;text-align:left}
+  .day.exact-slot .d{font-family:var(--serif);font-size:1.05rem;letter-spacing:0;text-transform:none;color:var(--text)}
+  .day.exact-slot .t{font-family:var(--sans);font-size:.68rem;color:var(--gold);letter-spacing:1.6px;text-transform:uppercase}
   .avail-note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:26px}
   .avail-note strong{color:var(--gold)}
   .avail-updated{text-align:center;color:var(--muted);font-size:.76rem;opacity:.75;margin-top:8px;letter-spacing:.3px}
@@ -585,12 +589,14 @@
     .services{grid-template-columns:1fr}
     .steps{grid-template-columns:1fr 1fr}
     .avail{grid-template-columns:repeat(4,1fr)}
+    .avail.exact{grid-template-columns:repeat(2,1fr)}
     .rules{grid-template-columns:1fr}
     section{padding:70px 6vw}
   }
   @media(max-width:480px){
     .steps{grid-template-columns:1fr}
     .avail{grid-template-columns:repeat(3,1fr)}
+    .avail.exact{grid-template-columns:1fr}
     .reviews{grid-template-columns:1fr}
     .gallery{column-count:1}
     .booking-assurance{grid-template-columns:1fr;text-align:center;padding:28px 22px}
@@ -640,7 +646,7 @@
   <div class="legal-box">
     <span class="legal-close" onclick="closeLegal()">&times;</span>
     <h3 data-en="Privacy &amp; cookies" data-nl="Privacy &amp; cookies">Privacy &amp; cookies</h3>
-    <div class="lm-updated" data-en="Last updated: July 2026" data-nl="Laatst bijgewerkt: juli 2026">Last updated: July 2026</div>
+    <div class="lm-updated" data-en="Last updated: August 2026" data-nl="Laatst bijgewerkt: augustus 2026">Last updated: August 2026</div>
     <p data-en="Your privacy matters. This page explains, in plain language, what happens with your data when you visit this website or contact me." data-nl="Jouw privacy is belangrijk. Deze pagina legt in gewone taal uit wat er met je gegevens gebeurt als je deze website bezoekt of contact opneemt.">Your privacy matters. This page explains, in plain language, what happens with your data when you visit this website or contact me.</p>
 
     <h4 data-en="Who is responsible" data-nl="Wie is verantwoordelijk">Who is responsible</h4>
@@ -654,6 +660,7 @@
 
     <h4 data-en="The contact form" data-nl="Het contactformulier">The contact form</h4>
     <p data-en="The contact form is processed by Web3Forms, a service that forwards your message to my inbox. Your submission passes through their servers and may be stored for up to 30 days on the free plan. See web3forms.com for their own privacy terms." data-nl="Het contactformulier wordt verwerkt door Web3Forms, een dienst die je bericht doorstuurt naar mijn inbox. Je inzending gaat via hun servers en kan bij het gratis abonnement maximaal 30 dagen worden opgeslagen. Zie web3forms.com voor hun eigen privacyvoorwaarden.">The contact form is processed by Web3Forms, a service that forwards your message to my inbox. Your submission passes through their servers and may be stored for up to 30 days on the free plan. See web3forms.com for their own privacy terms.</p>
+    <p data-en="When you select a live appointment time, the booking details are also stored in my private Supabase database so I can review, approve or reject the request. Access is restricted to my authenticated administrator account, and the record is retained only as long as needed to manage the booking." data-nl="Wanneer je een live afspraaktijd kiest, worden de boekingsgegevens ook opgeslagen in mijn privÃ© Supabase-database, zodat ik de aanvraag kan beoordelen, goedkeuren of afwijzen. De toegang is beperkt tot mijn beveiligde beheerdersaccount en het record wordt alleen bewaard zolang dat nodig is om de boeking te beheren.">When you select a live appointment time, the booking details are also stored in my private Supabase database so I can review, approve or reject the request. Access is restricted to my authenticated administrator account, and the record is retained only as long as needed to manage the booking.</p>
 
     <h4 data-en="Cookies &amp; local storage" data-nl="Cookies &amp; lokale opslag">Cookies &amp; local storage</h4>
     <p data-en="This site uses no tracking, advertising or analytics cookies. It stores two small items in your own browser purely so the site works: your 18+ confirmation and your chosen language. These stay on your device, are never sent anywhere, and are not used to track you." data-nl="Deze site gebruikt geen tracking-, advertentie- of analysecookies. Er worden twee kleine items in je eigen browser opgeslagen, puur om de site te laten werken: je 18+ bevestiging en je gekozen taal. Deze blijven op je apparaat, worden nergens naartoe gestuurd en worden niet gebruikt om je te volgen.">This site uses no tracking, advertising or analytics cookies. It stores two small items in your own browser purely so the site works: your 18+ confirmation and your chosen language. These stay on your device, are never sent anywhere, and are not used to track you.</p>
@@ -960,9 +967,10 @@
       <div class="form-row">
         <div>
           <label for="bookingDate" data-en="Preferred date and time" data-nl="Gewenste datum en tijd">Preferred date and time</label>
-          <select id="bookingDate" name="preferred_date_time" required>
+          <select id="bookingDate" name="slot_id" required>
             <option value="" selected disabled>Loading available times…</option>
           </select>
+          <input id="bookingDateLabel" type="hidden" name="preferred_date_time" value="" />
           <p class="field-note" data-en="The exact time is confirmed together after your request." data-nl="De exacte tijd stemmen we na je aanvraag samen af.">The exact time is confirmed together after your request.</p>
         </div>
         <div>
@@ -1134,7 +1142,12 @@
     setPreviewValue('previewRate',rate,'—');
     setPreviewValue('previewLocation',bookingLocation?bookingLocation.value.trim():'',noLocation);
   }
-  if(bookingDate) bookingDate.addEventListener('change',updateBookingPreview);
+  if(bookingDate) bookingDate.addEventListener('change',function(){
+    var chosen=bookingDate.selectedOptions&&bookingDate.selectedOptions[0];
+    var label=document.getElementById('bookingDateLabel');
+    if(label) label.value=chosen?(chosen.getAttribute('data-booking-label')||chosen.textContent.trim()):'';
+    updateBookingPreview();
+  });
   if(bookingDuration) bookingDuration.addEventListener('change',updateBookingPreview);
   if(bookingLocation) bookingLocation.addEventListener('input',updateBookingPreview);
   var toastEl=document.getElementById('bookingToast');
@@ -1190,32 +1203,41 @@
     var selText=function(id){ var el=document.getElementById(id); return (el&&el.selectedOptions&&el.selectedOptions[0])?el.selectedOptions[0].textContent.trim():''; };
     var fieldVal=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; };
     var summaryRows=[
+      [{en:'Status',nl:'Status'}[formLang], {en:'Request pending',nl:'Aanvraag in behandeling'}[formLang]],
       [{en:'Name',nl:'Naam'}[formLang], fieldVal('bookingName')],
       [{en:'Duration',nl:'Duur'}[formLang], selText('bookingDuration')],
       [{en:'Preferred',nl:'Voorkeur'}[formLang], selText('bookingDate')],
       [{en:'Location',nl:'Locatie'}[formLang], fieldVal('bookingLocation')]
     ].filter(function(r){ return r[1]; });
     var data=new FormData(form);
+    var bookingStored=false;
+    function finishBookingSuccess(){
+      var sum=document.getElementById('bookingSummary');
+      if(sum){
+        sum.innerHTML='<span class="bs-cap">'+({en:'Your request',nl:'Je aanvraag'}[formLang])+'</span>'+summaryRows.map(function(){return '<div class="bs-row"><span class="bs-l"></span><span class="bs-v"></span></div>'}).join('');
+        var lEls=sum.querySelectorAll('.bs-l'),vEls=sum.querySelectorAll('.bs-v');
+        summaryRows.forEach(function(r,i){lEls[i].textContent=r[0];vEls[i].textContent=r[1]});
+        sum.hidden=false;
+      }
+      form.reset();form.classList.add('is-success');showToast(formMsg.success,'ok');formSuccess.focus();
+      try{formSuccess.scrollIntoView({behavior:'smooth',block:'center'})}catch(_){}
+    }
     try{
+      if(Array.isArray(BOOKING_SLOTS)){
+        var slotResponse=await fetch(BOOKING_SB_URL+'/rest/v1/rpc/request_booking',{
+          method:'POST',headers:{'apikey':BOOKING_SB_KEY,'Authorization':'Bearer '+BOOKING_SB_KEY,'Content-Type':'application/json'},
+          body:JSON.stringify({p_slot_id:bookingDate.value,p_name:fieldVal('bookingName'),p_contact:fieldVal('bookingContact'),p_duration:bookingDuration.value,p_location:fieldVal('bookingLocation'),p_message:fieldVal('bookingMessage')})
+        });
+        if(!slotResponse.ok) throw new Error(formLang==='nl'?'Dit moment is niet meer beschikbaar. Kies een ander moment.':'This time is no longer available. Please choose another time.');
+        bookingStored=true;
+        BOOKING_SLOTS=BOOKING_SLOTS.filter(function(slot){return slot.id!==bookingDate.value});
+      }
       var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
       var responseText=await res.text();
       var json={};
       try{ json=JSON.parse(responseText); }catch(parseError){}
-      if(res.ok&&json.success){
-        // Echo the requested details back so the visitor sees the booking went through correctly
-        var sum=document.getElementById('bookingSummary');
-        if(sum){
-          sum.innerHTML='<span class="bs-cap">'+({en:'Your request',nl:'Je aanvraag'}[formLang])+'</span>'+
-            summaryRows.map(function(r){ return '<div class="bs-row"><span class="bs-l"></span><span class="bs-v"></span></div>'; }).join('');
-          var lEls=sum.querySelectorAll('.bs-l'), vEls=sum.querySelectorAll('.bs-v');
-          summaryRows.forEach(function(r,i){ lEls[i].textContent=r[0]; vEls[i].textContent=r[1]; });
-          sum.hidden=false;
-        }
-        form.reset();
-        form.classList.add('is-success');
-        showToast(formMsg.success,'ok');
-        formSuccess.focus();
-        try{ formSuccess.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
+      if((res.ok&&json.success)||bookingStored){
+        finishBookingSuccess();
       }else{
         console.error('[booking] Web3Forms rejected the submission:', res.status, responseText);
         var errMsg=(json&&json.message)?json.message:formMsg.error;
@@ -1227,9 +1249,11 @@
       }
     }catch(err){
       console.error('[booking] Network/submit error:', err);
+      if(bookingStored){finishBookingSuccess();return}
       formStatus.style.color='#e06868';
-      formStatus.textContent=formMsg.network;
-      showToast(formMsg.network,'err');
+      var failureMessage=err&&err.message?err.message:formMsg.network;
+      formStatus.textContent=failureMessage;
+      showToast(failureMessage,'err');
       try{ formStatus.scrollIntoView({behavior:'smooth',block:'center'}); }catch(_){}
       submitButton.disabled=false;
     }
@@ -1382,9 +1406,32 @@
   var AVAILABILITY_UPDATED = null;
   var AVAILABILITY_DAYS = null;
   var AVAILABILITY_STATE = 'loading';
+  var BOOKING_SLOTS = null;
+  var BOOKING_SB_URL='https://evernyxfvzhpkmbjlpoi.supabase.co';
+  var BOOKING_SB_KEY='sb_publishable_eDp6rlAORmqM9BgnnjZRgg_WDiaD2jq';
+
+  function formatConcreteSlot(startsAt,lang){
+    return new Intl.DateTimeFormat(lang==='nl'?'nl-NL':'en-GB',{
+      weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'
+    }).format(new Date(startsAt));
+  }
 
   function renderDayCards(lang){
     if(lang!=='nl') lang='en';
+    if(Array.isArray(BOOKING_SLOTS)){
+      var grid=document.querySelector('.avail');
+      if(!grid) return;
+      grid.classList.add('exact');
+      if(!BOOKING_SLOTS.length){
+        grid.innerHTML='<div class="day exact-slot"><div class="d">'+(lang==='nl'?'Nieuwe momenten volgen binnenkort':'New times will be added soon')+'</div><div class="t">'+(lang==='nl'?'Op aanvraag':'By request')+'</div></div>';
+        return;
+      }
+      grid.innerHTML=BOOKING_SLOTS.slice(0,9).map(function(slot){
+        return '<div class="day exact-slot on"><div class="d"></div><div class="t">'+(lang==='nl'?'Beschikbaar':'Available')+'</div></div>';
+      }).join('');
+      grid.querySelectorAll('.d').forEach(function(el,i){el.textContent=formatConcreteSlot(BOOKING_SLOTS[i].starts_at,lang)});
+      return;
+    }
     document.querySelectorAll('[data-day]').forEach(function(card){
       var key=card.getAttribute('data-day');
       var day=AVAILABILITY_STATE==='ready' && AVAILABILITY_DAYS ? AVAILABILITY_DAYS[key] : null;
@@ -1417,6 +1464,21 @@
     placeholder.value='';
     placeholder.disabled=true;
     placeholder.selected=true;
+    if(Array.isArray(BOOKING_SLOTS)){
+      placeholder.textContent=lang==='nl'?'Kies een beschikbaar moment':'Choose an available time';
+      select.appendChild(placeholder);
+      BOOKING_SLOTS.forEach(function(slot){
+        var option=document.createElement('option');
+        option.value=slot.id;
+        option.textContent=formatConcreteSlot(slot.starts_at,lang);
+        option.setAttribute('data-booking-label',option.textContent);
+        if(option.value===previous){option.selected=true;placeholder.selected=false}
+        select.appendChild(option);
+      });
+      if(!BOOKING_SLOTS.length) placeholder.textContent=lang==='nl'?'Momenteel geen beschikbare momenten':'No available times at the moment';
+      updateBookingPreview();
+      return;
+    }
     if(AVAILABILITY_STATE==='loading'){
       placeholder.textContent=lang==='nl'?'Beschikbare momenten laden…':'Loading available times…';
       select.appendChild(placeholder);
@@ -1471,12 +1533,13 @@
     if(note) note.innerHTML=AVAIL_NOTE_TXT[displayState][lang];
     var au=document.getElementById('availUpdated');
     if(au){
-      au.textContent='—';
+      if(Array.isArray(BOOKING_SLOTS)) au.textContent=lang==='nl'?'Live bijgewerkt':'Updated live';
+      if(!Array.isArray(BOOKING_SLOTS)) au.textContent='—';
       if(AVAILABILITY_STATE==='ready' && typeof AVAILABILITY_UPDATED==='string' && /^\d{4}-\d{2}-\d{2}$/.test(AVAILABILITY_UPDATED)){
         var MONTHS={en:['January','February','March','April','May','June','July','August','September','October','November','December'],
                     nl:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december']};
         var p=AVAILABILITY_UPDATED.split('-');
-        au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
+        if(!Array.isArray(BOOKING_SLOTS)) au.textContent=(+p[2])+' '+MONTHS[lang][+p[1]-1]+' '+p[0];
       }
     }
     renderDayCards(lang);
@@ -1484,6 +1547,22 @@
   }
 
   function loadAvailability(){
+    fetch(BOOKING_SB_URL+'/rest/v1/rpc/public_available_slots',{
+      method:'POST',headers:{'apikey':BOOKING_SB_KEY,'Authorization':'Bearer '+BOOKING_SB_KEY,'Content-Type':'application/json'},body:'{}'
+    }).then(function(res){if(!res.ok)throw new Error('booking slots');return res.json()})
+      .then(function(slots){
+        if(!Array.isArray(slots))throw new Error('booking slots');
+        if(!slots.length)throw new Error('no concrete booking slots yet');
+        BOOKING_SLOTS=slots;
+        AVAILABLE=slots.length>0;
+        AVAILABILITY_UPDATED=new Date().toISOString().slice(0,10);
+        AVAILABILITY_DAYS=null;
+        AVAILABILITY_STATE='ready';
+        renderAvailability(document.documentElement.lang==='nl'?'nl':'en');
+      }).catch(loadWeeklyAvailability);
+  }
+
+  function loadWeeklyAvailability(){
     fetch('availability.json?v='+Date.now(),{cache:'no-store'})
       .then(function(res){ if(!res.ok) throw new Error('availability'); return res.json(); })
       .then(function(data){
