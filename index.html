@@ -971,7 +971,7 @@
             <option value="" selected disabled>Loading available times…</option>
           </select>
           <input id="bookingDateLabel" type="hidden" name="preferred_date_time" value="" />
-          <p class="field-note" data-en="The exact time is confirmed together after your request." data-nl="De exacte tijd stemmen we na je aanvraag samen af.">The exact time is confirmed together after your request.</p>
+          <p class="field-note" data-en="Your selected time is held as request pending until personally confirmed." data-nl="Het gekozen moment blijft in aanvraag totdat ik het persoonlijk bevestig.">Your selected time is held as request pending until personally confirmed.</p>
         </div>
         <div>
           <label for="bookingDuration" data-en="Duration" data-nl="Duur">Duration</label>
@@ -1401,7 +1401,7 @@
     });
   })();
 
-  /* Availability is loaded only from availability.json. */
+  /* Concrete availability is managed from the private Supabase admin calendar. */
   var AVAILABLE = null;
   var AVAILABILITY_UPDATED = null;
   var AVAILABILITY_DAYS = null;
@@ -1548,11 +1548,10 @@
 
   function loadAvailability(){
     fetch(BOOKING_SB_URL+'/rest/v1/rpc/public_available_slots',{
-      method:'POST',headers:{'apikey':BOOKING_SB_KEY,'Authorization':'Bearer '+BOOKING_SB_KEY,'Content-Type':'application/json'},body:'{}'
+      method:'POST',cache:'no-store',headers:{'apikey':BOOKING_SB_KEY,'Authorization':'Bearer '+BOOKING_SB_KEY,'Content-Type':'application/json','Cache-Control':'no-cache'},body:'{}'
     }).then(function(res){if(!res.ok)throw new Error('booking slots');return res.json()})
       .then(function(slots){
         if(!Array.isArray(slots))throw new Error('booking slots');
-        if(!slots.length)throw new Error('no concrete booking slots yet');
         BOOKING_SLOTS=slots;
         AVAILABLE=slots.length>0;
         AVAILABILITY_UPDATED=new Date().toISOString().slice(0,10);
@@ -1561,6 +1560,10 @@
         renderAvailability(document.documentElement.lang==='nl'?'nl':'en');
       }).catch(loadWeeklyAvailability);
   }
+
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible') loadAvailability();
+  });
 
   function loadWeeklyAvailability(){
     fetch('availability.json?v='+Date.now(),{cache:'no-store'})
