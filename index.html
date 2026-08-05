@@ -1416,11 +1416,12 @@
 
   function formatConcreteSlot(startsAt,endsAt,lang){
     var locale=lang==='nl'?'nl-NL':'en-GB';
+    // Force European 24-hour time (e.g. 14:30), never 12-hour AM/PM, regardless of browser locale.
     var start=new Intl.DateTimeFormat(locale,{
-      weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'
+      weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'
     }).format(new Date(startsAt));
     if(!endsAt) return start;
-    return start+' – '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit'}).format(new Date(endsAt));
+    return start+' – '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'}).format(new Date(endsAt));
   }
 
   function bookingDurationHours(){
