@@ -1148,7 +1148,10 @@
     if(label) label.value=chosen?(chosen.getAttribute('data-booking-label')||chosen.textContent.trim()):'';
     updateBookingPreview();
   });
-  if(bookingDuration) bookingDuration.addEventListener('change',updateBookingPreview);
+  if(bookingDuration) bookingDuration.addEventListener('change',function(){
+    renderBookingSlots(document.documentElement.lang);
+    updateBookingPreview();
+  });
   if(bookingLocation) bookingLocation.addEventListener('input',updateBookingPreview);
   var toastEl=document.getElementById('bookingToast');
   var toastTimer=null;
@@ -1224,13 +1227,14 @@
     }
     try{
       if(Array.isArray(BOOKING_SLOTS)){
+        var chosenSlot=bookingDate.selectedOptions[0];
         var slotResponse=await fetch(BOOKING_SB_URL+'/rest/v1/rpc/request_booking',{
           method:'POST',headers:{'apikey':BOOKING_SB_KEY,'Authorization':'Bearer '+BOOKING_SB_KEY,'Content-Type':'application/json'},
-          body:JSON.stringify({p_slot_id:bookingDate.value,p_name:fieldVal('bookingName'),p_contact:fieldVal('bookingContact'),p_duration:bookingDuration.value,p_location:fieldVal('bookingLocation'),p_message:fieldVal('bookingMessage')})
+          body:JSON.stringify({p_slot_id:chosenSlot.getAttribute('data-slot-id'),p_requested_start:chosenSlot.getAttribute('data-requested-start'),p_name:fieldVal('bookingName'),p_contact:fieldVal('bookingContact'),p_duration:bookingDuration.value,p_location:fieldVal('bookingLocation'),p_message:fieldVal('bookingMessage')})
         });
         if(!slotResponse.ok) throw new Error(formLang==='nl'?'Dit moment is niet meer beschikbaar. Kies een ander moment.':'This time is no longer available. Please choose another time.');
         bookingStored=true;
-        BOOKING_SLOTS=BOOKING_SLOTS.filter(function(slot){return slot.id!==bookingDate.value});
+        loadAvailability();
       }
       var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
       var responseText=await res.text();
@@ -1419,6 +1423,17 @@
     return start+' – '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit'}).format(new Date(endsAt));
   }
 
+  function bookingDurationHours(){
+    var duration=document.getElementById('bookingDuration');
+    return duration&&duration.value==='2 hours'?2:(duration&&duration.value==='Evening'?6:1);
+  }
+
+  function appointmentOverlaps(slot,start,end){
+    return (slot.unavailable||[]).some(function(period){
+      return start<new Date(period.end) && end>new Date(period.start);
+    });
+  }
+
   function renderDayCards(lang){
     if(lang!=='nl') lang='en';
     if(Array.isArray(BOOKING_SLOTS)){
@@ -1470,15 +1485,23 @@
     if(Array.isArray(BOOKING_SLOTS)){
       placeholder.textContent=lang==='nl'?'Kies een beschikbaar moment':'Choose an available time';
       select.appendChild(placeholder);
+      var hours=bookingDurationHours();
       BOOKING_SLOTS.forEach(function(slot){
-        var option=document.createElement('option');
-        option.value=slot.id;
-        option.textContent=formatConcreteSlot(slot.starts_at,slot.ends_at,lang);
-        option.setAttribute('data-booking-label',option.textContent);
-        if(option.value===previous){option.selected=true;placeholder.selected=false}
-        select.appendChild(option);
+        var windowStart=new Date(slot.starts_at),windowEnd=new Date(slot.ends_at);
+        for(var start=new Date(windowStart);start.getTime()+hours*3600000<=windowEnd.getTime();start=new Date(start.getTime()+3600000)){
+          var end=new Date(start.getTime()+hours*3600000);
+          if(start<=new Date()||appointmentOverlaps(slot,start,end)) continue;
+          var option=document.createElement('option');
+          option.value=slot.id+'|'+start.toISOString();
+          option.setAttribute('data-slot-id',slot.id);
+          option.setAttribute('data-requested-start',start.toISOString());
+          option.textContent=formatConcreteSlot(start.toISOString(),end.toISOString(),lang);
+          option.setAttribute('data-booking-label',option.textContent);
+          if(option.value===previous){option.selected=true;placeholder.selected=false}
+          select.appendChild(option);
+        }
       });
-      if(!BOOKING_SLOTS.length) placeholder.textContent=lang==='nl'?'Momenteel geen beschikbare momenten':'No available times at the moment';
+      if(select.options.length===1) placeholder.textContent=lang==='nl'?'Geen passend moment voor deze duur':'No available start time for this duration';
       updateBookingPreview();
       return;
     }
