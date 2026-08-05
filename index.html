@@ -329,6 +329,23 @@
     box-shadow:0 0 28px rgba(116,43,50,.18);letter-spacing:2.5px}
 
   /* CONTACT */
+  .contact-guidance{max-width:900px;margin:-22px auto 50px;display:grid;grid-template-columns:.8fr 1.2fr;
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:rgba(255,255,255,.012)}
+  .response-note,.before-message{padding:25px 28px}
+  .response-note{display:flex;gap:16px;align-items:flex-start;border-right:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(201,160,78,.075),rgba(255,255,255,.008))}
+  .guidance-icon{width:36px;height:36px;display:grid;place-items:center;flex:0 0 36px;border:1px solid rgba(201,160,78,.38);
+    border-radius:50%;color:var(--gold)}
+  .guidance-icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;
+    stroke-linecap:round;stroke-linejoin:round}
+  .response-note strong,.before-message h3{display:block;font-family:var(--serif);font-size:1.1rem;font-weight:600;
+    color:var(--gold-soft);margin-bottom:5px}
+  .response-note p{color:var(--muted);font-size:.78rem;line-height:1.65}
+  .before-message h3{margin-bottom:12px}
+  .before-message ul{list-style:none;display:grid;gap:8px}
+  .before-message li{color:var(--muted);font-size:.78rem;line-height:1.5}
+  .before-message li::before{content:"";display:inline-block;width:5px;height:5px;margin:0 10px 1px 1px;
+    border:1px solid var(--gold);transform:rotate(45deg)}
   .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
   .contact-form label{display:block;margin:0 0 7px 3px;color:var(--gold-soft);font-size:.68rem;
     letter-spacing:1.5px;text-transform:uppercase}
@@ -550,6 +567,8 @@
     nav.links{display:none}
     .burger{display:flex}
     .about,.contact-wrap{grid-template-columns:1fr;gap:32px}
+    .contact-guidance{grid-template-columns:1fr;max-width:620px}
+    .response-note{border-right:0;border-bottom:1px solid var(--line)}
     .gallery{column-count:2}
     .services{grid-template-columns:1fr}
     .steps{grid-template-columns:1fr 1fr}
@@ -570,6 +589,8 @@
     .booking-preview-head{padding:15px 16px}
     .booking-preview-grid{padding-left:16px;padding-right:16px}
     .booking-preview-row{gap:12px}
+    .contact-guidance{margin-top:-28px;margin-bottom:38px}
+    .response-note,.before-message{padding:22px 20px}
     section.chapter::after{top:34px;right:5vw;font-size:6.2rem;color:rgba(201,160,78,.04)}
     .teaser{padding:42px 24px;margin-top:54px}
     .quick-exit{bottom:76px;right:12px;padding:9px 11px}
@@ -890,6 +911,25 @@
     <h2 data-en="Contact &amp; booking" data-nl="Contact &amp; boeken">Contact &amp; booking</h2>
     <p data-en="Send a message below, or reach me directly. Discretion guaranteed." data-nl="Stuur hieronder een bericht, of bereik me direct. Discretie gegarandeerd.">Send a message below, or reach me directly. Discretion guaranteed.</p>
   </div>
+  <div class="contact-guidance">
+    <div class="response-note">
+      <span class="guidance-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+      </span>
+      <p>
+        <strong data-en="Usually replies within a few hours." data-nl="Reageert meestal binnen enkele uren.">Usually replies within a few hours.</strong>
+        <span data-en="Discreet communication, no unsolicited calls." data-nl="Discrete communicatie, geen ongevraagde telefoontjes.">Discreet communication, no unsolicited calls.</span>
+      </p>
+    </div>
+    <div class="before-message">
+      <h3 data-en="Before you message" data-nl="Voordat je contact opneemt">Before you message</h3>
+      <ul>
+        <li data-en="Introduce yourself briefly" data-nl="Stel jezelf kort voor">Introduce yourself briefly</li>
+        <li data-en="Share your preferred date and location" data-nl="Deel je gewenste datum en locatie">Share your preferred date and location</li>
+        <li data-en="Be clear and respectful about what you have in mind" data-nl="Wees duidelijk en respectvol over wat je in gedachten hebt">Be clear and respectful about what you have in mind</li>
+      </ul>
+    </div>
+  </div>
   <div class="contact-wrap">
     <!-- Web3Forms -->
     <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -1206,6 +1246,7 @@
       ['.review', 1],
       ['.faq-item', 1],
       ['.booking-assurance', 0],
+      ['.contact-guidance', 0],
       ['.contact-form', 0],
       ['.cd-item', 1],
       ['.note', 0],
