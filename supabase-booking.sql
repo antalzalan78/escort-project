@@ -11,8 +11,10 @@ create table if not exists public.booking_admins (
 create table if not exists public.booking_slots (
   id uuid primary key default gen_random_uuid(),
   starts_at timestamptz not null unique,
+  ends_at timestamptz not null,
   status text not null default 'available'
     check (status in ('available','request_pending','booked','blocked')),
+  constraint booking_slots_valid_window check (ends_at > starts_at),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -44,13 +46,13 @@ as $$
 $$;
 
 create or replace function public.public_available_slots()
-returns table(id uuid, starts_at timestamptz)
+returns table(id uuid, starts_at timestamptz, ends_at timestamptz)
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select s.id, s.starts_at
+  select s.id, s.starts_at, s.ends_at
   from public.booking_slots s
   where s.status = 'available' and s.starts_at > now()
   order by s.starts_at asc
@@ -156,4 +158,3 @@ grant execute on function public.admin_decide_booking(uuid,text) to authenticate
 
 -- After creating your admin account in Authentication > Users, activate it once:
 -- insert into public.booking_admins(user_id) values ('YOUR-AUTH-USER-UUID');
-

@@ -1410,10 +1410,13 @@
   var BOOKING_SB_URL='https://evernyxfvzhpkmbjlpoi.supabase.co';
   var BOOKING_SB_KEY='sb_publishable_eDp6rlAORmqM9BgnnjZRgg_WDiaD2jq';
 
-  function formatConcreteSlot(startsAt,lang){
-    return new Intl.DateTimeFormat(lang==='nl'?'nl-NL':'en-GB',{
+  function formatConcreteSlot(startsAt,endsAt,lang){
+    var locale=lang==='nl'?'nl-NL':'en-GB';
+    var start=new Intl.DateTimeFormat(locale,{
       weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'
     }).format(new Date(startsAt));
+    if(!endsAt) return start;
+    return start+' – '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit'}).format(new Date(endsAt));
   }
 
   function renderDayCards(lang){
@@ -1429,7 +1432,7 @@
       grid.innerHTML=BOOKING_SLOTS.slice(0,9).map(function(slot){
         return '<div class="day exact-slot on"><div class="d"></div><div class="t">'+(lang==='nl'?'Beschikbaar':'Available')+'</div></div>';
       }).join('');
-      grid.querySelectorAll('.d').forEach(function(el,i){el.textContent=formatConcreteSlot(BOOKING_SLOTS[i].starts_at,lang)});
+      grid.querySelectorAll('.d').forEach(function(el,i){el.textContent=formatConcreteSlot(BOOKING_SLOTS[i].starts_at,BOOKING_SLOTS[i].ends_at,lang)});
       return;
     }
     document.querySelectorAll('[data-day]').forEach(function(card){
@@ -1470,7 +1473,7 @@
       BOOKING_SLOTS.forEach(function(slot){
         var option=document.createElement('option');
         option.value=slot.id;
-        option.textContent=formatConcreteSlot(slot.starts_at,lang);
+        option.textContent=formatConcreteSlot(slot.starts_at,slot.ends_at,lang);
         option.setAttribute('data-booking-label',option.textContent);
         if(option.value===previous){option.selected=true;placeholder.selected=false}
         select.appendChild(option);
