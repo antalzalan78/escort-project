@@ -318,6 +318,25 @@
   .contact-form select option{background:var(--bg-soft);color:var(--text)}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .field-note{color:var(--muted);font-size:.68rem;line-height:1.45;margin:-7px 2px 14px}
+  .booking-preview{margin:8px 0 22px;border:1px solid rgba(201,160,78,.38);border-radius:14px;
+    overflow:hidden;background:linear-gradient(145deg,rgba(201,160,78,.09),rgba(255,255,255,.018));
+    box-shadow:0 18px 44px rgba(0,0,0,.16)}
+  .booking-preview-head{display:flex;align-items:center;gap:13px;padding:17px 19px;border-bottom:1px solid rgba(201,160,78,.2)}
+  .booking-preview-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(201,160,78,.42);
+    border-radius:50%;color:var(--gold);flex:0 0 34px}
+  .booking-preview-icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;
+    stroke-linecap:round;stroke-linejoin:round}
+  .booking-preview-head span:last-child{font-family:var(--serif);font-size:1.25rem;color:var(--gold-soft)}
+  .booking-preview-grid{padding:4px 19px 10px}
+  .booking-preview-row{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
+    padding:11px 0;border-bottom:1px solid var(--line)}
+  .booking-preview-row:last-child{border-bottom:0}
+  .booking-preview-label{color:var(--muted);font-size:.64rem;letter-spacing:1.4px;text-transform:uppercase;white-space:nowrap}
+  .booking-preview-value{color:var(--text);font-size:.86rem;text-align:right;line-height:1.45}
+  .booking-preview-value.pending{color:var(--muted);font-style:italic}
+  .booking-preview-value.outcall{color:var(--gold-soft);text-transform:uppercase;letter-spacing:1px;font-size:.72rem}
+  .booking-preview-value.outcall::before{content:"";display:inline-block;width:5px;height:5px;margin:0 8px 1px 0;
+    border-radius:50%;background:var(--gold);box-shadow:0 0 9px rgba(201,160,78,.55)}
   .contact-form textarea{min-height:130px;resize:vertical}
   .contact-form button{width:100%;padding:15px;border:none;border-radius:40px;background:var(--gold);color:#0a0a0b;
     font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.82rem;cursor:pointer;transition:.25s}
@@ -523,6 +542,10 @@
     .booking-assurance .trust-icon{margin:0 auto}
     .trust-points{grid-column:1;justify-content:center;margin-top:2px}
     .form-row{grid-template-columns:1fr;gap:0}
+    .booking-preview{margin-top:4px}
+    .booking-preview-head{padding:15px 16px}
+    .booking-preview-grid{padding-left:16px;padding-right:16px}
+    .booking-preview-row{gap:12px}
     .teaser{padding:42px 24px;margin-top:54px}
     .quick-exit{bottom:76px;right:12px;padding:9px 11px}
     .status-pill .st-txt{display:none}
@@ -864,14 +887,29 @@
           <label for="bookingDuration" data-en="Duration" data-nl="Duur">Duration</label>
           <select id="bookingDuration" name="duration" required>
             <option value="" selected disabled data-en="Select a duration" data-nl="Kies een duur">Select a duration</option>
-            <option value="1 hour" data-en="One hour · €100" data-nl="Eén uur · €100">One hour · €100</option>
-            <option value="2 hours" data-en="Two hours · €150" data-nl="Twee uur · €150">Two hours · €150</option>
-            <option value="Evening" data-en="Evening · €600" data-nl="Hele avond · €600">Evening · €600</option>
+            <option value="1 hour" data-rate="€100" data-duration-en="One hour" data-duration-nl="Eén uur" data-en="One hour · €100" data-nl="Eén uur · €100">One hour · €100</option>
+            <option value="2 hours" data-rate="€150" data-duration-en="Two hours" data-duration-nl="Twee uur" data-en="Two hours · €150" data-nl="Twee uur · €150">Two hours · €150</option>
+            <option value="Evening" data-rate="€600" data-duration-en="Evening" data-duration-nl="Hele avond" data-en="Evening · €600" data-nl="Hele avond · €600">Evening · €600</option>
           </select>
         </div>
       </div>
       <label for="bookingLocation" data-en="City and location type" data-nl="Plaats en type locatie">City and location type</label>
       <input id="bookingLocation" type="text" name="location" placeholder="For example: Tilburg, hotel" data-en-ph="For example: Tilburg, hotel" data-nl-ph="Bijvoorbeeld: Tilburg, hotel" required />
+      <aside class="booking-preview" aria-labelledby="bookingPreviewTitle">
+        <div class="booking-preview-head">
+          <span class="booking-preview-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h8"/><path d="m17 16 2 2 3-4"/></svg>
+          </span>
+          <span id="bookingPreviewTitle" data-en="Your booking summary" data-nl="Overzicht van je boeking">Your booking summary</span>
+        </div>
+        <div class="booking-preview-grid">
+          <div class="booking-preview-row"><span class="booking-preview-label" data-en="Date" data-nl="Datum">Date</span><span class="booking-preview-value pending" id="previewDate">Not selected</span></div>
+          <div class="booking-preview-row"><span class="booking-preview-label" data-en="Duration" data-nl="Duur">Duration</span><span class="booking-preview-value pending" id="previewDuration">Not selected</span></div>
+          <div class="booking-preview-row"><span class="booking-preview-label" data-en="Rate" data-nl="Tarief">Rate</span><span class="booking-preview-value pending" id="previewRate">—</span></div>
+          <div class="booking-preview-row"><span class="booking-preview-label" data-en="Location" data-nl="Locatie">Location</span><span class="booking-preview-value pending" id="previewLocation">Not entered</span></div>
+          <div class="booking-preview-row"><span class="booking-preview-label" data-en="Meeting type" data-nl="Type afspraak">Meeting type</span><span class="booking-preview-value outcall" data-en="Outcall only" data-nl="Alleen outcall">Outcall only</span></div>
+        </div>
+      </aside>
       <label for="bookingMessage" data-en="A little about your enquiry" data-nl="Iets over je aanvraag">A little about your enquiry</label>
       <textarea id="bookingMessage" name="message" placeholder="Briefly introduce yourself and tell me what kind of meeting you have in mind." data-en-ph="Briefly introduce yourself and tell me what kind of meeting you have in mind." data-nl-ph="Stel jezelf kort voor en vertel wat voor afspraak je in gedachten hebt." required></textarea>
       <!-- honeypot -->
@@ -989,6 +1027,34 @@
   var formStatus=document.getElementById('formStatus');
   var formSuccess=document.getElementById('formSuccess');
   var submitButton=form.querySelector('button[type="submit"]');
+  var bookingDate=document.getElementById('bookingDate');
+  var bookingDuration=document.getElementById('bookingDuration');
+  var bookingLocation=document.getElementById('bookingLocation');
+  function setPreviewValue(id,value,emptyValue){
+    var el=document.getElementById(id);
+    if(!el) return;
+    var ready=!!value;
+    el.textContent=ready?value:emptyValue;
+    el.classList.toggle('pending',!ready);
+  }
+  function updateBookingPreview(){
+    var lang=document.documentElement.lang==='nl'?'nl':'en';
+    var empty=lang==='nl'?'Niet gekozen':'Not selected';
+    var noLocation=lang==='nl'?'Niet ingevuld':'Not entered';
+    var dateOption=bookingDate&&bookingDate.value?bookingDate.selectedOptions[0]:null;
+    var durationOption=bookingDuration&&bookingDuration.value?bookingDuration.selectedOptions[0]:null;
+    var durationText=durationOption
+      ?(durationOption.getAttribute('data-duration-'+lang)||durationOption.value)
+      :'';
+    var rate=durationOption?durationOption.getAttribute('data-rate'):'';
+    setPreviewValue('previewDate',dateOption?dateOption.textContent.trim():'',empty);
+    setPreviewValue('previewDuration',durationText,empty);
+    setPreviewValue('previewRate',rate,'—');
+    setPreviewValue('previewLocation',bookingLocation?bookingLocation.value.trim():'',noLocation);
+  }
+  if(bookingDate) bookingDate.addEventListener('change',updateBookingPreview);
+  if(bookingDuration) bookingDuration.addEventListener('change',updateBookingPreview);
+  if(bookingLocation) bookingLocation.addEventListener('input',updateBookingPreview);
   var toastEl=document.getElementById('bookingToast');
   var toastTimer=null;
   function showToast(msg,kind){
@@ -1010,6 +1076,7 @@
     var sum=document.getElementById('bookingSummary');
     if(sum){ sum.hidden=true; sum.innerHTML=''; }
     renderBookingSlots(document.documentElement.lang);
+    updateBookingPreview();
     form.querySelector('#bookingName').focus();
   };
   form.addEventListener('invalid',function(e){
@@ -1270,6 +1337,7 @@
     if(AVAILABILITY_STATE==='loading'){
       placeholder.textContent=lang==='nl'?'Beschikbare momenten laden…':'Loading available times…';
       select.appendChild(placeholder);
+      updateBookingPreview();
       return;
     }
     if(AVAILABILITY_STATE==='error'){
@@ -1280,6 +1348,7 @@
     if(!AVAILABLE){
       placeholder.textContent=lang==='nl'?'Momenteel geen beschikbare momenten':'No available times at the moment';
       select.appendChild(placeholder);
+      updateBookingPreview();
       return;
     }
     placeholder.textContent=lang==='nl'?'Kies een beschikbaar moment':'Choose an available time';
@@ -1304,6 +1373,7 @@
     if(select.options.length===1){
       placeholder.textContent=lang==='nl'?'Geen beschikbare momenten in de komende 14 dagen':'No available times in the next 14 days';
     }
+    updateBookingPreview();
   }
 
   function renderAvailability(lang){
