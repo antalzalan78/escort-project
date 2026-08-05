@@ -107,12 +107,12 @@
   @media (hover:none),(pointer:coarse){.cursor-glow{display:none}}
 
   /* ---------- SCROLL REVEAL ---------- */
-  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1.05s cubic-bezier(.2,.7,.2,1),transform 1.05s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.08s}
-  .reveal.d2{transition-delay:.16s}
-  .reveal.d3{transition-delay:.24s}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.grain{animation:none}}
+  .reveal.d1{transition-delay:.1s}
+  .reveal.d2{transition-delay:.2s}
+  .reveal.d3{transition-delay:.3s}
+  @media(prefers-reduced-motion:reduce){.reveal,.gallery .tile.reveal{opacity:1;transform:none;filter:none;transition:none}.grain{animation:none}}
 
   /* ---------- LIGHTBOX ---------- */
   .lightbox{
@@ -214,6 +214,26 @@
 
   /* ---------- SECTIONS ---------- */
   section{padding:100px 6vw;max-width:1200px;margin:0 auto}
+  section.chapter{position:relative;isolation:isolate}
+  section.chapter::before{
+    content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);
+    border-top:1px solid transparent;
+    background:
+      linear-gradient(90deg,transparent 5%,rgba(201,160,78,.08) 28%,rgba(201,160,78,.34) 50%,rgba(201,160,78,.08) 72%,transparent 95%) top/100% 1px no-repeat,
+      radial-gradient(ellipse at 50% 0,rgba(201,160,78,.045),transparent 42%),
+      rgba(255,255,255,.008);
+  }
+  section.chapter-tone::before{
+    background:
+      linear-gradient(90deg,transparent 5%,rgba(201,160,78,.08) 28%,rgba(201,160,78,.34) 50%,rgba(201,160,78,.08) 72%,transparent 95%) top/100% 1px no-repeat,
+      radial-gradient(ellipse at 50% 0,rgba(201,160,78,.055),transparent 42%),
+      rgba(255,255,255,.018);
+  }
+  section.chapter::after{
+    content:attr(data-chapter);position:absolute;z-index:-1;top:42px;right:2vw;
+    font-family:var(--serif);font-size:clamp(7rem,16vw,13rem);font-weight:600;line-height:.8;
+    color:rgba(201,160,78,.035);letter-spacing:-.06em;pointer-events:none;user-select:none;
+  }
   .sec-head{text-align:center;margin-bottom:56px}
   .sec-head .kicker{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:.75rem}
   .sec-head h2{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3.4rem);font-weight:600;margin-top:10px}
@@ -244,6 +264,10 @@
   .gallery .tile:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 0 1px var(--gold)}
   .gallery .tile span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;letter-spacing:2px}
   .gallery .tile img{display:block;width:100%;height:auto;object-fit:contain;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .gallery .tile.reveal{transform:translateY(22px) scale(.988);filter:brightness(.62) saturate(.72);
+    transition:opacity 1.35s cubic-bezier(.2,.7,.2,1),transform 1.35s cubic-bezier(.2,.7,.2,1),filter 1.5s ease,border-color .3s,box-shadow .4s}
+  .gallery .tile.reveal.in{transform:none;filter:none}
+  .gallery .tile.reveal.in:hover{transform:translateY(-6px)}
   .gallery .tile:hover img{transform:scale(1.05)}
   /* dark-to-transparent overlay + view hint on hover */
   .gallery .tile::before{content:"";position:absolute;inset:0;z-index:1;
@@ -546,6 +570,7 @@
     .booking-preview-head{padding:15px 16px}
     .booking-preview-grid{padding-left:16px;padding-right:16px}
     .booking-preview-row{gap:12px}
+    section.chapter::after{top:34px;right:5vw;font-size:6.2rem;color:rgba(201,160,78,.04)}
     .teaser{padding:42px 24px;margin-top:54px}
     .quick-exit{bottom:76px;right:12px;padding:9px 11px}
     .status-pill .st-txt{display:none}
@@ -665,7 +690,7 @@
 </div>
 
 <!-- ============ ABOUT ============ -->
-<section id="about">
+<section id="about" class="chapter" data-chapter="01">
   <div class="sec-head">
     <div class="kicker" data-en="About" data-nl="Over mij">About</div>
     <h2 data-en="A little about me" data-nl="Even voorstellen">A little about me</h2>
@@ -694,7 +719,7 @@
 </section>
 
 <!-- ============ EXPERIENCES ============ -->
-<section id="services">
+<section id="services" class="chapter chapter-tone" data-chapter="02">
   <div class="sec-head">
     <div class="kicker" data-en="Experiences" data-nl="Ervaringen">Experiences</div>
     <h2 data-en="Sessions" data-nl="Sessies">Sessions</h2>
@@ -732,7 +757,7 @@
 </section>
 
 <!-- ============ GALLERY ============ -->
-<section id="gallery">
+<section id="gallery" class="chapter" data-chapter="03">
   <div class="sec-head">
     <div class="kicker" data-en="Portfolio" data-nl="Portfolio">Portfolio</div>
     <h2 data-en="Gallery" data-nl="Galerij">Gallery</h2>
@@ -845,7 +870,7 @@
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact">
+<section id="contact" class="chapter chapter-tone" data-chapter="04">
   <aside class="booking-assurance">
     <div class="trust-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
