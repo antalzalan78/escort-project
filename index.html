@@ -1698,12 +1698,25 @@
   (function(){
     var SB_URL='https://evernyxfvzhpkmbjlpoi.supabase.co';
     var SB_KEY='sb_publishable_eDp6rlAORmqM9BgnnjZRgg_WDiaD2jq';
+    // Where did this visit come from? ?utm_source=… (or ?ref=…), else the referring site, else "direct".
+    function detectSource(){
+      try{
+        var p=new URLSearchParams(location.search);
+        var s=p.get('utm_source')||p.get('ref');
+        if(s) return s;
+        if(document.referrer){
+          var h=new URL(document.referrer).hostname.replace(/^www\./,'');
+          if(h && h!==location.hostname) return h;
+        }
+      }catch(e){}
+      return 'direct';
+    }
     try{
       if(sessionStorage.getItem('v_counted')) return;   // count once per session
       fetch(SB_URL+'/rest/v1/rpc/increment_visit',{
         method:'POST',
         headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},
-        body:'{}',
+        body:JSON.stringify({p_source:detectSource()}),
         keepalive:true
       }).then(function(){ try{ sessionStorage.setItem('v_counted','1'); }catch(e){} })
         .catch(function(){});
