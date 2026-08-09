@@ -12,6 +12,9 @@
 <meta name="rating" content="adult" />
 <meta name="theme-color" content="#0a0a0b" />
 <link rel="canonical" href="https://meetmilan.nl/" />
+<link rel="alternate" hreflang="en" href="https://meetmilan.nl/" />
+<link rel="alternate" hreflang="nl" href="https://meetmilan.nl/nl/" />
+<link rel="alternate" hreflang="x-default" href="https://meetmilan.nl/" />
 <link rel="preload" href="fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="fonts/jost.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" as="image" href="photos/optimized/1-1600.webp"
@@ -30,6 +33,7 @@
 <meta property="og:description" content="Discreet, well-groomed and open-minded companion in Tilburg. Private encounters for women, men and couples throughout the Netherlands." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="nl_NL" />
 <meta property="og:site_name" content="Milan · Tilburg" />
 <meta property="og:url" content="https://meetmilan.nl/" />
 <meta property="og:image" content="https://meetmilan.nl/og-preview.png" />
@@ -522,10 +526,10 @@
   /* LANGUAGE SWITCH */
   .nav-right{display:flex;align-items:center;gap:16px}
   .lang-switch{display:flex;gap:2px;border:1px solid var(--line);border-radius:30px;padding:3px;background:rgba(20,20,22,.6)}
-  .lang-switch button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.7rem;
+  .lang-switch a{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.7rem;
     letter-spacing:1px;font-weight:600;padding:5px 11px;border-radius:30px;cursor:pointer;transition:.2s}
-  .lang-switch button:hover{color:var(--text)}
-  .lang-switch button.active{background:var(--gold);color:#0a0a0b}
+  .lang-switch a:hover{color:var(--text)}
+  .lang-switch a.active{background:var(--gold);color:#0a0a0b}
 
   /* MOBILE FLOATING BOOK BUTTON */
   .book-fab{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;display:none;
@@ -707,9 +711,9 @@
     <a href="shadow.html" class="nav-shadow" data-en="Shadow" data-nl="Shadow">Shadow</a>
   </nav>
   <div class="nav-right">
-    <div class="lang-switch">
-      <button type="button" data-lang="en">EN</button>
-      <button type="button" data-lang="nl">NL</button>
+    <div class="lang-switch" aria-label="Language">
+      <a href="/" data-lang="en" hreflang="en" lang="en" aria-current="page">EN</a>
+      <a href="/nl/" data-lang="nl" hreflang="nl" lang="nl">NL</a>
     </div>
     <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
@@ -1660,7 +1664,7 @@
         var v=el.getAttribute('data-'+lang+'-ph');
         if(v!==null) el.setAttribute('placeholder', v);
       });
-      document.querySelectorAll('.lang-switch button').forEach(function(b){
+      document.querySelectorAll('.lang-switch a').forEach(function(b){
         b.classList.toggle('active', b.getAttribute('data-lang')===lang);
       });
       renderAvailability(lang);
@@ -1673,14 +1677,9 @@
       });
       try{ localStorage.setItem(KEY, lang); }catch(e){}
     }
-    // Initial language: saved choice, else Dutch browsers get NL, else EN
+    // Each canonical URL has one fixed language; the switch navigates between URLs.
     var initial='en';
-    try{
-      var saved=localStorage.getItem(KEY);
-      if(saved){ initial=saved; }
-      else if(navigator.language && navigator.language.toLowerCase().indexOf('nl')===0){ initial='nl'; }
-    }catch(e){}
-    document.querySelectorAll('.lang-switch button').forEach(function(b){
+    document.querySelectorAll('.lang-switch a').forEach(function(b){
       b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
     });
     apply(initial);
