@@ -194,8 +194,9 @@
   nav.links a:hover{color:var(--gold)}
   nav.links a.nav-shadow{color:#b06a6e}
   nav.links a.nav-shadow:hover{color:#c87b80}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-  .burger span{width:24px;height:2px;background:var(--text)}
+  .burger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;width:44px;height:44px;padding:0;background:transparent;border:0;color:var(--text);border-radius:9px}
+  .burger:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .burger span{width:24px;height:2px;background:currentColor}
 
   /* ---------- HERO ---------- */
   .hero{
@@ -605,15 +606,19 @@
     section{padding:70px 6vw}
   }
   @media(max-width:480px){
+    section{padding:56px 6vw}
+    .sec-head{margin-bottom:42px}
     .steps{grid-template-columns:1fr}
     .avail{grid-template-columns:repeat(3,1fr)}
     .avail.exact{grid-template-columns:1fr}
     .reviews{grid-template-columns:1fr}
-    .gallery{column-count:1}
+    .gallery{column-count:2;column-gap:10px}
+    .gallery .tile{margin-bottom:10px}
     .booking-assurance{grid-template-columns:1fr;text-align:center;padding:28px 22px}
     .booking-assurance .trust-icon{margin:0 auto}
     .trust-points{grid-column:1;justify-content:center;margin-top:2px}
     .form-row{grid-template-columns:1fr;gap:0}
+    .contact-form input,.contact-form select,.contact-form textarea{font-size:1rem}
     .booking-preview{margin-top:4px}
     .booking-preview-head{padding:15px 16px}
     .booking-preview-grid{padding-left:16px;padding-right:16px}
@@ -623,7 +628,8 @@
     section.chapter::after{top:34px;right:5vw;font-size:6.2rem;color:rgba(201,160,78,.04)}
     .teaser{padding:42px 24px;margin-top:54px}
     .quick-exit{bottom:76px;right:12px;padding:9px 11px}
-    .status-pill .st-txt{display:none}
+    .status-pill .st-txt{display:inline;font-size:0}
+    .status-pill .st-txt::after{content:attr(data-short);font-size:.58rem;letter-spacing:.8px}
   }
   @media(max-width:820px){ .book-fab{display:inline-block} .reviews{grid-template-columns:1fr} }
 </style>
@@ -706,9 +712,9 @@
 <header class="nav" id="nav">
   <div class="nav-left">
     <div class="logo">MILAN</div>
-    <div class="status-pill" id="statusPill"><span class="dot"></span><span class="st-txt" data-en="Checking availability…" data-nl="Beschikbaarheid laden…">Checking availability…</span></div>
+    <div class="status-pill" id="statusPill" role="status" aria-live="polite"><span class="dot"></span><span class="st-txt" data-short="…" data-en="Checking availability…" data-nl="Beschikbaarheid laden…">Checking availability…</span></div>
   </div>
-  <nav class="links">
+  <nav class="links" id="siteNav">
     <a href="#about" data-en="About" data-nl="Over mij">About</a>
     <a href="#services" data-en="Experiences" data-nl="Ervaringen">Experiences</a>
     <a href="#gallery" data-en="Gallery" data-nl="Galerij">Gallery</a>
@@ -722,7 +728,7 @@
       <a href="/" data-lang="en" hreflang="en" lang="en" aria-current="page">EN</a>
       <a href="/nl/" data-lang="nl" hreflang="nl" lang="nl">NL</a>
     </div>
-    <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <button class="burger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="siteNav" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -845,7 +851,7 @@
     <div class="rate"><span class="rl" data-en="Evening <small>Extended, unhurried company</small>" data-nl="Hele avond <small>Uitgebreid gezelschap zonder haast</small>">Evening <small>Extended, unhurried company</small></span><span class="rp">€ 600</span></div>
   </div>
   <p class="rate-terms" data-en="<strong>Outcall only.</strong> Rates apply to appointments in Tilburg. Any travel costs outside Tilburg, as well as hotel or venue costs, are discussed and agreed in advance. The timing of an evening booking is confirmed when arranging the appointment." data-nl="<strong>Alleen outcall.</strong> De tarieven gelden voor afspraken in Tilburg. Eventuele reiskosten buiten Tilburg en hotel- of locatiekosten worden vooraf besproken en overeengekomen. De tijden van een avondboeking worden bij het maken van de afspraak bevestigd."><strong>Outcall only.</strong> Rates apply to appointments in Tilburg. Any travel costs outside Tilburg, as well as hotel or venue costs, are discussed and agreed in advance. The timing of an evening booking is confirmed when arranging the appointment.</p>
-  <p class="avail-sub" data-en="This week" data-nl="Deze week">This week</p>
+  <p class="avail-sub" data-en="Upcoming availability" data-nl="Komende beschikbaarheid">Upcoming availability</p>
   <div class="avail">
     <div class="day" data-day="mon"><div class="d" data-en="Mon" data-nl="Ma">Mon</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
     <div class="day" data-day="tue"><div class="d" data-en="Tue" data-nl="Di">Tue</div><div class="t" data-en="Loading…" data-nl="Laden…">Loading…</div></div>
@@ -1108,9 +1114,10 @@
   });
 
   // Mobile menu (simple)
-  function toggleMenu(){
+  function toggleMenu(button){
     var l=document.querySelector('nav.links');
-    if(l.style.display==='flex'){ l.style.display='none'; }
+    var open=l.style.display==='flex';
+    if(open){ l.style.display='none'; }
     else{
       l.style.display='flex';
       l.style.position='absolute';l.style.top='64px';l.style.right='6vw';
@@ -1118,6 +1125,7 @@
       l.style.background='var(--bg-soft)';l.style.padding='20px 26px';
       l.style.border='1px solid var(--line)';l.style.borderRadius='12px';
     }
+    if(button) button.setAttribute('aria-expanded',open?'false':'true');
   }
 
   // Year
@@ -1427,12 +1435,20 @@
 
   function formatConcreteSlot(startsAt,endsAt,lang){
     var locale=lang==='nl'?'nl-NL':'en-GB';
+    var startDate=new Date(startsAt);
     // Force European 24-hour time (e.g. 14:30), never 12-hour AM/PM, regardless of browser locale.
     var start=new Intl.DateTimeFormat(locale,{
       weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'
-    }).format(new Date(startsAt));
+    }).format(startDate);
     if(!endsAt) return start;
-    return start+' – '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'}).format(new Date(endsAt));
+    var endDate=new Date(endsAt);
+    var sameDay=startDate.getFullYear()===endDate.getFullYear()
+      && startDate.getMonth()===endDate.getMonth()
+      && startDate.getDate()===endDate.getDate();
+    var endOptions=sameDay
+      ? {hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'}
+      : {weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',hour12:false,hourCycle:'h23'};
+    return start+' – '+new Intl.DateTimeFormat(locale,endOptions).format(endDate);
   }
 
   function bookingDurationHours(){
@@ -1565,7 +1581,11 @@
     var pill=document.getElementById('statusPill');
     if(pill){
       pill.classList.toggle('on',displayState==='on');
-      pill.querySelector('.st-txt').textContent=STATUS_TXT[displayState][lang];
+      var statusText=STATUS_TXT[displayState][lang];
+      var statusLabel=pill.querySelector('.st-txt');
+      statusLabel.textContent=statusText;
+      statusLabel.setAttribute('data-short',STATUS_SHORT_TXT[displayState][lang]);
+      pill.setAttribute('aria-label',statusText);
     }
     var note=document.getElementById('availNote');
     if(note) note.innerHTML=AVAIL_NOTE_TXT[displayState][lang];
@@ -1640,6 +1660,12 @@
     on:      { en: 'Accepting bookings', nl: 'Boekingen geopend' },
     off:     { en: 'Bookings paused', nl: 'Boekingen gepauzeerd' },
     error:   { en: 'By appointment', nl: 'Op afspraak' }
+  };
+  var STATUS_SHORT_TXT = {
+    loading: { en: '…', nl: '…' },
+    on:      { en: 'OPEN', nl: 'OPEN' },
+    off:     { en: 'PAUSED', nl: 'PAUZE' },
+    error:   { en: 'ASK', nl: 'VRAAG' }
   };
   var AVAIL_NOTE_TXT = {
     loading: { en: 'Checking current booking availability…', nl: 'Actuele beschikbaarheid wordt geladen…' },
