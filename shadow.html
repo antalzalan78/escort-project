@@ -89,7 +89,8 @@
   /* hero */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 6vw 90px;overflow:hidden;background:#08080a}
   .hero::before{content:"";position:absolute;inset:0;z-index:0;
-    background:url("photos/s1.jpg") center 30%/cover no-repeat;filter:blur(9px) grayscale(1) brightness(.4);transform:scale(1.15)}
+    background-image:url("photos/s1.jpg");background-image:image-set(url("photos/s1-1200.webp") type("image/webp"),url("photos/s1.jpg") type("image/jpeg"));
+    background-position:center 30%;background-size:cover;background-repeat:no-repeat;filter:blur(9px) grayscale(1) brightness(.4);transform:scale(1.15)}
   .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(8,8,10,.72), rgba(8,8,10,.93))}
   .hero .inner{position:relative;z-index:2;max-width:760px}
   .hero .welcome{color:var(--muted);font-style:italic;font-size:.92rem;letter-spacing:.5px;margin-bottom:26px;opacity:.85}
@@ -289,16 +290,16 @@
     <p data-en="A darker, more artistic side. Shared with discretion." data-nl="Een donkerdere, meer artistieke kant. Gedeeld met discretie.">A darker, more artistic side. Shared with discretion.</p>
   </div>
   <div class="sgallery">
-    <div class="tile reveal"><img src="photos/s1.jpg" alt="Milan in shadow" loading="lazy" /></div>
-    <div class="tile reveal d1"><img src="photos/s2.jpg" alt="Milan in restraint" loading="lazy" /></div>
-    <div class="tile reveal d2"><img src="photos/s10.jpg" alt="Milan wearing a restraint harness" loading="lazy" /></div>
-    <div class="tile reveal"><img src="photos/s3.jpg" alt="Bondage detail" loading="lazy" /></div>
-    <div class="tile reveal d1"><img src="photos/s6.jpg" alt="Milan kneeling outdoors" loading="lazy" /></div>
-    <div class="tile reveal d2"><img src="photos/s11.jpg" alt="Restraint detail" loading="lazy" /></div>
-    <div class="tile reveal"><img src="photos/s4.jpg" alt="Milan in submission" loading="lazy" /></div>
-    <div class="tile reveal d1"><img src="photos/s12.jpg" alt="Milan wearing a collar" loading="lazy" /></div>
-    <div class="tile reveal d2"><img src="photos/s7.jpg" alt="Milan in a submissive pose" loading="lazy" /></div>
-    <div class="tile reveal"><img src="photos/s16.jpg" alt="Sensory play detail" loading="lazy" /></div>
+    <div class="tile reveal" data-full="photos/s1-1200.webp"><picture><source type="image/webp" srcset="photos/s1-480.webp 480w, photos/s1-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s1.jpg" alt="Milan in shadow" width="1600" height="1595" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d1" data-full="photos/s2-1200.webp"><picture><source type="image/webp" srcset="photos/s2-480.webp 480w, photos/s2-1200.webp 723w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s2.jpg" alt="Milan in restraint" width="723" height="1600" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d2" data-full="photos/s10-1200.webp"><picture><source type="image/webp" srcset="photos/s10-480.webp 480w, photos/s10-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s10.jpg" alt="Milan wearing a restraint harness" width="1600" height="1134" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal" data-full="photos/s3-1200.webp"><picture><source type="image/webp" srcset="photos/s3-480.webp 480w, photos/s3-1200.webp 1108w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s3.jpg" alt="Bondage detail" width="1108" height="1600" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d1" data-full="photos/s6-1200.webp"><picture><source type="image/webp" srcset="photos/s6-480.webp 480w, photos/s6-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s6.jpg" alt="Milan kneeling outdoors" width="1200" height="1600" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d2" data-full="photos/s11-1200.webp"><picture><source type="image/webp" srcset="photos/s11-480.webp 480w, photos/s11-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s11.jpg" alt="Restraint detail" width="1600" height="890" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal" data-full="photos/s4-1200.webp"><picture><source type="image/webp" srcset="photos/s4-480.webp 480w, photos/s4-1200.webp 1106w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s4.jpg" alt="Milan in submission" width="1106" height="1600" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d1" data-full="photos/s12-1200.webp"><picture><source type="image/webp" srcset="photos/s12-480.webp 480w, photos/s12-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s12.jpg" alt="Milan wearing a collar" width="1600" height="1141" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal d2" data-full="photos/s7-1200.webp"><picture><source type="image/webp" srcset="photos/s7-480.webp 480w, photos/s7-1200.webp 1200w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s7.jpg" alt="Milan in a submissive pose" width="1600" height="1200" loading="lazy" decoding="async" /></picture></div>
+    <div class="tile reveal" data-full="photos/s16-1200.webp"><picture><source type="image/webp" srcset="photos/s16-480.webp 480w, photos/s16-1200.webp 758w" sizes="(max-width:480px) 88vw, (max-width:820px) 44vw, 31vw"><img src="photos/s16.jpg" alt="Sensory play detail" width="758" height="1009" loading="lazy" decoding="async" /></picture></div>
   </div>
 </section>
 
@@ -393,7 +394,7 @@
     function show(index){
       current=(index+tiles.length)%tiles.length;
       var img=tiles[current].querySelector('img');
-      lbImg.src=img.currentSrc||img.src;lbImg.alt=img.alt||'Milan in shadow';count.textContent=(current+1)+' / '+tiles.length;
+      lbImg.src=tiles[current].getAttribute('data-full')||img.currentSrc||img.src;lbImg.alt=img.alt||'Milan in shadow';count.textContent=(current+1)+' / '+tiles.length;
     }
     function open(index){lastFocus=document.activeElement;show(index);lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';closeBtn.focus()}
     function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');lbImg.src='';document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
