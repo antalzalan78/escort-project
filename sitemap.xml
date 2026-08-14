@@ -21,7 +21,19 @@
   </url>
   <url>
     <loc>https://meetmilan.nl/shadow.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://meetmilan.nl/shadow.html" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://meetmilan.nl/nl/shadow/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://meetmilan.nl/shadow.html" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://meetmilan.nl/nl/shadow/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://meetmilan.nl/shadow.html" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://meetmilan.nl/nl/shadow/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://meetmilan.nl/shadow.html" />
+    <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
