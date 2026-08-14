@@ -273,6 +273,8 @@
   .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
   .stat .label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
   .stat .val{font-family:var(--serif);font-size:1.5rem;margin-top:4px}
+  .stat .val a{transition:color .2s}
+  .stat .val a:hover{color:var(--gold-soft)}
   .audience-signals{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px 28px;
     max-width:760px;margin:44px auto 0;padding-top:28px;border-top:1px solid var(--line)}
   .audience-signal{display:inline-flex;align-items:center;gap:12px;color:var(--muted);font-size:.72rem;
@@ -297,6 +299,10 @@
   .area-cities span{padding:7px 13px;border:1px solid var(--line);border-radius:30px;color:var(--text);
     background:rgba(10,10,11,.35);font-size:.7rem;letter-spacing:1.2px;text-transform:uppercase}
   .area-note{display:block;margin-top:16px;color:var(--muted);font-size:.78rem}
+  .area-cta,.section-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:var(--gold-soft);
+    font-size:.72rem;letter-spacing:1.7px;text-transform:uppercase;border-bottom:1px solid rgba(201,160,78,.35);padding-bottom:3px;transition:.2s}
+  .area-cta:hover,.section-link:hover{color:#fff;border-bottom-color:var(--gold)}
+  .services-next{text-align:center;margin-top:30px}
 
   /* GALLERY */
   .gallery{column-count:3;column-gap:16px}
@@ -588,6 +594,9 @@
   /* FOOTER */
   footer{text-align:center;padding:50px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
   footer .logo{font-size:1.3rem;margin-bottom:14px}
+  footer .footer-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px;margin:0 auto 18px}
+  footer .footer-nav a{color:var(--text);font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;transition:.2s}
+  footer .footer-nav a:hover{color:var(--gold)}
   footer .verified{font-size:.72rem;letter-spacing:1px;color:var(--muted);margin:10px 0 2px}
   footer .verified a{color:var(--gold);margin:0 4px;border-bottom:1px solid transparent;transition:.2s}
   footer .verified a:hover{border-bottom-color:var(--gold)}
@@ -790,7 +799,7 @@
       <p data-en="Whether you're looking for relaxed intimacy, sensual exploration, gentle power exchange or simply exceptional company, every meeting is shaped around your comfort, boundaries and desires." data-nl="Of je nu op zoek bent naar ontspannen intimiteit, sensuele verkenning, zachte machtsuitwisseling of simpelweg uitzonderlijk gezelschap: elke afspraak wordt gevormd rond jouw comfort, grenzen en verlangens.">Of je nu op zoek bent naar ontspannen intimiteit, sensuele verkenning, zachte machtsuitwisseling of simpelweg uitzonderlijk gezelschap: elke afspraak wordt gevormd rond jouw comfort, grenzen en verlangens.</p>
       <p data-en="You can always expect professionalism, discretion, excellent hygiene and a warm, respectful atmosphere from the very first message until we say goodbye." data-nl="Je mag altijd rekenen op professionaliteit, discretie, uitstekende hygiëne en een warme, respectvolle sfeer, vanaf het allereerste bericht tot we afscheid nemen.">Je mag altijd rekenen op professionaliteit, discretie, uitstekende hygiëne en een warme, respectvolle sfeer, vanaf het allereerste bericht tot we afscheid nemen.</p>
       <div class="stats">
-        <div class="stat"><div class="label" data-en="Based in" data-nl="Regio">Regio</div><div class="val" data-en="Tilburg &amp; area" data-nl="Tilburg e.o.">Tilburg e.o.</div></div>
+        <div class="stat"><div class="label" data-en="Based in" data-nl="Regio">Regio</div><div class="val"><a href="#service-area" data-en="Tilburg &amp; area" data-nl="Tilburg e.o.">Tilburg e.o.</a></div></div>
         <div class="stat"><div class="label" data-en="Languages" data-nl="Talen">Talen</div><div class="val">EN · [ ... ]</div></div>
         <div class="stat"><div class="label" data-en="Height" data-nl="Lengte">Lengte</div><div class="val">180 cm</div></div>
         <div class="stat"><div class="label" data-en="Availability" data-nl="Beschikbaar">Beschikbaar</div><div class="val" data-en="By appointment" data-nl="Op afspraak">Op afspraak</div></div>
@@ -805,7 +814,7 @@
 </section>
 
 <!-- ============ TILBURG & SURROUNDINGS ============ -->
-<section class="service-area reveal" aria-labelledby="serviceAreaTitle">
+<section id="service-area" class="service-area reveal" aria-labelledby="serviceAreaTitle">
   <div class="area-panel">
     <div class="area-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
     <div class="area-copy">
@@ -814,6 +823,7 @@
       <p data-en="Based in Tilburg, I offer discreet outcall meetings at your hotel or home. Breda, Eindhoven and Den Bosch are within easy reach, and other locations throughout the Netherlands are possible by arrangement." data-nl="Vanuit Tilburg kom ik discreet naar je hotel of thuisadres. Breda, Eindhoven en Den Bosch zijn goed bereikbaar; andere plaatsen in Nederland zijn in overleg mogelijk.">Vanuit Tilburg kom ik discreet naar je hotel of thuisadres. Breda, Eindhoven en Den Bosch zijn goed bereikbaar; andere plaatsen in Nederland zijn in overleg mogelijk.</p>
       <div class="area-cities" aria-label="Werkgebied"><span>Tilburg</span><span>Breda</span><span>Eindhoven</span><span>Den Bosch</span></div>
       <small class="area-note" data-en="Travel outside Tilburg and any hotel or venue costs are always discussed and agreed in advance." data-nl="Reiskosten buiten Tilburg en eventuele hotel- of locatiekosten worden altijd vooraf besproken en afgesproken.">Reiskosten buiten Tilburg en eventuele hotel- of locatiekosten worden altijd vooraf besproken en afgesproken.</small>
+      <a class="area-cta" href="#contact" data-en="Request an outcall meeting →" data-nl="Vraag een outcall-afspraak aan →">Vraag een outcall-afspraak aan →</a>
     </div>
   </div>
 </section>
@@ -845,6 +855,7 @@
       <div class="meta" data-en="Outcall · dinner date" data-nl="Outcall · dinerdate">Outcall · dinerdate</div>
     </div>
   </div>
+  <div class="services-next"><a class="section-link" href="#availability" data-en="View rates &amp; current availability →" data-nl="Bekijk tarieven &amp; actuele beschikbaarheid →">Bekijk tarieven &amp; actuele beschikbaarheid →</a></div>
   <div class="teaser reveal">
     <span class="teaser-kicker" data-en="A private invitation" data-nl="Een persoonlijke uitnodiging">Een persoonlijke uitnodiging</span>
     <span class="teaser-symbol" aria-hidden="true">
@@ -852,7 +863,7 @@
     </span>
     <h3 data-en="There is another side of me." data-nl="Er is een andere kant van mij.">Er is een andere kant van mij.</h3>
     <p data-en="Not everyone is looking for it. But if trust, power and surrender speak to you, follow me into the shadows." data-nl="Niet iedereen is ernaar op zoek. Maar als vertrouwen, macht en overgave je aanspreken, volg mij dan de schaduw in.">Niet iedereen is ernaar op zoek. Maar als vertrouwen, macht en overgave je aanspreken, volg mij dan de schaduw in.</p>
-    <a class="tlink" href="/nl/shadow/" data-en="Enter the Shadow →" data-nl="Betreed de Schaduw →">Betreed de Schaduw →</a>
+    <a class="tlink" href="/nl/shadow/" data-en="Explore Milan's Shadow side →" data-nl="Ontdek Milans Shadow-kant →">Ontdek Milans Shadow-kant →</a>
   </div>
 </section>
 
@@ -1107,6 +1118,13 @@
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="logo">MILAN</div>
+  <nav class="footer-nav" aria-label="Footernavigatie">
+    <a href="#about" data-en="About Milan" data-nl="Over Milan">Over Milan</a>
+    <a href="#services" data-en="Experiences" data-nl="Ervaringen">Ervaringen</a>
+    <a href="#service-area" data-en="Tilburg outcall area" data-nl="Outcall-regio Tilburg">Outcall-regio Tilburg</a>
+    <a href="#availability" data-en="Rates &amp; availability" data-nl="Tarieven &amp; beschikbaarheid">Tarieven &amp; beschikbaarheid</a>
+    <a href="#contact" data-en="Contact &amp; booking" data-nl="Contact &amp; boeken">Contact &amp; boeken</a>
+  </nav>
   <div class="verified">
     <span data-en="Verified profiles:" data-nl="Geverifieerde profielen:">Geverifieerde profielen:</span>
     <a href="https://www.kinky.nl/advertenties/4688942-milan" target="_blank" rel="noopener">Kinky.nl</a>
