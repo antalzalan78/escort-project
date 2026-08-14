@@ -55,7 +55,12 @@
   "description": "Discreet, well-groomed and open-minded companion in Tilburg, offering private encounters for women, men and couples throughout the Netherlands.",
   "url": "https://meetmilan.nl/",
   "telephone": "+31651923657",
-  "areaServed": { "@type": "City", "name": "Tilburg" },
+  "areaServed": [
+    { "@type": "City", "name": "Tilburg" },
+    { "@type": "City", "name": "Breda" },
+    { "@type": "City", "name": "Eindhoven" },
+    { "@type": "City", "name": "'s-Hertogenbosch" }
+  ],
   "address": { "@type": "PostalAddress", "addressLocality": "Tilburg", "addressRegion": "Noord-Brabant", "addressCountry": "NL" },
   "priceRange": "€€",
   "sameAs": [
@@ -275,6 +280,24 @@
     letter-spacing:2.4px;text-transform:uppercase}
   .audience-signal::before{content:"";width:6px;height:6px;border:1px solid var(--gold);
     transform:rotate(45deg);box-shadow:0 0 10px rgba(201,160,78,.2)}
+
+  /* SERVICE AREA */
+  section.service-area{padding:0 6vw 100px}
+  .area-panel{position:relative;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;
+    max-width:920px;margin:0 auto;padding:34px 38px;border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(135deg,rgba(201,160,78,.055),rgba(255,255,255,.012));overflow:hidden}
+  .area-panel::after{content:"";position:absolute;right:-80px;top:-100px;width:240px;height:240px;border-radius:50%;
+    background:radial-gradient(circle,rgba(201,160,78,.1),transparent 68%);pointer-events:none}
+  .area-icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(201,160,78,.45);
+    border-radius:50%;color:var(--gold);background:rgba(10,10,11,.42)}
+  .area-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5}
+  .area-copy .kicker{color:var(--gold);font-size:.7rem;letter-spacing:3px;text-transform:uppercase}
+  .area-copy h2{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.45rem);font-weight:600;margin:5px 0 10px}
+  .area-copy p{color:var(--muted);max-width:720px}
+  .area-cities{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .area-cities span{padding:7px 13px;border:1px solid var(--line);border-radius:30px;color:var(--text);
+    background:rgba(10,10,11,.35);font-size:.7rem;letter-spacing:1.2px;text-transform:uppercase}
+  .area-note{display:block;margin-top:16px;color:var(--muted);font-size:.78rem}
 
   /* GALLERY */
   .gallery{column-count:3;column-gap:16px}
@@ -595,6 +618,8 @@
     nav.links{display:none}
     .burger{display:flex}
     .about,.contact-wrap{grid-template-columns:1fr;gap:32px}
+    section.service-area{padding-bottom:70px}
+    .area-panel{grid-template-columns:1fr;padding:28px 24px;gap:18px}
     .contact-guidance{grid-template-columns:1fr;max-width:620px}
     .response-note{border-right:0;border-bottom:1px solid var(--line)}
     .gallery{column-count:2}
@@ -777,6 +802,20 @@
     <span class="audience-signal" data-en="For women" data-nl="Voor vrouwen">For women</span>
     <span class="audience-signal" data-en="For men" data-nl="Voor mannen">For men</span>
     <span class="audience-signal" data-en="For couples" data-nl="Voor koppels">For couples</span>
+  </div>
+</section>
+
+<!-- ============ TILBURG & SURROUNDINGS ============ -->
+<section class="service-area reveal" aria-labelledby="serviceAreaTitle">
+  <div class="area-panel">
+    <div class="area-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+    <div class="area-copy">
+      <div class="kicker" data-en="Outcall area" data-nl="Outcall-regio">Outcall area</div>
+      <h2 id="serviceAreaTitle" data-en="Tilburg &amp; surroundings" data-nl="Tilburg &amp; omgeving">Tilburg &amp; surroundings</h2>
+      <p data-en="Based in Tilburg, I offer discreet outcall meetings at your hotel or home. Breda, Eindhoven and Den Bosch are within easy reach, and other locations throughout the Netherlands are possible by arrangement." data-nl="Vanuit Tilburg kom ik discreet naar je hotel of thuisadres. Breda, Eindhoven en Den Bosch zijn goed bereikbaar; andere plaatsen in Nederland zijn in overleg mogelijk.">Based in Tilburg, I offer discreet outcall meetings at your hotel or home. Breda, Eindhoven and Den Bosch are within easy reach, and other locations throughout the Netherlands are possible by arrangement.</p>
+      <div class="area-cities" aria-label="Service area"><span>Tilburg</span><span>Breda</span><span>Eindhoven</span><span>Den Bosch</span></div>
+      <small class="area-note" data-en="Travel outside Tilburg and any hotel or venue costs are always discussed and agreed in advance." data-nl="Reiskosten buiten Tilburg en eventuele hotel- of locatiekosten worden altijd vooraf besproken en afgesproken.">Travel outside Tilburg and any hotel or venue costs are always discussed and agreed in advance.</small>
+    </div>
   </div>
 </section>
 
