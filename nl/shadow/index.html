@@ -44,6 +44,9 @@
   "primaryImageOfPage":{"@type":"ImageObject","url":"https://meetmilan.nl/images/shadow-share.jpg","width":1200,"height":630}
 }
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Meet Milan","item":"https://meetmilan.nl/nl/"},{"@type":"ListItem","position":2,"name":"Shadow","item":"https://meetmilan.nl/nl/shadow/"}]}
+</script>
 <style>
   /* self-hosted fonts (shared with the main site) */
   @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url("/fonts/cormorant.woff2") format("woff2")}
@@ -213,6 +216,8 @@
   }
   @media(max-width:600px){.shadow-form{padding:20px}.shadow-form-grid{grid-template-columns:1fr}.shadow-form .full{grid-column:auto}}
   @media(max-width:480px){.dyn{grid-template-columns:1fr}.sgallery{column-count:1}.quick-exit{right:12px;bottom:12px;padding:9px 11px}.lightbox{padding:70px 12px 62px}.lb-nav{top:auto;bottom:12px;width:46px;height:42px;transform:none}.lb-prev{left:18px}.lb-next{right:18px}.lb-count{bottom:24px}}
+  .breadcrumb{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:18px;color:var(--muted);font-size:.66rem;letter-spacing:1.2px}
+  .breadcrumb a{transition:.2s}.breadcrumb a:hover{color:var(--accent-soft)}.breadcrumb .sep{color:var(--accent-soft);opacity:.7}.breadcrumb [aria-current="page"]{color:var(--text)}
 </style>
 </head>
 <body>
@@ -260,6 +265,7 @@
 <!-- hero -->
 <div class="hero">
   <div class="inner">
+    <nav class="breadcrumb" aria-label="Broodkruimelnavigatie"><a href="/nl/">Meet Milan</a><span class="sep" aria-hidden="true">›</span><span aria-current="page">Shadow</span></nav>
     <div class="welcome" data-en="Welcome. You chose to step beyond the obvious." data-nl="Welkom. Je koos ervoor om verder te gaan dan het voor de hand liggende.">Welcome. You chose to step beyond the obvious.</div>
     <div class="kicker">Trust Â· Service Â· Surrender Â· Submission</div>
     <h1><span data-en="Some seek conversation." data-nl="Sommigen zoeken een gesprek.">Some seek conversation.</span> <span class="ac" data-en="Others seek surrender." data-nl="Anderen zoeken overgave.">Others seek surrender.</span></h1>
