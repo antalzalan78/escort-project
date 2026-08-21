@@ -267,9 +267,7 @@
         try{localStorage.setItem(KEY,lang)}catch(e){}
       }
 
-      var initial='en';
-      try{initial=localStorage.getItem(KEY)||(navigator.language||'').toLowerCase().indexOf('nl')===0?'nl':'en'}catch(e){}
-      applyLanguage(initial);
+      applyLanguage('en');
 
       document.querySelectorAll('[data-lang]').forEach(function(button){
         button.addEventListener('click',function(){applyLanguage(button.getAttribute('data-lang'))});
