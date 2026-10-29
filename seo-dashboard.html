@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>Search performance | Meet Milan</title>
+<style>
+:root{--bg:#09090a;--card:#151518;--line:#313137;--gold:#c9a04e;--soft:#ead29c;--text:#f2eee7;--muted:#aaa6a0;--red:#d47c7c}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,sans-serif}body.ready{overflow:hidden}.shell{width:min(460px,92vw);margin:10vh auto;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:16px}.eyebrow,label{color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-size:.68rem}h1{margin:.35rem 0 1.2rem;color:var(--soft);font:500 2.25rem/1.08 Georgia,serif}label{display:block;margin:13px 0 6px}input{width:100%;padding:13px;border:1px solid var(--line);border-radius:9px;background:#0e0e11;color:var(--text);font:inherit}button,a.button{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border:1px solid var(--gold);border-radius:30px;background:var(--gold);color:#09090a;font:700 14px/1.2 system-ui,sans-serif;text-decoration:none;cursor:pointer}button{width:100%;margin-top:20px}button:disabled{opacity:.55;cursor:wait}.status{min-height:24px;margin:12px 0 0;color:var(--muted)}.error{color:var(--red)}.viewer{display:none;height:100dvh}.ready .viewer{display:grid;grid-template-rows:auto minmax(0,1fr)}.ready .shell{display:none}.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--card);color:var(--muted);font-size:.78rem}.bar-actions{display:flex;align-items:center;gap:8px}.bar button,.bar a.button{width:auto;margin:0;padding:7px 12px;background:transparent;color:var(--soft);font-size:.75rem}.frame{width:100%;height:100%;border:0;background:#fff}@media(max-width:520px){h1{font-size:1.9rem}.bar-label{display:none}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="eyebrow">Private access</div>
+  <h1>Search performance</h1>
+  <form id="loginForm">
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button id="submitButton" type="submit">Sign in</button>
+    <p class="status" id="status" aria-live="polite"></p>
+  </form>
+</main>
+<section class="viewer" aria-label="Private Search Console dashboard">
+  <div class="bar">
+    <span class="bar-label">Meet Milan — private Search Console dashboard</span>
+    <div class="bar-actions">
+      <a class="button" href="admin.html">Bookings</a>
+      <button id="reload" type="button">Reload data</button>
+      <button id="logout" type="button">Sign out</button>
+    </div>
+  </div>
+  <iframe class="frame" id="dashboardFrame" title="Meet Milan Google search performance" sandbox="allow-scripts allow-same-origin allow-downloads allow-modals"></iframe>
+</section>
+<script>
+(function(){
+  'use strict';
+  var SUPABASE_URL='https://evernyxfvzhpkmbjlpoi.supabase.co';
+  var SUPABASE_KEY='sb_publishable_eDp6rlAORmqM9BgnnjZRgg_WDiaD2jq';
+  var BUCKET='seo-dashboard';
+  var TOKEN_KEY='milan_admin_token';
+  var token=sessionStorage.getItem(TOKEN_KEY)||'';
+  var loginForm=document.getElementById('loginForm');
+  var submitButton=document.getElementById('submitButton');
+  var statusElement=document.getElementById('status');
+  var frame=document.getElementById('dashboardFrame');
+
+  function storageUrl(path){return SUPABASE_URL+'/storage/v1/object/authenticated/'+BUCKET+'/'+encodeURIComponent(path).replace(/%2F/g,'/')}
+  function requestHeaders(){return{apikey:SUPABASE_KEY,Authorization:'Bearer '+token}}
+  function setStatus(message,error){statusElement.className='status'+(error?' error':'');statusElement.textContent=message||''}
+  function bytesToHex(buffer){return Array.from(new Uint8Array(buffer)).map(function(value){return value.toString(16).padStart(2,'0')}).join('')}
+  async function sha256(buffer){return bytesToHex(await crypto.subtle.digest('SHA-256',buffer))}
+  async function download(path){var response=await fetch(storageUrl(path),{headers:requestHeaders(),cache:'no-store'});if(response.status===401||response.status===403)throw Error('AUTH_REQUIRED');if(!response.ok)throw Error('Could not load '+path+' ('+response.status+').');return response.arrayBuffer()}
+  function text(buffer){return new TextDecoder('utf-8').decode(buffer)}
+  function embedSnapshot(html,snapshot){
+    var safeSnapshot=snapshot.replace(/<\/script/gi,'<\\/script').replace(/<!--/g,'<\\!--');
+    var scriptPattern=/(<script\s+type=["']application\/json["']\s+id=["']data-app-reviewed-snapshot["']>)[\s\S]*?(<\/script>)/i;
+    if(!scriptPattern.test(html))throw Error('The dashboard data placeholder is missing.');
+    html=html.replace(scriptPattern,'$1'+safeSnapshot+'$2');
+    html=html.replace(/<meta\s+name=["']data-app-local-snapshot["'][^>]*>\s*/i,'');
+    return html;
+  }
+  async function loadDashboard(){
+    setStatus('Loading private dashboard…');
+    try{
+      var manifestBuffer=await download('data-app-build.json');
+      var manifest=JSON.parse(text(manifestBuffer));
+      if(!manifest||manifest.kind!=='separate-data-v1'||!manifest.html||!manifest.snapshot)throw Error('Invalid dashboard manifest.');
+      var assets=await Promise.all([download(manifest.html.path),download(manifest.snapshot.path)]);
+      var hashes=await Promise.all([sha256(assets[0]),sha256(assets[1])]);
+      if(hashes[0]!==manifest.html.sha256||hashes[1]!==manifest.snapshot.sha256)throw Error('Dashboard integrity check failed.');
+      frame.srcdoc=embedSnapshot(text(assets[0]),text(assets[1]));
+      document.body.classList.add('ready');
+      setStatus('');
+    }catch(error){
+      document.body.classList.remove('ready');
+      if(error.message==='AUTH_REQUIRED'){
+        sessionStorage.removeItem(TOKEN_KEY);token='';setStatus('Please sign in to access the dashboard.',true);
+      }else setStatus(error.message||'The dashboard could not be loaded.',true);
+    }
+  }
+  loginForm.addEventListener('submit',async function(event){
+    event.preventDefault();submitButton.disabled=true;setStatus('Signing in…');
+    try{
+      var response=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:email.value,password:password.value})});
+      var data=await response.json();
+      if(!response.ok||!data.access_token)throw Error('Sign-in failed.');
+      token=data.access_token;sessionStorage.setItem(TOKEN_KEY,token);password.value='';await loadDashboard();
+    }catch(error){setStatus(error.message||'Sign-in failed.',true)}finally{submitButton.disabled=false}
+  });
+  document.getElementById('reload').addEventListener('click',loadDashboard);
+  document.getElementById('logout').addEventListener('click',function(){sessionStorage.removeItem(TOKEN_KEY);token='';frame.removeAttribute('srcdoc');document.body.classList.remove('ready');setStatus('Signed out.');password.value=''});
+  if(token)loadDashboard();
+})();
+</script>
+</body>
+</html>
