@@ -57,9 +57,11 @@
   function embedSnapshot(html,snapshot){
     var safeSnapshot=snapshot.replace(/<\/script/gi,'<\\/script').replace(/<!--/g,'<\\!--');
     var scriptPattern=/(<script\s+type=["']application\/json["']\s+id=["']data-app-reviewed-snapshot["']>)[\s\S]*?(<\/script>)/i;
+    var historyGuard='<scr'+'ipt>(function(){["pushState","replaceState"].forEach(function(method){var original=history[method].bind(history);history[method]=function(state,title,url){try{return original(state,title,url)}catch(error){if(location.href==="about:srcdoc")return;throw error}}})})();</scr'+'ipt>';
     if(!scriptPattern.test(html))throw Error('The dashboard data placeholder is missing.');
     html=html.replace(scriptPattern,'$1'+safeSnapshot+'$2');
     html=html.replace(/<meta\s+name=["']data-app-local-snapshot["'][^>]*>\s*/i,'');
+    html=html.replace(/<\/head>/i,historyGuard+'</head>');
     return html;
   }
   async function loadDashboard(){
