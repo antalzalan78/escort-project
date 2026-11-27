@@ -79,14 +79,14 @@ footer{text-align:center;border-top:1px solid var(--line);padding:42px 6vw;color
 </head>
 <body>
 <div id="ageGate"><div class="age-box"><h2>Welkom bij <span>Milan</span></h2><p>Deze website is uitsluitend bedoeld voor volwassenen van 18 jaar en ouder. Door verder te gaan bevestig je dat je meerderjarig bent.</p><div class="age-actions"><button class="btn btn-primary" type="button" onclick="enterSite()">Ik ben 18 jaar of ouder</button><a class="btn btn-ghost" href="https://www.google.com">Verlaten</a></div></div></div>
-<header class="bar"><a class="logo" href="/nl/" aria-label="Meet Milan hoofdpagina">MILAN</a><nav class="nav" aria-label="Hoofdnavigatie"><a href="/nl/">Hoofdpagina</a><a href="#tarieven">Tarieven</a><a href="#voorwaarden">Voorwaarden</a><a class="nav-book" href="/nl/#contact">Boeken</a></nav></header>
+<header class="bar"><a class="logo" href="/nl/" aria-label="Meet Milan hoofdpagina">MILAN</a><nav class="nav" aria-label="Hoofdnavigatie"><a href="/nl/">Hoofdpagina</a><a href="#tarieven">Tarieven</a><a href="#voorwaarden">Voorwaarden</a><a class="nav-book" href="/nl/#contactForm">Boeken</a></nav></header>
 <div class="hero">
   <div class="hero-copy">
     <nav class="breadcrumb" aria-label="Broodkruimelnavigatie"><a href="/nl/">Meet Milan</a><span class="sep" aria-hidden="true">›</span><span aria-current="page">Mannelijke escort tarieven</span></nav>
     <div class="kicker">Actueel · helder · vooraf afgesproken</div>
     <h1>Mannelijke escort <em>tarieven</em></h1>
     <p>Geen onduidelijke basisprijs of verrassingen achteraf. Hier vind je mijn actuele tarieven voor een afspraak in Tilburg, plus de voorwaarden voor reizen, locatiekosten en bevestiging.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="/nl/#contact">Vraag een afspraak aan</a><a class="btn btn-ghost" href="#tarieven">Bekijk tarieven</a></div>
+    <div class="hero-actions"><a class="btn btn-primary" href="/nl/#contactForm">Vraag een afspraak aan</a><a class="btn btn-ghost" href="#tarieven">Bekijk tarieven</a></div>
   </div>
   <div class="hero-photo"><picture><source type="image/webp" srcset="/photos/optimized/10-480.webp 480w, /photos/optimized/10-960.webp 960w" sizes="(max-width:820px) 88vw, 480px" /><img src="/photos/10.jpg" alt="Milan, mannelijke escort uit Tilburg" width="1200" height="1600" fetchpriority="high" decoding="async" /></picture></div>
 </div>
@@ -132,10 +132,10 @@ footer{text-align:center;border-top:1px solid var(--line);padding:42px 6vw;color
       <details><summary>Wanneer is mijn boeking definitief?</summary><p>Pas nadat ik je aanvraag persoonlijk heb bevestigd en we datum, tijd, duur, locatie en eventuele extra kosten samen hebben vastgelegd.</p></details>
     </div>
   </section>
-  <section class="final-cta"><div class="kicker">Persoonlijk en discreet</div><h2>Vraag jouw afspraak aan</h2><p>Stuur je gewenste datum, tijd, duur en locatie. Ik reageer persoonlijk met beschikbaarheid en een volledig overzicht van de afspraak.</p><a class="btn btn-primary" href="/nl/#contact">Ga naar contact &amp; boeken</a></section>
+  <section class="final-cta"><div class="kicker">Persoonlijk en discreet</div><h2>Vraag jouw afspraak aan</h2><p>Stuur je gewenste datum, tijd, duur en locatie. Ik reageer persoonlijk met beschikbaarheid en een volledig overzicht van de afspraak.</p><a class="btn btn-primary" href="/nl/#contactForm">Ga naar contact &amp; boeken</a></section>
 </main>
 <footer><a class="logo" href="/nl/">MILAN</a><nav class="footer-nav" aria-label="Footernavigatie"><a href="/nl/">Hoofdpagina</a><a href="/nl/escort-tilburg/">Escort in Tilburg</a><a href="/nl/escort-voor-vrouwen-en-koppels/">Voor vrouwen &amp; koppels</a><a href="/nl/biseksuele-mannelijke-escort/">Voor mannen</a><a href="/nl/#availability">Beschikbaarheid</a><a href="/nl/#contact">Contact</a></nav><p>© <span id="year"></span> Milan · Tilburg · Alleen voor volwassenen van 18 jaar en ouder.</p></footer>
-<a class="mobile-book" href="/nl/#contact">Boek Milan</a>
+<a class="mobile-book" href="/nl/#contactForm">Boek Milan</a>
 <script>
 function enterSite(){document.getElementById('ageGate').style.display='none';document.body.style.overflow='';try{localStorage.setItem('ageok','1')}catch(e){}}
 (function(){document.getElementById('year').textContent=new Date().getFullYear();try{if(localStorage.getItem('ageok')==='1'){document.getElementById('ageGate').style.display='none'}else{document.body.style.overflow='hidden'}}catch(e){document.body.style.overflow='hidden'}})();
